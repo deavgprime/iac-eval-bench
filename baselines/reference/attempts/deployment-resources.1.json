@@ -1,0 +1,163 @@
+{
+  "record": {
+    "task_id": "deployment-resources",
+    "task_version": 1,
+    "trial": 1,
+    "seed": 42,
+    "run_fingerprint": "a48442c2f57acfc52d27db2097dfd3fcf8467528b81da4bd428e5e1b51096391",
+    "prompt": "Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate one apps/v1 Deployment named api in namespace bench. Use exactly 3 replicas; selector and pod labels must both be app=api. Include exactly one container named app, image nginx:1.28.0, named http port 8080. Set CPU request 100m and limit 500m, memory request 64Mi and limit 128Mi (use these exact quantity strings). Configure an HTTP readiness probe at /ready using named port http with initialDelaySeconds 5. The image/port are test inputs, not a claim about a deployed application.",
+    "prompt_sha256": "a48328312a52c57ba4eda8fae3c206d63d637d619ddefa2771b6fd43b2d439c9",
+    "response": "{\n  \"resources\": [\n    {\n      \"apiVersion\": \"apps/v1\",\n      \"kind\": \"Deployment\",\n      \"metadata\": {\n        \"name\": \"api\",\n        \"namespace\": \"bench\"\n      },\n      \"spec\": {\n        \"replicas\": 3,\n        \"selector\": {\n          \"matchLabels\": {\n            \"app\": \"api\"\n          }\n        },\n        \"template\": {\n          \"metadata\": {\n            \"labels\": {\n              \"app\": \"api\"\n            }\n          },\n          \"spec\": {\n            \"containers\": [\n              {\n                \"name\": \"app\",\n                \"image\": \"nginx:1.28.0\",\n                \"ports\": [\n                  {\n                    \"name\": \"http\",\n                    \"containerPort\": 8080\n                  }\n                ],\n                \"resources\": {\n                  \"requests\": {\n                    \"cpu\": \"100m\",\n                    \"memory\": \"64Mi\"\n                  },\n                  \"limits\": {\n                    \"cpu\": \"500m\",\n                    \"memory\": \"128Mi\"\n                  }\n                },\n                \"readinessProbe\": {\n                  \"httpGet\": {\n                    \"path\": \"/ready\",\n                    \"port\": \"http\"\n                  },\n                  \"initialDelaySeconds\": 5\n                }\n              }\n            ]\n          }\n        }\n      }\n    }\n  ]\n}\n",
+    "generation_seconds": null,
+    "input_tokens": null,
+    "output_tokens": null,
+    "provider_metadata": {
+      "kind": "constructed_fixture"
+    },
+    "status": "completed",
+    "evaluation": {
+      "stage": "passed",
+      "passed": true,
+      "score": 1.0,
+      "checks": [
+        {
+          "id": "replicas",
+          "passed": true,
+          "expected": 3,
+          "actual": 3,
+          "missing": false
+        },
+        {
+          "id": "selector",
+          "passed": true,
+          "expected": {
+            "app": "api"
+          },
+          "actual": {
+            "app": "api"
+          },
+          "missing": false
+        },
+        {
+          "id": "pod-labels",
+          "passed": true,
+          "expected": {
+            "app": "api"
+          },
+          "actual": {
+            "app": "api"
+          },
+          "missing": false
+        },
+        {
+          "id": "container-count",
+          "passed": true,
+          "expected": 1,
+          "actual": [
+            {
+              "name": "app",
+              "image": "nginx:1.28.0",
+              "ports": [
+                {
+                  "name": "http",
+                  "containerPort": 8080
+                }
+              ],
+              "resources": {
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "64Mi"
+                },
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "128Mi"
+                }
+              },
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/ready",
+                  "port": "http"
+                },
+                "initialDelaySeconds": 5
+              }
+            }
+          ],
+          "missing": false
+        },
+        {
+          "id": "image",
+          "passed": true,
+          "expected": "nginx:1.28.0",
+          "actual": "nginx:1.28.0",
+          "missing": false
+        },
+        {
+          "id": "ports",
+          "passed": true,
+          "expected": [
+            {
+              "name": "http",
+              "containerPort": 8080
+            }
+          ],
+          "actual": [
+            {
+              "name": "http",
+              "containerPort": 8080
+            }
+          ],
+          "missing": false
+        },
+        {
+          "id": "requests",
+          "passed": true,
+          "expected": {
+            "cpu": "100m",
+            "memory": "64Mi"
+          },
+          "actual": {
+            "cpu": "100m",
+            "memory": "64Mi"
+          },
+          "missing": false
+        },
+        {
+          "id": "limits",
+          "passed": true,
+          "expected": {
+            "cpu": "500m",
+            "memory": "128Mi"
+          },
+          "actual": {
+            "cpu": "500m",
+            "memory": "128Mi"
+          },
+          "missing": false
+        },
+        {
+          "id": "readiness",
+          "passed": true,
+          "expected": {
+            "httpGet": {
+              "path": "/ready",
+              "port": "http"
+            },
+            "initialDelaySeconds": 5
+          },
+          "actual": {
+            "httpGet": {
+              "path": "/ready",
+              "port": "http"
+            },
+            "initialDelaySeconds": 5
+          },
+          "missing": false
+        }
+      ],
+      "errors": []
+    },
+    "evaluation_seconds": 0.00102279400016414,
+    "estimated_cost_usd": null
+  },
+  "sha256": "9e3482b9862dc68f24f48681383298d42f15f4419c3e4d87440d5b0ad47fd484"
+}
