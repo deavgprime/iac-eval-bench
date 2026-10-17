@@ -1,0 +1,124 @@
+{
+  "run": {
+    "format_version": 2,
+    "suite": "kubernetes-config-v2",
+    "suite_version": "2.0.0",
+    "suite_sha256": "6cac0e7aeb51f6e03c5763983743e4261517154cc27208415b6d47690148f58e",
+    "schemas_sha256": "730ad4d36441fb42e2a056fbc506eb40b0775a438e82230c144020c6ae7a4ba3",
+    "harness_version": "0.2.0",
+    "harness_sha256": "d7290053e4dc94f655f46196d1e1fe4cdd11820ce4274c4b273a0fa7fe3b6609",
+    "config": {
+      "provider": "fixture",
+      "fixture_dir": "fixtures/mutated",
+      "model": null,
+      "model_revision": null,
+      "endpoint": null,
+      "repeat": 1,
+      "seed": 42,
+      "temperature": null,
+      "timeout": 120.0,
+      "input_rate": null,
+      "output_rate": null,
+      "tasks": [
+        "configmap-wiring",
+        "cronjob-bounds",
+        "deployment-resources",
+        "network-isolation",
+        "service-routing",
+        "workload-hardening"
+      ]
+    },
+    "fixture_sha256": {
+      "configmap-wiring": "3a13dbcec6537245c1515c10b1edeabb78984d06911b68b4b734cf701c1b43dd",
+      "cronjob-bounds": "82279e7c4dcb3de4828f520c16b546e94811db5ae5e873ad7318239df51c5010",
+      "deployment-resources": "9e048851d98433bcb0bb8dcaae71b565a37f48e326b1fef335980d76f21205ff",
+      "network-isolation": "7d9117d0b298a00baf7ffca3e3558ec4bd37e237d9a1d5d4325067a6402d865b",
+      "service-routing": "777ac65a9e266c0716276bdd70d78947282cc62972070234058b311bde823df4",
+      "workload-hardening": "1e04a319bf88ac11e318cdc552a8a5ec12541a841edb280128f8fc8e0f7b98ed"
+    },
+    "runtime": {
+      "python": "3.12.3",
+      "dependencies": {
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1",
+        "attrs": "26.1.0"
+      }
+    },
+    "fingerprint": "c2db3b0515081f0881eec4ceba7b57461dcb132fd15963d4a26bd61317283e24",
+    "created_utc": "2026-10-17T19:34:51.691634+00:00",
+    "python": "3.12.3",
+    "platform": "Linux-7.0.0-1014-gcp-x86_64-with-glibc2.39",
+    "git": {
+      "revision": "2e7b62045b026b68ac4e52b8f3b1a1103609ea3d",
+      "dirty": false
+    },
+    "sampling": "independent requests; no best-of selection or automatic retries"
+  },
+  "summary": {
+    "attempts": 6,
+    "completed": 6,
+    "provider_errors": 0,
+    "passes": 0,
+    "operational_pass_rate": 0.0,
+    "quality_pass_rate": 0.0,
+    "macro_score": 0.8667929292929293,
+    "task_coverage": {
+      "attempted": 6,
+      "with_completions": 6
+    },
+    "operational_macro_score": 0.8667929292929293,
+    "failure_stages": {
+      "requirements": 6
+    },
+    "generation_latency_seconds": {
+      "samples": 0,
+      "p50": null,
+      "p95": null
+    },
+    "estimated_cost_usd": null,
+    "cost_covered_completions": 0,
+    "input_tokens_known": 0,
+    "output_tokens_known": 0,
+    "usage_covered_completions": 0,
+    "by_task": {
+      "configmap-wiring": {
+        "attempts": 1,
+        "completed": 1,
+        "passes": 0,
+        "mean_score": 0.8888888888888888
+      },
+      "cronjob-bounds": {
+        "attempts": 1,
+        "completed": 1,
+        "passes": 0,
+        "mean_score": 0.875
+      },
+      "deployment-resources": {
+        "attempts": 1,
+        "completed": 1,
+        "passes": 0,
+        "mean_score": 0.8888888888888888
+      },
+      "network-isolation": {
+        "attempts": 1,
+        "completed": 1,
+        "passes": 0,
+        "mean_score": 0.75
+      },
+      "service-routing": {
+        "attempts": 1,
+        "completed": 1,
+        "passes": 0,
+        "mean_score": 0.8888888888888888
+      },
+      "workload-hardening": {
+        "attempts": 1,
+        "completed": 1,
+        "passes": 0,
+        "mean_score": 0.9090909090909091
+      }
+    }
+  }
+}

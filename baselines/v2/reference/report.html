@@ -1,0 +1,1409 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IaC evaluation report</title><style>body{font:16px/1.6 system-ui;max-width:1100px;margin:40px auto;padding:0 20px;color:#172033}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd5df;padding:10px;text-align:left}pre{white-space:pre-wrap;overflow-wrap:anywhere}.note{background:#edf4fa;padding:16px}details{margin:12px 0}</style><h1>IaC evaluation report</h1><p class="note">Constructed fixture baseline — verifies the evaluator, not model capability. Repeated fixtures are identical examples, not independent model samples.</p><p>Suite: kubernetes-config-v2 · Provider: fixture · Model: not applicable</p><p>Completed: 6/6 · Passes: 6 · Provider errors: 0</p><table><tr><th>Task</th><th>Trial</th><th>Outcome</th><th>Score</th><th>Failed checks</th></tr><tr><td>network-isolation</td><td>1</td><td>passed</td><td>1.000</td><td></td></tr><tr><td>cronjob-bounds</td><td>1</td><td>passed</td><td>1.000</td><td></td></tr><tr><td>deployment-resources</td><td>1</td><td>passed</td><td>1.000</td><td></td></tr><tr><td>service-routing</td><td>1</td><td>passed</td><td>1.000</td><td></td></tr><tr><td>configmap-wiring</td><td>1</td><td>passed</td><td>1.000</td><td></td></tr><tr><td>workload-hardening</td><td>1</td><td>passed</td><td>1.000</td><td></td></tr></table><h2>Metrics and coverage</h2><pre>{
+  &quot;attempts&quot;: 6,
+  &quot;completed&quot;: 6,
+  &quot;provider_errors&quot;: 0,
+  &quot;passes&quot;: 6,
+  &quot;operational_pass_rate&quot;: 1.0,
+  &quot;quality_pass_rate&quot;: 1.0,
+  &quot;macro_score&quot;: 1.0,
+  &quot;task_coverage&quot;: {
+    &quot;attempted&quot;: 6,
+    &quot;with_completions&quot;: 6
+  },
+  &quot;operational_macro_score&quot;: 1.0,
+  &quot;failure_stages&quot;: {},
+  &quot;generation_latency_seconds&quot;: {
+    &quot;samples&quot;: 0,
+    &quot;p50&quot;: null,
+    &quot;p95&quot;: null
+  },
+  &quot;estimated_cost_usd&quot;: null,
+  &quot;cost_covered_completions&quot;: 0,
+  &quot;input_tokens_known&quot;: 0,
+  &quot;output_tokens_known&quot;: 0,
+  &quot;usage_covered_completions&quot;: 0
+}</pre><p>Quality pass rate excludes provider errors; operational pass rate includes them. Macro score averages task means over completed responses; inspect task coverage. Operational macro score counts provider errors as zero. Missing usage/cost/latency is unknown, not free or zero. Percentiles use nearest rank; small samples are noisy. Schema and rubric checks do not establish deployability, full API admission validation or complete security. Resources are never deployed.</p><h2>Per-attempt evidence</h2><details><summary>network-isolation / trial 1</summary><pre>{
+  &quot;task_id&quot;: &quot;network-isolation&quot;,
+  &quot;task_version&quot;: 2,
+  &quot;trial&quot;: 1,
+  &quot;seed&quot;: 42,
+  &quot;run_fingerprint&quot;: &quot;f1849fd8ded1f30b900b05d300273f770ddc60326d970bfb0624ad6b731ae252&quot;,
+  &quot;prompt&quot;: &quot;Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate exactly one networking.k8s.io/v1 NetworkPolicy named api-isolation in namespace bench. Select app=api pods; policyTypes must list Ingress and Egress. Allow ingress only on TCP 8080 from pods role=web within namespaces team=frontend: put both selectors in the SAME peer (AND semantics). Allow egress only to kube-dns pods (k8s-app=kube-dns) in kube-system (namespace label kubernetes.io/metadata.name=kube-system), on UDP 53 and TCP 53. Use exactly one ingress rule with one peer and one port, and one egress rule with one peer and those two ports; no additional rules. Assume the stated namespace and pod labels exist. Ordering of policyTypes and network-policy rule/peer/port arrays is irrelevant; duplicates are not allowed.&quot;,
+  &quot;prompt_sha256&quot;: &quot;ca8742c94ea5f12c2aacdb1da34108b56112d65b7e57a65932875e70bf6cd7f0&quot;,
+  &quot;response&quot;: &quot;{\n  \&quot;resources\&quot;: [\n    {\n      \&quot;apiVersion\&quot;: \&quot;networking.k8s.io/v1\&quot;,\n      \&quot;kind\&quot;: \&quot;NetworkPolicy\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api-isolation\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;podSelector\&quot;: {\n          \&quot;matchLabels\&quot;: {\n            \&quot;app\&quot;: \&quot;api\&quot;\n          }\n        },\n        \&quot;policyTypes\&quot;: [\n          \&quot;Ingress\&quot;,\n          \&quot;Egress\&quot;\n        ],\n        \&quot;ingress\&quot;: [\n          {\n            \&quot;from\&quot;: [\n              {\n                \&quot;namespaceSelector\&quot;: {\n                  \&quot;matchLabels\&quot;: {\n                    \&quot;team\&quot;: \&quot;frontend\&quot;\n                  }\n                },\n                \&quot;podSelector\&quot;: {\n                  \&quot;matchLabels\&quot;: {\n                    \&quot;role\&quot;: \&quot;web\&quot;\n                  }\n                }\n              }\n            ],\n            \&quot;ports\&quot;: [\n              {\n                \&quot;protocol\&quot;: \&quot;TCP\&quot;,\n                \&quot;port\&quot;: 8080\n              }\n            ]\n          }\n        ],\n        \&quot;egress\&quot;: [\n          {\n            \&quot;to\&quot;: [\n              {\n                \&quot;namespaceSelector\&quot;: {\n                  \&quot;matchLabels\&quot;: {\n                    \&quot;kubernetes.io/metadata.name\&quot;: \&quot;kube-system\&quot;\n                  }\n                },\n                \&quot;podSelector\&quot;: {\n                  \&quot;matchLabels\&quot;: {\n                    \&quot;k8s-app\&quot;: \&quot;kube-dns\&quot;\n                  }\n                }\n              }\n            ],\n            \&quot;ports\&quot;: [\n              {\n                \&quot;protocol\&quot;: \&quot;UDP\&quot;,\n                \&quot;port\&quot;: 53\n              },\n              {\n                \&quot;protocol\&quot;: \&quot;TCP\&quot;,\n                \&quot;port\&quot;: 53\n              }\n            ]\n          }\n        ]\n      }\n    }\n  ]\n}\n&quot;,
+  &quot;generation_seconds&quot;: null,
+  &quot;input_tokens&quot;: null,
+  &quot;output_tokens&quot;: null,
+  &quot;provider_metadata&quot;: {
+    &quot;kind&quot;: &quot;constructed_fixture&quot;
+  },
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;evaluation&quot;: {
+    &quot;stage&quot;: &quot;passed&quot;,
+    &quot;passed&quot;: true,
+    &quot;score&quot;: 1.0,
+    &quot;checks&quot;: [
+      {
+        &quot;id&quot;: &quot;selected-pods&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;NetworkPolicy/api-isolation&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;podSelector&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;matchLabels&quot;: {
+            &quot;app&quot;: &quot;api&quot;
+          }
+        },
+        &quot;actual&quot;: {
+          &quot;matchLabels&quot;: {
+            &quot;app&quot;: &quot;api&quot;
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;directions&quot;,
+        &quot;op&quot;: &quot;unordered&quot;,
+        &quot;resource&quot;: &quot;NetworkPolicy/api-isolation&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;policyTypes&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: [
+          &quot;Ingress&quot;,
+          &quot;Egress&quot;
+        ],
+        &quot;actual&quot;: [
+          &quot;Ingress&quot;,
+          &quot;Egress&quot;
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;ingress&quot;,
+        &quot;op&quot;: &quot;unordered&quot;,
+        &quot;resource&quot;: &quot;NetworkPolicy/api-isolation&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;ingress&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: [
+          {
+            &quot;from&quot;: [
+              {
+                &quot;namespaceSelector&quot;: {
+                  &quot;matchLabels&quot;: {
+                    &quot;team&quot;: &quot;frontend&quot;
+                  }
+                },
+                &quot;podSelector&quot;: {
+                  &quot;matchLabels&quot;: {
+                    &quot;role&quot;: &quot;web&quot;
+                  }
+                }
+              }
+            ],
+            &quot;ports&quot;: [
+              {
+                &quot;protocol&quot;: &quot;TCP&quot;,
+                &quot;port&quot;: 8080
+              }
+            ]
+          }
+        ],
+        &quot;actual&quot;: [
+          {
+            &quot;from&quot;: [
+              {
+                &quot;namespaceSelector&quot;: {
+                  &quot;matchLabels&quot;: {
+                    &quot;team&quot;: &quot;frontend&quot;
+                  }
+                },
+                &quot;podSelector&quot;: {
+                  &quot;matchLabels&quot;: {
+                    &quot;role&quot;: &quot;web&quot;
+                  }
+                }
+              }
+            ],
+            &quot;ports&quot;: [
+              {
+                &quot;protocol&quot;: &quot;TCP&quot;,
+                &quot;port&quot;: 8080
+              }
+            ]
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;dns-egress&quot;,
+        &quot;op&quot;: &quot;unordered&quot;,
+        &quot;resource&quot;: &quot;NetworkPolicy/api-isolation&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;egress&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: [
+          {
+            &quot;to&quot;: [
+              {
+                &quot;namespaceSelector&quot;: {
+                  &quot;matchLabels&quot;: {
+                    &quot;kubernetes.io/metadata.name&quot;: &quot;kube-system&quot;
+                  }
+                },
+                &quot;podSelector&quot;: {
+                  &quot;matchLabels&quot;: {
+                    &quot;k8s-app&quot;: &quot;kube-dns&quot;
+                  }
+                }
+              }
+            ],
+            &quot;ports&quot;: [
+              {
+                &quot;protocol&quot;: &quot;UDP&quot;,
+                &quot;port&quot;: 53
+              },
+              {
+                &quot;protocol&quot;: &quot;TCP&quot;,
+                &quot;port&quot;: 53
+              }
+            ]
+          }
+        ],
+        &quot;actual&quot;: [
+          {
+            &quot;to&quot;: [
+              {
+                &quot;namespaceSelector&quot;: {
+                  &quot;matchLabels&quot;: {
+                    &quot;kubernetes.io/metadata.name&quot;: &quot;kube-system&quot;
+                  }
+                },
+                &quot;podSelector&quot;: {
+                  &quot;matchLabels&quot;: {
+                    &quot;k8s-app&quot;: &quot;kube-dns&quot;
+                  }
+                }
+              }
+            ],
+            &quot;ports&quot;: [
+              {
+                &quot;protocol&quot;: &quot;UDP&quot;,
+                &quot;port&quot;: 53
+              },
+              {
+                &quot;protocol&quot;: &quot;TCP&quot;,
+                &quot;port&quot;: 53
+              }
+            ]
+          }
+        ],
+        &quot;missing&quot;: false
+      }
+    ],
+    &quot;errors&quot;: []
+  },
+  &quot;evaluation_seconds&quot;: 0.002348514999539475,
+  &quot;estimated_cost_usd&quot;: null
+}</pre></details><details><summary>cronjob-bounds / trial 1</summary><pre>{
+  &quot;task_id&quot;: &quot;cronjob-bounds&quot;,
+  &quot;task_version&quot;: 1,
+  &quot;trial&quot;: 1,
+  &quot;seed&quot;: 42,
+  &quot;run_fingerprint&quot;: &quot;f1849fd8ded1f30b900b05d300273f770ddc60326d970bfb0624ad6b731ae252&quot;,
+  &quot;prompt&quot;: &quot;Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate exactly one batch/v1 CronJob snapshot in namespace bench. Schedule 0 */6 * * *, concurrencyPolicy Forbid, successfulJobsHistoryLimit 2, failedJobsHistoryLimit 3. Job spec: backoffLimit 2, activeDeadlineSeconds 300. Pod: restartPolicy Never; exactly one container snapshot, image busybox:1.37.0, command [\&quot;sh\&quot;,\&quot;-c\&quot;,\&quot;echo synthetic-snapshot\&quot;]. This is a synthetic job, not a database backup.&quot;,
+  &quot;prompt_sha256&quot;: &quot;63f22cfc2d3107deb428847f0564b4811b2452d9a71aafafee5d352c59eefca4&quot;,
+  &quot;response&quot;: &quot;{\n  \&quot;resources\&quot;: [\n    {\n      \&quot;apiVersion\&quot;: \&quot;batch/v1\&quot;,\n      \&quot;kind\&quot;: \&quot;CronJob\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;snapshot\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;schedule\&quot;: \&quot;0 */6 * * *\&quot;,\n        \&quot;concurrencyPolicy\&quot;: \&quot;Forbid\&quot;,\n        \&quot;successfulJobsHistoryLimit\&quot;: 2,\n        \&quot;failedJobsHistoryLimit\&quot;: 3,\n        \&quot;jobTemplate\&quot;: {\n          \&quot;spec\&quot;: {\n            \&quot;backoffLimit\&quot;: 2,\n            \&quot;activeDeadlineSeconds\&quot;: 300,\n            \&quot;template\&quot;: {\n              \&quot;spec\&quot;: {\n                \&quot;restartPolicy\&quot;: \&quot;Never\&quot;,\n                \&quot;containers\&quot;: [\n                  {\n                    \&quot;name\&quot;: \&quot;snapshot\&quot;,\n                    \&quot;image\&quot;: \&quot;busybox:1.37.0\&quot;,\n                    \&quot;command\&quot;: [\n                      \&quot;sh\&quot;,\n                      \&quot;-c\&quot;,\n                      \&quot;echo synthetic-snapshot\&quot;\n                    ]\n                  }\n                ]\n              }\n            }\n          }\n        }\n      }\n    }\n  ]\n}\n&quot;,
+  &quot;generation_seconds&quot;: null,
+  &quot;input_tokens&quot;: null,
+  &quot;output_tokens&quot;: null,
+  &quot;provider_metadata&quot;: {
+    &quot;kind&quot;: &quot;constructed_fixture&quot;
+  },
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;evaluation&quot;: {
+    &quot;stage&quot;: &quot;passed&quot;,
+    &quot;passed&quot;: true,
+    &quot;score&quot;: 1.0,
+    &quot;checks&quot;: [
+      {
+        &quot;id&quot;: &quot;schedule&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;CronJob/snapshot&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;schedule&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;0 */6 * * *&quot;,
+        &quot;actual&quot;: &quot;0 */6 * * *&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;concurrency&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;CronJob/snapshot&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;concurrencyPolicy&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;Forbid&quot;,
+        &quot;actual&quot;: &quot;Forbid&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;success-history&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;CronJob/snapshot&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;successfulJobsHistoryLimit&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 2,
+        &quot;actual&quot;: 2,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;failure-history&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;CronJob/snapshot&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;failedJobsHistoryLimit&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 3,
+        &quot;actual&quot;: 3,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;retry-limit&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;CronJob/snapshot&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;jobTemplate&quot;,
+          &quot;spec&quot;,
+          &quot;backoffLimit&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 2,
+        &quot;actual&quot;: 2,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;deadline&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;CronJob/snapshot&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;jobTemplate&quot;,
+          &quot;spec&quot;,
+          &quot;activeDeadlineSeconds&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 300,
+        &quot;actual&quot;: 300,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;restart&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;CronJob/snapshot&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;jobTemplate&quot;,
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;restartPolicy&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;Never&quot;,
+        &quot;actual&quot;: &quot;Never&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;container&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;CronJob/snapshot&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;jobTemplate&quot;,
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: [
+          {
+            &quot;name&quot;: &quot;snapshot&quot;,
+            &quot;image&quot;: &quot;busybox:1.37.0&quot;,
+            &quot;command&quot;: [
+              &quot;sh&quot;,
+              &quot;-c&quot;,
+              &quot;echo synthetic-snapshot&quot;
+            ]
+          }
+        ],
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;snapshot&quot;,
+            &quot;image&quot;: &quot;busybox:1.37.0&quot;,
+            &quot;command&quot;: [
+              &quot;sh&quot;,
+              &quot;-c&quot;,
+              &quot;echo synthetic-snapshot&quot;
+            ]
+          }
+        ],
+        &quot;missing&quot;: false
+      }
+    ],
+    &quot;errors&quot;: []
+  },
+  &quot;evaluation_seconds&quot;: 0.000834774000395555,
+  &quot;estimated_cost_usd&quot;: null
+}</pre></details><details><summary>deployment-resources / trial 1</summary><pre>{
+  &quot;task_id&quot;: &quot;deployment-resources&quot;,
+  &quot;task_version&quot;: 2,
+  &quot;trial&quot;: 1,
+  &quot;seed&quot;: 42,
+  &quot;run_fingerprint&quot;: &quot;f1849fd8ded1f30b900b05d300273f770ddc60326d970bfb0624ad6b731ae252&quot;,
+  &quot;prompt&quot;: &quot;Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate one apps/v1 Deployment named api in namespace bench. Use exactly 3 replicas; selector and pod labels must both be app=api. Include exactly one container named app, image nginx:1.28.0, named http port 8080. Set CPU request 100m and limit 500m, memory request 64Mi and limit 128Mi (use these exact quantity strings). Configure an HTTP readiness probe at /ready using named port http with initialDelaySeconds 5. The image/port are test inputs, not a claim about a deployed application. Selectors must include app=api in matchLabels (or the Service selector map) and match the Deployment pod labels. Additional pod labels and selector constraints are allowed when they still match those pods. The container port must use TCP (omission defaults to TCP). Use only the HTTP readiness handler, with scheme HTTP and no host override. Any supplied probe timing/threshold options must be positive; per-probe terminationGracePeriodSeconds is not allowed on readiness.&quot;,
+  &quot;prompt_sha256&quot;: &quot;515455219e3273a841927fd132f0a6bd8206e02e8443273532706360615ea8e1&quot;,
+  &quot;response&quot;: &quot;{\n  \&quot;resources\&quot;: [\n    {\n      \&quot;apiVersion\&quot;: \&quot;apps/v1\&quot;,\n      \&quot;kind\&quot;: \&quot;Deployment\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;replicas\&quot;: 3,\n        \&quot;selector\&quot;: {\n          \&quot;matchLabels\&quot;: {\n            \&quot;app\&quot;: \&quot;api\&quot;\n          }\n        },\n        \&quot;template\&quot;: {\n          \&quot;metadata\&quot;: {\n            \&quot;labels\&quot;: {\n              \&quot;app\&quot;: \&quot;api\&quot;\n            }\n          },\n          \&quot;spec\&quot;: {\n            \&quot;containers\&quot;: [\n              {\n                \&quot;name\&quot;: \&quot;app\&quot;,\n                \&quot;image\&quot;: \&quot;nginx:1.28.0\&quot;,\n                \&quot;ports\&quot;: [\n                  {\n                    \&quot;name\&quot;: \&quot;http\&quot;,\n                    \&quot;containerPort\&quot;: 8080\n                  }\n                ],\n                \&quot;resources\&quot;: {\n                  \&quot;requests\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;100m\&quot;,\n                    \&quot;memory\&quot;: \&quot;64Mi\&quot;\n                  },\n                  \&quot;limits\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;500m\&quot;,\n                    \&quot;memory\&quot;: \&quot;128Mi\&quot;\n                  }\n                },\n                \&quot;readinessProbe\&quot;: {\n                  \&quot;httpGet\&quot;: {\n                    \&quot;path\&quot;: \&quot;/ready\&quot;,\n                    \&quot;port\&quot;: \&quot;http\&quot;\n                  },\n                  \&quot;initialDelaySeconds\&quot;: 5\n                }\n              }\n            ]\n          }\n        }\n      }\n    }\n  ]\n}\n&quot;,
+  &quot;generation_seconds&quot;: null,
+  &quot;input_tokens&quot;: null,
+  &quot;output_tokens&quot;: null,
+  &quot;provider_metadata&quot;: {
+    &quot;kind&quot;: &quot;constructed_fixture&quot;
+  },
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;evaluation&quot;: {
+    &quot;stage&quot;: &quot;passed&quot;,
+    &quot;passed&quot;: true,
+    &quot;score&quot;: 1.0,
+    &quot;checks&quot;: [
+      {
+        &quot;id&quot;: &quot;replicas&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;replicas&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 3,
+        &quot;actual&quot;: 3,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;selector&quot;,
+        &quot;op&quot;: &quot;selector&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;selector&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;matchLabels&quot;: {
+            &quot;app&quot;: &quot;api&quot;
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;pod-labels&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;metadata&quot;,
+          &quot;labels&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;container-count&quot;,
+        &quot;op&quot;: &quot;length&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 1,
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;app&quot;,
+            &quot;image&quot;: &quot;nginx:1.28.0&quot;,
+            &quot;ports&quot;: [
+              {
+                &quot;name&quot;: &quot;http&quot;,
+                &quot;containerPort&quot;: 8080
+              }
+            ],
+            &quot;resources&quot;: {
+              &quot;requests&quot;: {
+                &quot;cpu&quot;: &quot;100m&quot;,
+                &quot;memory&quot;: &quot;64Mi&quot;
+              },
+              &quot;limits&quot;: {
+                &quot;cpu&quot;: &quot;500m&quot;,
+                &quot;memory&quot;: &quot;128Mi&quot;
+              }
+            },
+            &quot;readinessProbe&quot;: {
+              &quot;httpGet&quot;: {
+                &quot;path&quot;: &quot;/ready&quot;,
+                &quot;port&quot;: &quot;http&quot;
+              },
+              &quot;initialDelaySeconds&quot;: 5
+            }
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;image&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;image&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;actual&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;ports&quot;,
+        &quot;op&quot;: &quot;ports&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;ports&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: [
+          {
+            &quot;name&quot;: &quot;http&quot;,
+            &quot;containerPort&quot;: 8080,
+            &quot;protocol&quot;: &quot;TCP&quot;
+          }
+        ],
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;http&quot;,
+            &quot;containerPort&quot;: 8080
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;requests&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;resources&quot;,
+          &quot;requests&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;cpu&quot;: &quot;100m&quot;,
+          &quot;memory&quot;: &quot;64Mi&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;cpu&quot;: &quot;100m&quot;,
+          &quot;memory&quot;: &quot;64Mi&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;limits&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;resources&quot;,
+          &quot;limits&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;cpu&quot;: &quot;500m&quot;,
+          &quot;memory&quot;: &quot;128Mi&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;cpu&quot;: &quot;500m&quot;,
+          &quot;memory&quot;: &quot;128Mi&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;readiness&quot;,
+        &quot;op&quot;: &quot;http_probe&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;readinessProbe&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;httpGet&quot;: {
+            &quot;path&quot;: &quot;/ready&quot;,
+            &quot;port&quot;: &quot;http&quot;
+          },
+          &quot;initialDelaySeconds&quot;: 5
+        },
+        &quot;actual&quot;: {
+          &quot;httpGet&quot;: {
+            &quot;path&quot;: &quot;/ready&quot;,
+            &quot;port&quot;: &quot;http&quot;
+          },
+          &quot;initialDelaySeconds&quot;: 5
+        },
+        &quot;missing&quot;: false
+      }
+    ],
+    &quot;errors&quot;: []
+  },
+  &quot;evaluation_seconds&quot;: 0.0014867640002194094,
+  &quot;estimated_cost_usd&quot;: null
+}</pre></details><details><summary>service-routing / trial 1</summary><pre>{
+  &quot;task_id&quot;: &quot;service-routing&quot;,
+  &quot;task_version&quot;: 2,
+  &quot;trial&quot;: 1,
+  &quot;seed&quot;: 42,
+  &quot;run_fingerprint&quot;: &quot;f1849fd8ded1f30b900b05d300273f770ddc60326d970bfb0624ad6b731ae252&quot;,
+  &quot;prompt&quot;: &quot;Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate exactly a Deployment api (apps/v1) and Service api (v1) in namespace bench. Deployment: replicas 3, selector/pod labels app=api, one container app with image nginx:1.28.0 and a single named http port 8080. Service: explicit type ClusterIP, selector app=api, and one TCP port named http at port 80 targeting the named http port. Other workload configuration is optional. Selectors must include app=api in matchLabels (or the Service selector map) and match the Deployment pod labels. Additional pod labels and selector constraints are allowed when they still match those pods. Both container and Service ports must use TCP; omitting protocol uses the TCP default.&quot;,
+  &quot;prompt_sha256&quot;: &quot;3eeae6a7664c17c9dde60a1a632361cc1a2e9fe34c1ff1c9df4feada42750225&quot;,
+  &quot;response&quot;: &quot;{\n  \&quot;resources\&quot;: [\n    {\n      \&quot;apiVersion\&quot;: \&quot;apps/v1\&quot;,\n      \&quot;kind\&quot;: \&quot;Deployment\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;replicas\&quot;: 3,\n        \&quot;selector\&quot;: {\n          \&quot;matchLabels\&quot;: {\n            \&quot;app\&quot;: \&quot;api\&quot;\n          }\n        },\n        \&quot;template\&quot;: {\n          \&quot;metadata\&quot;: {\n            \&quot;labels\&quot;: {\n              \&quot;app\&quot;: \&quot;api\&quot;\n            }\n          },\n          \&quot;spec\&quot;: {\n            \&quot;containers\&quot;: [\n              {\n                \&quot;name\&quot;: \&quot;app\&quot;,\n                \&quot;image\&quot;: \&quot;nginx:1.28.0\&quot;,\n                \&quot;ports\&quot;: [\n                  {\n                    \&quot;name\&quot;: \&quot;http\&quot;,\n                    \&quot;containerPort\&quot;: 8080\n                  }\n                ],\n                \&quot;resources\&quot;: {\n                  \&quot;requests\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;100m\&quot;,\n                    \&quot;memory\&quot;: \&quot;64Mi\&quot;\n                  },\n                  \&quot;limits\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;500m\&quot;,\n                    \&quot;memory\&quot;: \&quot;128Mi\&quot;\n                  }\n                },\n                \&quot;readinessProbe\&quot;: {\n                  \&quot;httpGet\&quot;: {\n                    \&quot;path\&quot;: \&quot;/ready\&quot;,\n                    \&quot;port\&quot;: \&quot;http\&quot;\n                  },\n                  \&quot;initialDelaySeconds\&quot;: 5\n                }\n              }\n            ]\n          }\n        }\n      }\n    },\n    {\n      \&quot;apiVersion\&quot;: \&quot;v1\&quot;,\n      \&quot;kind\&quot;: \&quot;Service\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;type\&quot;: \&quot;ClusterIP\&quot;,\n        \&quot;selector\&quot;: {\n          \&quot;app\&quot;: \&quot;api\&quot;\n        },\n        \&quot;ports\&quot;: [\n          {\n            \&quot;name\&quot;: \&quot;http\&quot;,\n            \&quot;port\&quot;: 80,\n            \&quot;targetPort\&quot;: \&quot;http\&quot;,\n            \&quot;protocol\&quot;: \&quot;TCP\&quot;\n          }\n        ]\n      }\n    }\n  ]\n}\n&quot;,
+  &quot;generation_seconds&quot;: null,
+  &quot;input_tokens&quot;: null,
+  &quot;output_tokens&quot;: null,
+  &quot;provider_metadata&quot;: {
+    &quot;kind&quot;: &quot;constructed_fixture&quot;
+  },
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;evaluation&quot;: {
+    &quot;stage&quot;: &quot;passed&quot;,
+    &quot;passed&quot;: true,
+    &quot;score&quot;: 1.0,
+    &quot;checks&quot;: [
+      {
+        &quot;id&quot;: &quot;replicas&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;replicas&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 3,
+        &quot;actual&quot;: 3,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;selector&quot;,
+        &quot;op&quot;: &quot;selector&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;selector&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;matchLabels&quot;: {
+            &quot;app&quot;: &quot;api&quot;
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;pod-labels&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;metadata&quot;,
+          &quot;labels&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;container-count&quot;,
+        &quot;op&quot;: &quot;length&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 1,
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;app&quot;,
+            &quot;image&quot;: &quot;nginx:1.28.0&quot;,
+            &quot;ports&quot;: [
+              {
+                &quot;name&quot;: &quot;http&quot;,
+                &quot;containerPort&quot;: 8080
+              }
+            ],
+            &quot;resources&quot;: {
+              &quot;requests&quot;: {
+                &quot;cpu&quot;: &quot;100m&quot;,
+                &quot;memory&quot;: &quot;64Mi&quot;
+              },
+              &quot;limits&quot;: {
+                &quot;cpu&quot;: &quot;500m&quot;,
+                &quot;memory&quot;: &quot;128Mi&quot;
+              }
+            },
+            &quot;readinessProbe&quot;: {
+              &quot;httpGet&quot;: {
+                &quot;path&quot;: &quot;/ready&quot;,
+                &quot;port&quot;: &quot;http&quot;
+              },
+              &quot;initialDelaySeconds&quot;: 5
+            }
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;image&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;image&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;actual&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;container-port&quot;,
+        &quot;op&quot;: &quot;ports&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;ports&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: [
+          {
+            &quot;name&quot;: &quot;http&quot;,
+            &quot;containerPort&quot;: 8080,
+            &quot;protocol&quot;: &quot;TCP&quot;
+          }
+        ],
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;http&quot;,
+            &quot;containerPort&quot;: 8080
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;service-type&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Service/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;type&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;ClusterIP&quot;,
+        &quot;actual&quot;: &quot;ClusterIP&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;service-selector&quot;,
+        &quot;op&quot;: &quot;map_selector&quot;,
+        &quot;resource&quot;: &quot;Service/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;selector&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;service-port&quot;,
+        &quot;op&quot;: &quot;ports&quot;,
+        &quot;resource&quot;: &quot;Service/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;ports&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: [
+          {
+            &quot;name&quot;: &quot;http&quot;,
+            &quot;port&quot;: 80,
+            &quot;targetPort&quot;: &quot;http&quot;,
+            &quot;protocol&quot;: &quot;TCP&quot;
+          }
+        ],
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;http&quot;,
+            &quot;port&quot;: 80,
+            &quot;targetPort&quot;: &quot;http&quot;,
+            &quot;protocol&quot;: &quot;TCP&quot;
+          }
+        ],
+        &quot;missing&quot;: false
+      }
+    ],
+    &quot;errors&quot;: []
+  },
+  &quot;evaluation_seconds&quot;: 0.0017509720000816742,
+  &quot;estimated_cost_usd&quot;: null
+}</pre></details><details><summary>configmap-wiring / trial 1</summary><pre>{
+  &quot;task_id&quot;: &quot;configmap-wiring&quot;,
+  &quot;task_version&quot;: 2,
+  &quot;trial&quot;: 1,
+  &quot;seed&quot;: 42,
+  &quot;run_fingerprint&quot;: &quot;f1849fd8ded1f30b900b05d300273f770ddc60326d970bfb0624ad6b731ae252&quot;,
+  &quot;prompt&quot;: &quot;Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate exactly an apps/v1 Deployment api and v1 ConfigMap api-config in namespace bench. ConfigMap: immutable true, data exactly LOG_LEVEL=\&quot;info\&quot; and PORT=\&quot;8080\&quot; (both strings). Deployment: 3 replicas; selector and pod labels app=api; exactly one container app with image nginx:1.28.0. Container envFrom must be exactly [{\&quot;configMapRef\&quot;:{\&quot;name\&quot;:\&quot;api-config\&quot;}}]; do not include an env field that could override the imported values. Other workload fields are optional. Selectors must include app=api in matchLabels (or the Service selector map) and match the Deployment pod labels. Additional pod labels and selector constraints are allowed when they still match those pods.&quot;,
+  &quot;prompt_sha256&quot;: &quot;8ccdc80d79f1c1a447ba25924ad3a7bc18e841ea2410f51945723f8ad3c620c4&quot;,
+  &quot;response&quot;: &quot;{\n  \&quot;resources\&quot;: [\n    {\n      \&quot;apiVersion\&quot;: \&quot;apps/v1\&quot;,\n      \&quot;kind\&quot;: \&quot;Deployment\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;replicas\&quot;: 3,\n        \&quot;selector\&quot;: {\n          \&quot;matchLabels\&quot;: {\n            \&quot;app\&quot;: \&quot;api\&quot;\n          }\n        },\n        \&quot;template\&quot;: {\n          \&quot;metadata\&quot;: {\n            \&quot;labels\&quot;: {\n              \&quot;app\&quot;: \&quot;api\&quot;\n            }\n          },\n          \&quot;spec\&quot;: {\n            \&quot;containers\&quot;: [\n              {\n                \&quot;name\&quot;: \&quot;app\&quot;,\n                \&quot;image\&quot;: \&quot;nginx:1.28.0\&quot;,\n                \&quot;ports\&quot;: [\n                  {\n                    \&quot;name\&quot;: \&quot;http\&quot;,\n                    \&quot;containerPort\&quot;: 8080\n                  }\n                ],\n                \&quot;resources\&quot;: {\n                  \&quot;requests\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;100m\&quot;,\n                    \&quot;memory\&quot;: \&quot;64Mi\&quot;\n                  },\n                  \&quot;limits\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;500m\&quot;,\n                    \&quot;memory\&quot;: \&quot;128Mi\&quot;\n                  }\n                },\n                \&quot;readinessProbe\&quot;: {\n                  \&quot;httpGet\&quot;: {\n                    \&quot;path\&quot;: \&quot;/ready\&quot;,\n                    \&quot;port\&quot;: \&quot;http\&quot;\n                  },\n                  \&quot;initialDelaySeconds\&quot;: 5\n                },\n                \&quot;envFrom\&quot;: [\n                  {\n                    \&quot;configMapRef\&quot;: {\n                      \&quot;name\&quot;: \&quot;api-config\&quot;\n                    }\n                  }\n                ]\n              }\n            ]\n          }\n        }\n      }\n    },\n    {\n      \&quot;apiVersion\&quot;: \&quot;v1\&quot;,\n      \&quot;kind\&quot;: \&quot;ConfigMap\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api-config\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;immutable\&quot;: true,\n      \&quot;data\&quot;: {\n        \&quot;LOG_LEVEL\&quot;: \&quot;info\&quot;,\n        \&quot;PORT\&quot;: \&quot;8080\&quot;\n      }\n    }\n  ]\n}\n&quot;,
+  &quot;generation_seconds&quot;: null,
+  &quot;input_tokens&quot;: null,
+  &quot;output_tokens&quot;: null,
+  &quot;provider_metadata&quot;: {
+    &quot;kind&quot;: &quot;constructed_fixture&quot;
+  },
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;evaluation&quot;: {
+    &quot;stage&quot;: &quot;passed&quot;,
+    &quot;passed&quot;: true,
+    &quot;score&quot;: 1.0,
+    &quot;checks&quot;: [
+      {
+        &quot;id&quot;: &quot;replicas&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;replicas&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 3,
+        &quot;actual&quot;: 3,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;selector&quot;,
+        &quot;op&quot;: &quot;selector&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;selector&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;matchLabels&quot;: {
+            &quot;app&quot;: &quot;api&quot;
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;pod-labels&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;metadata&quot;,
+          &quot;labels&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;container-count&quot;,
+        &quot;op&quot;: &quot;length&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 1,
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;app&quot;,
+            &quot;image&quot;: &quot;nginx:1.28.0&quot;,
+            &quot;ports&quot;: [
+              {
+                &quot;name&quot;: &quot;http&quot;,
+                &quot;containerPort&quot;: 8080
+              }
+            ],
+            &quot;resources&quot;: {
+              &quot;requests&quot;: {
+                &quot;cpu&quot;: &quot;100m&quot;,
+                &quot;memory&quot;: &quot;64Mi&quot;
+              },
+              &quot;limits&quot;: {
+                &quot;cpu&quot;: &quot;500m&quot;,
+                &quot;memory&quot;: &quot;128Mi&quot;
+              }
+            },
+            &quot;readinessProbe&quot;: {
+              &quot;httpGet&quot;: {
+                &quot;path&quot;: &quot;/ready&quot;,
+                &quot;port&quot;: &quot;http&quot;
+              },
+              &quot;initialDelaySeconds&quot;: 5
+            },
+            &quot;envFrom&quot;: [
+              {
+                &quot;configMapRef&quot;: {
+                  &quot;name&quot;: &quot;api-config&quot;
+                }
+              }
+            ]
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;image&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;image&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;actual&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;config-reference&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;envFrom&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: [
+          {
+            &quot;configMapRef&quot;: {
+              &quot;name&quot;: &quot;api-config&quot;
+            }
+          }
+        ],
+        &quot;actual&quot;: [
+          {
+            &quot;configMapRef&quot;: {
+              &quot;name&quot;: &quot;api-config&quot;
+            }
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;no-env-override&quot;,
+        &quot;op&quot;: &quot;absent&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;env&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: null,
+        &quot;actual&quot;: null,
+        &quot;missing&quot;: true
+      },
+      {
+        &quot;id&quot;: &quot;immutable&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;ConfigMap/api-config&quot;,
+        &quot;path&quot;: [
+          &quot;immutable&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: true,
+        &quot;actual&quot;: true,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;data&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;ConfigMap/api-config&quot;,
+        &quot;path&quot;: [
+          &quot;data&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;LOG_LEVEL&quot;: &quot;info&quot;,
+          &quot;PORT&quot;: &quot;8080&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;LOG_LEVEL&quot;: &quot;info&quot;,
+          &quot;PORT&quot;: &quot;8080&quot;
+        },
+        &quot;missing&quot;: false
+      }
+    ],
+    &quot;errors&quot;: []
+  },
+  &quot;evaluation_seconds&quot;: 0.0015226449995680014,
+  &quot;estimated_cost_usd&quot;: null
+}</pre></details><details><summary>workload-hardening / trial 1</summary><pre>{
+  &quot;task_id&quot;: &quot;workload-hardening&quot;,
+  &quot;task_version&quot;: 2,
+  &quot;trial&quot;: 1,
+  &quot;seed&quot;: 42,
+  &quot;run_fingerprint&quot;: &quot;f1849fd8ded1f30b900b05d300273f770ddc60326d970bfb0624ad6b731ae252&quot;,
+  &quot;prompt&quot;: &quot;Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate exactly an apps/v1 Deployment api and policy/v1 PodDisruptionBudget api in namespace bench. Deployment: 3 replicas; selector and pod labels app=api; exactly one container app with image nginx:1.28.0. Pod securityContext must explicitly set runAsNonRoot true, runAsUser 10001 and seccompProfile.type RuntimeDefault. Disable automountServiceAccountToken. Container securityContext must set allowPrivilegeEscalation false, readOnlyRootFilesystem true, capabilities.drop [\&quot;ALL\&quot;], with no other securityContext keys. PDB: minAvailable 2, selector.matchLabels app=api, no maxUnavailable. This checks declared settings only; no image/runtime compatibility is implied. Selectors must include app=api in matchLabels (or the Service selector map) and match the Deployment pod labels. Additional pod labels and selector constraints are allowed when they still match those pods.&quot;,
+  &quot;prompt_sha256&quot;: &quot;d7c96283ff1237ccc45af6d4f68a9f1aeb652dbd74746f8bf05bc742fc7ef6d7&quot;,
+  &quot;response&quot;: &quot;{\n  \&quot;resources\&quot;: [\n    {\n      \&quot;apiVersion\&quot;: \&quot;apps/v1\&quot;,\n      \&quot;kind\&quot;: \&quot;Deployment\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;replicas\&quot;: 3,\n        \&quot;selector\&quot;: {\n          \&quot;matchLabels\&quot;: {\n            \&quot;app\&quot;: \&quot;api\&quot;\n          }\n        },\n        \&quot;template\&quot;: {\n          \&quot;metadata\&quot;: {\n            \&quot;labels\&quot;: {\n              \&quot;app\&quot;: \&quot;api\&quot;\n            }\n          },\n          \&quot;spec\&quot;: {\n            \&quot;containers\&quot;: [\n              {\n                \&quot;name\&quot;: \&quot;app\&quot;,\n                \&quot;image\&quot;: \&quot;nginx:1.28.0\&quot;,\n                \&quot;ports\&quot;: [\n                  {\n                    \&quot;name\&quot;: \&quot;http\&quot;,\n                    \&quot;containerPort\&quot;: 8080\n                  }\n                ],\n                \&quot;resources\&quot;: {\n                  \&quot;requests\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;100m\&quot;,\n                    \&quot;memory\&quot;: \&quot;64Mi\&quot;\n                  },\n                  \&quot;limits\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;500m\&quot;,\n                    \&quot;memory\&quot;: \&quot;128Mi\&quot;\n                  }\n                },\n                \&quot;readinessProbe\&quot;: {\n                  \&quot;httpGet\&quot;: {\n                    \&quot;path\&quot;: \&quot;/ready\&quot;,\n                    \&quot;port\&quot;: \&quot;http\&quot;\n                  },\n                  \&quot;initialDelaySeconds\&quot;: 5\n                },\n                \&quot;securityContext\&quot;: {\n                  \&quot;allowPrivilegeEscalation\&quot;: false,\n                  \&quot;readOnlyRootFilesystem\&quot;: true,\n                  \&quot;capabilities\&quot;: {\n                    \&quot;drop\&quot;: [\n                      \&quot;ALL\&quot;\n                    ]\n                  }\n                }\n              }\n            ],\n            \&quot;automountServiceAccountToken\&quot;: false,\n            \&quot;securityContext\&quot;: {\n              \&quot;runAsNonRoot\&quot;: true,\n              \&quot;runAsUser\&quot;: 10001,\n              \&quot;seccompProfile\&quot;: {\n                \&quot;type\&quot;: \&quot;RuntimeDefault\&quot;\n              }\n            }\n          }\n        }\n      }\n    },\n    {\n      \&quot;apiVersion\&quot;: \&quot;policy/v1\&quot;,\n      \&quot;kind\&quot;: \&quot;PodDisruptionBudget\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;minAvailable\&quot;: 2,\n        \&quot;selector\&quot;: {\n          \&quot;matchLabels\&quot;: {\n            \&quot;app\&quot;: \&quot;api\&quot;\n          }\n        }\n      }\n    }\n  ]\n}\n&quot;,
+  &quot;generation_seconds&quot;: null,
+  &quot;input_tokens&quot;: null,
+  &quot;output_tokens&quot;: null,
+  &quot;provider_metadata&quot;: {
+    &quot;kind&quot;: &quot;constructed_fixture&quot;
+  },
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;evaluation&quot;: {
+    &quot;stage&quot;: &quot;passed&quot;,
+    &quot;passed&quot;: true,
+    &quot;score&quot;: 1.0,
+    &quot;checks&quot;: [
+      {
+        &quot;id&quot;: &quot;replicas&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;replicas&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 3,
+        &quot;actual&quot;: 3,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;selector&quot;,
+        &quot;op&quot;: &quot;selector&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;selector&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;matchLabels&quot;: {
+            &quot;app&quot;: &quot;api&quot;
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;pod-labels&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;metadata&quot;,
+          &quot;labels&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;container-count&quot;,
+        &quot;op&quot;: &quot;length&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 1,
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;app&quot;,
+            &quot;image&quot;: &quot;nginx:1.28.0&quot;,
+            &quot;ports&quot;: [
+              {
+                &quot;name&quot;: &quot;http&quot;,
+                &quot;containerPort&quot;: 8080
+              }
+            ],
+            &quot;resources&quot;: {
+              &quot;requests&quot;: {
+                &quot;cpu&quot;: &quot;100m&quot;,
+                &quot;memory&quot;: &quot;64Mi&quot;
+              },
+              &quot;limits&quot;: {
+                &quot;cpu&quot;: &quot;500m&quot;,
+                &quot;memory&quot;: &quot;128Mi&quot;
+              }
+            },
+            &quot;readinessProbe&quot;: {
+              &quot;httpGet&quot;: {
+                &quot;path&quot;: &quot;/ready&quot;,
+                &quot;port&quot;: &quot;http&quot;
+              },
+              &quot;initialDelaySeconds&quot;: 5
+            },
+            &quot;securityContext&quot;: {
+              &quot;allowPrivilegeEscalation&quot;: false,
+              &quot;readOnlyRootFilesystem&quot;: true,
+              &quot;capabilities&quot;: {
+                &quot;drop&quot;: [
+                  &quot;ALL&quot;
+                ]
+              }
+            }
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;image&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;image&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;actual&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;service-account-token&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;automountServiceAccountToken&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: false,
+        &quot;actual&quot;: false,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;pod-security&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;securityContext&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;runAsNonRoot&quot;: true,
+          &quot;runAsUser&quot;: 10001,
+          &quot;seccompProfile&quot;: {
+            &quot;type&quot;: &quot;RuntimeDefault&quot;
+          }
+        },
+        &quot;actual&quot;: {
+          &quot;runAsNonRoot&quot;: true,
+          &quot;runAsUser&quot;: 10001,
+          &quot;seccompProfile&quot;: {
+            &quot;type&quot;: &quot;RuntimeDefault&quot;
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;container-security&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;securityContext&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;allowPrivilegeEscalation&quot;: false,
+          &quot;readOnlyRootFilesystem&quot;: true,
+          &quot;capabilities&quot;: {
+            &quot;drop&quot;: [
+              &quot;ALL&quot;
+            ]
+          }
+        },
+        &quot;actual&quot;: {
+          &quot;allowPrivilegeEscalation&quot;: false,
+          &quot;readOnlyRootFilesystem&quot;: true,
+          &quot;capabilities&quot;: {
+            &quot;drop&quot;: [
+              &quot;ALL&quot;
+            ]
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;disruption-budget&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;PodDisruptionBudget/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;minAvailable&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 2,
+        &quot;actual&quot;: 2,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;pdb-selector&quot;,
+        &quot;op&quot;: &quot;selector&quot;,
+        &quot;resource&quot;: &quot;PodDisruptionBudget/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;selector&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;matchLabels&quot;: {
+            &quot;app&quot;: &quot;api&quot;
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;no-max-unavailable&quot;,
+        &quot;op&quot;: &quot;absent&quot;,
+        &quot;resource&quot;: &quot;PodDisruptionBudget/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;maxUnavailable&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: null,
+        &quot;actual&quot;: null,
+        &quot;missing&quot;: true
+      }
+    ],
+    &quot;errors&quot;: []
+  },
+  &quot;evaluation_seconds&quot;: 0.001892498999950476,
+  &quot;estimated_cost_usd&quot;: null
+}</pre></details><h2>Run provenance</h2><pre>{
+  &quot;format_version&quot;: 2,
+  &quot;suite&quot;: &quot;kubernetes-config-v2&quot;,
+  &quot;suite_version&quot;: &quot;2.0.0&quot;,
+  &quot;suite_sha256&quot;: &quot;6cac0e7aeb51f6e03c5763983743e4261517154cc27208415b6d47690148f58e&quot;,
+  &quot;schemas_sha256&quot;: &quot;730ad4d36441fb42e2a056fbc506eb40b0775a438e82230c144020c6ae7a4ba3&quot;,
+  &quot;harness_version&quot;: &quot;0.2.0&quot;,
+  &quot;harness_sha256&quot;: &quot;d7290053e4dc94f655f46196d1e1fe4cdd11820ce4274c4b273a0fa7fe3b6609&quot;,
+  &quot;config&quot;: {
+    &quot;provider&quot;: &quot;fixture&quot;,
+    &quot;fixture_dir&quot;: &quot;fixtures/reference&quot;,
+    &quot;model&quot;: null,
+    &quot;model_revision&quot;: null,
+    &quot;endpoint&quot;: null,
+    &quot;repeat&quot;: 1,
+    &quot;seed&quot;: 42,
+    &quot;temperature&quot;: null,
+    &quot;timeout&quot;: 120.0,
+    &quot;input_rate&quot;: null,
+    &quot;output_rate&quot;: null,
+    &quot;tasks&quot;: [
+      &quot;configmap-wiring&quot;,
+      &quot;cronjob-bounds&quot;,
+      &quot;deployment-resources&quot;,
+      &quot;network-isolation&quot;,
+      &quot;service-routing&quot;,
+      &quot;workload-hardening&quot;
+    ]
+  },
+  &quot;fixture_sha256&quot;: {
+    &quot;configmap-wiring&quot;: &quot;10e479069b2121b56f17f8fa4bcf76bfc9f03fcd7dbbd27ee3e77cf141e64e66&quot;,
+    &quot;cronjob-bounds&quot;: &quot;36dcf7b2111e412745d05fce63df472ea4ada126c184b7bc88b9eaeb49685e68&quot;,
+    &quot;deployment-resources&quot;: &quot;da966d18bc2a9ff7888aae8fcc6a75de2c5b34d3d040f3d9a18cbed7be9c4a44&quot;,
+    &quot;network-isolation&quot;: &quot;0c4df25ce1cfb7d3eeec20986fff89b50a063c4a3839914feadb30c21cb5be7f&quot;,
+    &quot;service-routing&quot;: &quot;07ffb71d6568aaf63aea028edcce2f1b5965471634f4bdc2980a061aedd6934e&quot;,
+    &quot;workload-hardening&quot;: &quot;64197556bed931bb03144a0a84768f1f187f52b1c0295be98f811beb7adf8c03&quot;
+  },
+  &quot;runtime&quot;: {
+    &quot;python&quot;: &quot;3.12.3&quot;,
+    &quot;dependencies&quot;: {
+      &quot;jsonschema&quot;: &quot;4.26.0&quot;,
+      &quot;jsonschema-specifications&quot;: &quot;2025.9.1&quot;,
+      &quot;referencing&quot;: &quot;0.37.0&quot;,
+      &quot;rpds-py&quot;: &quot;2026.9.1&quot;,
+      &quot;attrs&quot;: &quot;26.1.0&quot;
+    }
+  },
+  &quot;fingerprint&quot;: &quot;f1849fd8ded1f30b900b05d300273f770ddc60326d970bfb0624ad6b731ae252&quot;,
+  &quot;created_utc&quot;: &quot;2026-10-17T19:34:51.622984+00:00&quot;,
+  &quot;python&quot;: &quot;3.12.3&quot;,
+  &quot;platform&quot;: &quot;Linux-7.0.0-1014-gcp-x86_64-with-glibc2.39&quot;,
+  &quot;git&quot;: {
+    &quot;revision&quot;: &quot;2e7b62045b026b68ac4e52b8f3b1a1103609ea3d&quot;,
+    &quot;dirty&quot;: false
+  },
+  &quot;sampling&quot;: &quot;independent requests; no best-of selection or automatic retries&quot;
+}</pre></html>
