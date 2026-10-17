@@ -1,0 +1,20 @@
+{
+  "unit": "iac-ollama-pilot.service",
+  "elapsed_seconds": 190.17330211300032,
+  "service_status": {
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ControlGroup": "",
+    "MemoryPeak": "[not set]",
+    "CPUUsageNSec": "[not set]",
+    "ActiveState": "inactive",
+    "SubState": "dead"
+  },
+  "actions": [],
+  "minimum_host_available_gib": 8.5218505859375,
+  "minimum_disk_free_gib": 32.005130767822266,
+  "maximum_host_load_1min": 3.89,
+  "workload_peak_gib": 4.000244140625,
+  "sample_interval_seconds": 2,
+  "sample_count": 95
+}
