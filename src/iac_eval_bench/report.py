@@ -73,7 +73,7 @@ def write_reports(directory: Path, manifest, records):
     payload = {"run": manifest, "summary": summary}
     (directory / "summary.json").write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n")
     with (directory / "results.csv").open("w", newline="") as stream:
-        writer = csv.writer(stream)
+        writer = csv.writer(stream, lineterminator="\n")
         writer.writerow(
             [
                 "task",
