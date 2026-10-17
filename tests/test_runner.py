@@ -161,3 +161,12 @@ class RunnerTests(unittest.TestCase):
         result = summarize([])
         self.assertIsNone(result["quality_pass_rate"])
         self.assertIsNone(result["macro_score"])
+
+    def test_resume_rejects_changed_manifest_configuration(self):
+        run(config(), self.output)
+        path = self.output / "run.json"
+        manifest = json.loads(path.read_text())
+        manifest["config"]["model"] = "incorrect-model-attribution"
+        path.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(HarnessError, "provenance"):
+            run(config(), self.output, resume=True)

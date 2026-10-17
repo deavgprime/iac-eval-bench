@@ -11,6 +11,7 @@ import random
 import subprocess
 import time
 from datetime import datetime, timezone
+from importlib.metadata import version
 from importlib.resources import files
 from pathlib import Path
 
@@ -92,6 +93,30 @@ def run(config, directory: Path, resume=False):
             fixture_hashes[task_id] = (
                 hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
             )
+    runtime = {
+        "python": platform.python_version(),
+        "dependencies": {
+            name: version(name)
+            for name in [
+                "jsonschema",
+                "jsonschema-specifications",
+                "referencing",
+                "rpds-py",
+                "attrs",
+            ]
+        },
+    }
+    provenance = {
+        "suite": suite["suite"],
+        "suite_version": suite["version"],
+        "suite_sha256": digest(suite),
+        "schemas_sha256": digest(schema_manifest),
+        "harness_version": __version__,
+        "harness_sha256": source_hash(),
+        "config": config,
+        "fixture_sha256": fixture_hashes,
+        "runtime": runtime,
+    }
     fingerprint = digest(
         {
             "config": config,
@@ -99,6 +124,7 @@ def run(config, directory: Path, resume=False):
             "schemas": schema_manifest,
             "harness": source_hash(),
             "fixtures": fixture_hashes,
+            "runtime": runtime,
         }
     )
     directory.mkdir(parents=True, exist_ok=True)
@@ -112,26 +138,23 @@ def run(config, directory: Path, resume=False):
             manifest = json.loads(manifest_path.read_text())
             if manifest["fingerprint"] != fingerprint:
                 raise HarnessError("resume rejected: configuration, inputs or evaluator changed")
+            if any(manifest.get(key) != value for key, value in provenance.items()):
+                raise HarnessError(
+                    "resume rejected: manifest provenance does not match recorded inputs"
+                )
         else:
             if resume:
                 raise HarnessError("cannot resume: run.json is missing")
             if (directory / "attempts").exists():
                 raise HarnessError("orphan attempt directory; choose a new output directory")
             manifest = {
-                "format_version": 1,
-                "suite": suite["suite"],
-                "suite_version": suite["version"],
-                "suite_sha256": digest(suite),
-                "schemas_sha256": digest(schema_manifest),
-                "harness_version": __version__,
-                "harness_sha256": source_hash(),
+                "format_version": 2,
+                **provenance,
                 "fingerprint": fingerprint,
                 "created_utc": datetime.now(timezone.utc).isoformat(),
                 "python": platform.python_version(),
                 "platform": platform.platform(),
                 "git": git_state(),
-                "config": config,
-                "fixture_sha256": fixture_hashes,
                 "sampling": "independent requests; no best-of selection or automatic retries",
             }
             atomic_json(manifest_path, manifest)

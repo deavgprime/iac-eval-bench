@@ -4,7 +4,7 @@
 
 A small, reproducible benchmark for **LLM-generated Kubernetes configuration**. It combines offline schema validation, explicit task requirements, failure analysis and a resumable Python evaluation workflow.
 
-**Status: initial research/engineering prototype.** Six original synthetic tasks and 50 rubric checks. Published results are **constructed fixture baselines**, not model evaluations. No real model endpoint has been benchmarked yet. No cloud resources are created.
+**Status: research/engineering prototype, v0.2.0 / suite v2.** Six original synthetic tasks and 50 rubric checks. Published results are **constructed fixture baselines**, not model evaluations. No real model endpoint has been benchmarked yet. No cloud resources are created. See the [scoring audit](docs/scoring-audit.md) for corrected errors and regression coverage.
 
 ## What it measures
 
@@ -64,7 +64,7 @@ The adapter uses Ollama's non-streaming `/api/generate` endpoint with JSON outpu
 
 Cost defaults to **unknown**. To calculate a token-based estimate, explicitly provide both `--input-rate` and `--output-rate` in USD per million tokens. This is an estimate using your rates, not an invoice or local compute/electricity cost. No provider prices are hardcoded. Fixture generation latency and token usage are also unknown, rather than reported as zero.
 
-Resume an interrupted run with the **same arguments** plus `--resume`. Saved attempts are reused, including provider failures; there are no automatic retries or best-of selection. Use a new output directory for a fresh experiment. Different task, schema, fixture, generation configuration or evaluator content causes resume to fail. A `SIGKILL` may leave `.run.lock`; confirm no runner is active before removing that lock.
+Resume an interrupted run with the **same arguments** plus `--resume`. Saved attempts are reused, including provider failures; there are no automatic retries or best-of selection. Use a new output directory for a fresh experiment. Different task, schema, fixture, generation configuration, evaluator content or validation runtime causes resume to fail. Stored manifest provenance is also checked. A `SIGKILL` may leave `.run.lock`; confirm no runner is active before removing that lock.
 
 For an external model response already saved as text:
 
@@ -79,6 +79,7 @@ iac-eval score --task service-routing --response candidate.json
 - **Quality pass rate:** all required checks passed / completed responses. Provider failures are excluded.
 - **Operational pass rate:** passing responses / all attempts. Provider failures remain in the denominator.
 - **Macro score:** mean of each task's mean rubric score over completed responses. Parse, schema and resource-inventory failures score zero. Requirements are equally weighted within a task.
+- **Coverage:** completed-task coverage is explicit. Operational macro score includes provider errors as zero before averaging task means.
 - **Latency:** wall-clock generation-request p50/p95, nearest-rank convention; includes network and model loading, excludes evaluation. Fixture latency is absent.
 - **Usage/cost:** only supplied values are counted. Coverage is reported; incomplete total cost is unknown.
 

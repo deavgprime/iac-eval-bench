@@ -87,3 +87,19 @@ class ProviderTests(unittest.TestCase):
         for url in ["file:///tmp/api", "http://user:pass@localhost", "http://localhost?key=secret"]:
             with self.subTest(url=url), self.assertRaises(ValueError):
                 validate_endpoint(url)
+
+    def test_truncated_http_response_is_a_provider_failure(self):
+        import http.client
+        from unittest.mock import patch
+
+        with patch("urllib.request.urlopen", side_effect=http.client.IncompleteRead(b"partial")):
+            with self.assertRaises(ProviderError):
+                self.generate()
+
+    def test_excessively_nested_provider_envelope_is_a_provider_failure(self):
+        value = 0
+        for _ in range(70):
+            value = [value]
+        type(self).payload = {"done": True, "response": "{}", "unexpected": value}
+        with self.assertRaises(ProviderError):
+            self.generate()

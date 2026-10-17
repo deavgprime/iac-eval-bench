@@ -1,7 +1,7 @@
 # Roadmap
 
-Implemented in 0.1: six Kubernetes tasks, schema/rubric scoring, fixture and Ollama
-adapters, persisted/resumable runs, JSON/CSV/HTML reports, explicit usage/cost
+Implemented in 0.2: six Kubernetes tasks, schema/rubric scoring, fixture and Ollama
+adapters, adversarial scoring regressions, selector/protocol/probe checks, persisted/resumable runs, JSON/CSV/HTML reports, explicit usage/cost
 coverage, regression tests and CI.
 
 Next work, not implemented:

@@ -1,8 +1,8 @@
-# Evaluation protocol, version 1
+# Evaluation protocol, version 2
 
 ## Scope
 
-The `kubernetes-config-v1` suite contains six original public synthetic tasks,
+The `kubernetes-config-v2` suite contains six original public synthetic tasks,
 50 deterministic requirement checks, six constructed reference responses and six
 constructed negative responses. It evaluates a restricted configuration-generation
 interface: one JSON object containing a `resources` array. JSON is accepted by
@@ -16,7 +16,7 @@ The schemas are pinned to an immutable upstream revision and bundled for offline
 ## Scoring contract
 
 1. Parse strict JSON. Reject duplicate keys, non-finite numbers, prose/fences,
-   invalid UTF-8 and responses over 1 MiB.
+   invalid Unicode, nesting beyond 64 levels and responses over 1 MiB.
 2. Validate each object using its allowlisted API version/kind and bundled strict
    JSON schema. Unknown object fields or unsupported kinds fail this stage.
 3. Require the exact API/kind/name/namespace inventory, with no extra or duplicate
@@ -24,7 +24,12 @@ The schemas are pinned to an immutable upstream revision and bundled for offline
 4. Evaluate the task's named rubric checks. `eq` means typed JSON equality;
    `subset` permits extra object keys while preserving list length/order;
    `length` checks list size; `absent` requires omission rather than null.
-   Named container lookup rejects missing or duplicate matches.
+   Named container lookup rejects missing or duplicate matches. `selector` and
+   `map_selector` require the specified labels and check all constraints against
+   the target Deployment's pod labels. `ports` applies the omitted TCP default;
+   `http_probe` checks the requested HTTP handler and selected validity constraints.
+   `unordered` ignores list order in the NetworkPolicy rule subtrees while retaining
+   element multiplicity; it does not merge or simplify policy expressions.
 5. Score each completed response as passed checks / all task checks. A task passes
    only if every check passes. The aggregate macro score averages per-task means
    across completed attempts, giving every observed task equal weight.
@@ -34,9 +39,12 @@ have no quality score. They lower operational pass rate and are shown separately
 Always inspect coverage: a run with provider failures is not comparable to a
 complete run merely because its conditional quality rate is high. Tasks with no
 completed responses have no task score and are omitted from the macro mean.
+`task_coverage` makes this omission explicit. `operational_macro_score` instead
+computes each task's score over all its attempts, assigning zero to provider errors,
+then averages task means. This prevents absent tasks from inflating the operational score.
 
 The evaluator deliberately does not normalize resource quantity strings, all
-possible network-policy equivalents or Kubernetes defaults. Prompts specify
+possible network-policy equivalents or every Kubernetes default. Prompts specify
 constrained representations. This trades breadth for inspectable grading; valid
 alternative solutions outside that contract may fail. Additional fields not
 covered by a rule can pass schema validation without being semantically safe.
@@ -49,7 +57,9 @@ The runner shuffles task order with a fixed PRNG seed. Trial `n` sends seed
 returned raw text and model metadata. There is no best-of selection, repair loop
 or automatic retry. Failed provider attempts are preserved when resuming; start
 a separately named experiment to retry. Resume requires matching configuration,
-input, schema and evaluator hashes. Each attempt is written atomically and
+input, schema and evaluator hashes plus Python and validation-dependency versions.
+The stored manifest's configuration/provenance fields must match the current run;
+a changed display field cannot silently misattribute a resumed report. Each attempt is written atomically and
 checksummed; the directory lock prevents competing writers. Checksums detect
 accidental changes; they are not cryptographic signatures or tamper-proof provenance.
 
@@ -74,6 +84,14 @@ provided per-million input/output rates. These estimates do not measure local
 compute costs or billing. Totals cover completed responses; provider failures
 can still incur external costs not known to this runner. Coverage accompanies
 all usage/cost aggregation.
+
+## Version compatibility
+
+Version 0.2.0 uses suite 2.0.0 (`kubernetes-config-v2`). Five task contracts are now
+version 2; the unchanged CronJob task remains version 1 within the new suite.
+The original baseline remains under `baselines/reference` and `baselines/mutated`;
+current evidence is under `baselines/v2`. Do not merge scores across suite versions
+or resume a v1 run with v2. See [the audit](scoring-audit.md) for examples and scope.
 
 ## Baselines and limitations
 
@@ -100,3 +118,6 @@ Security Standards implementation.
 - [Ollama generation API](https://docs.ollama.com/api/generate)
 - [jsonschema validation](https://python-jsonschema.readthedocs.io/en/stable/validate/)
 - [Schema source and provenance](../THIRD_PARTY_NOTICES.md)
+
+- [Kubernetes label selector semantics](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
+- [Kubernetes probe configuration](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)

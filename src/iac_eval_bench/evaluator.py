@@ -12,7 +12,21 @@ from typing import Any
 
 from jsonschema.validators import validator_for
 
+from .semantics import http_probe_valid, normalize_ports, selector_matches, unordered
+
 MAX_RESPONSE_BYTES = 1_048_576
+MAX_JSON_DEPTH = 64
+OPERATORS = {
+    "eq",
+    "subset",
+    "length",
+    "absent",
+    "selector",
+    "map_selector",
+    "http_probe",
+    "ports",
+    "unordered",
+}
 MISSING = object()
 
 
@@ -47,9 +61,23 @@ def strict_json(text: str):
             raise ValueError("JSON number exceeds finite floating-point range")
         return number
 
-    return json.loads(
+    value = json.loads(
         text, object_pairs_hook=_pairs, parse_constant=nonfinite, parse_float=finite_float
     )
+    pending = [(value, 0)]
+    while pending:
+        item, depth = pending.pop()
+        if depth > MAX_JSON_DEPTH:
+            raise ValueError("JSON nesting exceeds 64 levels")
+        if isinstance(item, dict):
+            for key, child in item.items():
+                key.encode("utf-8")
+                pending.append((child, depth + 1))
+        elif isinstance(item, list):
+            pending.extend((child, depth + 1) for child in item)
+        elif isinstance(item, str):
+            item.encode("utf-8")
+    return value
 
 
 @lru_cache(maxsize=1)
@@ -63,7 +91,7 @@ def catalog():
         rule_ids = [rule["id"] for rule in task["rules"]]
         if not rule_ids or len(rule_ids) != len(set(rule_ids)):
             raise HarnessError("missing or duplicate rule IDs")
-        if any(rule["op"] not in {"eq", "subset", "length", "absent"} for rule in task["rules"]):
+        if any(rule["op"] not in OPERATORS for rule in task["rules"]):
             raise HarnessError("unsupported rule operator")
     return suite
 
@@ -198,6 +226,20 @@ def evaluate(task: dict, raw: str) -> dict:
         value = lookup(by_name[rule["resource"]], rule["path"])
         if rule["op"] == "absent":
             passed = value is MISSING
+        elif rule["op"] in {"selector", "map_selector"}:
+            target = rule["target"]
+            labels = lookup(by_name[target["resource"]], target["path"])
+            passed = selector_matches(
+                value, labels, rule["value"], plain=rule["op"] == "map_selector"
+            )
+        elif rule["op"] == "http_probe":
+            passed = http_probe_valid(value) and subset(value, rule["value"])
+        elif rule["op"] == "ports":
+            passed = value is not MISSING and subset(normalize_ports(value), rule["value"])
+        elif rule["op"] == "unordered":
+            passed = value is not MISSING and canonical(unordered(value)) == canonical(
+                unordered(rule["value"])
+            )
         elif rule["op"] == "subset":
             passed = value is not MISSING and subset(value, rule["value"])
         elif rule["op"] == "length":
@@ -207,6 +249,9 @@ def evaluate(task: dict, raw: str) -> dict:
         checks.append(
             {
                 "id": rule["id"],
+                "op": rule["op"],
+                "resource": rule["resource"],
+                "path": rule["path"],
                 "passed": passed,
                 "expected": rule["value"],
                 "actual": None if value is MISSING else value,

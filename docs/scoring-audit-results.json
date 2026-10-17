@@ -1,0 +1,107 @@
+{
+  "before_revision": "cf07f06af0354a4b619b57a3169706953230cb86",
+  "after_harness_version": "0.2.0",
+  "after_suite_version": "2.0.0",
+  "before": [
+    {
+      "case": "contradictory-deployment-selector",
+      "task": "deployment-resources",
+      "expected_pass": false,
+      "actual_pass": true,
+      "stage": "passed"
+    },
+    {
+      "case": "harmless-extra-pod-label",
+      "task": "deployment-resources",
+      "expected_pass": true,
+      "actual_pass": false,
+      "stage": "requirements"
+    },
+    {
+      "case": "redundant-pdb-selector",
+      "task": "workload-hardening",
+      "expected_pass": true,
+      "actual_pass": false,
+      "stage": "requirements"
+    },
+    {
+      "case": "two-readiness-handlers",
+      "task": "deployment-resources",
+      "expected_pass": false,
+      "actual_pass": true,
+      "stage": "passed"
+    },
+    {
+      "case": "udp-workload-with-tcp-service",
+      "task": "service-routing",
+      "expected_pass": false,
+      "actual_pass": true,
+      "stage": "passed"
+    },
+    {
+      "case": "extra-unmatched-service-selector",
+      "task": "service-routing",
+      "expected_pass": false,
+      "actual_pass": false,
+      "stage": "requirements"
+    },
+    {
+      "case": "schema-deep-annotation",
+      "task": "deployment-resources",
+      "expected_pass": true,
+      "actual_pass": true,
+      "stage": "passed"
+    }
+  ],
+  "after": [
+    {
+      "case": "contradictory-deployment-selector",
+      "task": "deployment-resources",
+      "expected_pass": false,
+      "actual_pass": false,
+      "stage": "requirements"
+    },
+    {
+      "case": "harmless-extra-pod-label",
+      "task": "deployment-resources",
+      "expected_pass": true,
+      "actual_pass": true,
+      "stage": "passed"
+    },
+    {
+      "case": "redundant-pdb-selector",
+      "task": "workload-hardening",
+      "expected_pass": true,
+      "actual_pass": true,
+      "stage": "passed"
+    },
+    {
+      "case": "two-readiness-handlers",
+      "task": "deployment-resources",
+      "expected_pass": false,
+      "actual_pass": false,
+      "stage": "requirements"
+    },
+    {
+      "case": "udp-workload-with-tcp-service",
+      "task": "service-routing",
+      "expected_pass": false,
+      "actual_pass": false,
+      "stage": "requirements"
+    },
+    {
+      "case": "extra-unmatched-service-selector",
+      "task": "service-routing",
+      "expected_pass": false,
+      "actual_pass": false,
+      "stage": "requirements"
+    },
+    {
+      "case": "schema-deep-annotation",
+      "task": "deployment-resources",
+      "expected_pass": true,
+      "actual_pass": true,
+      "stage": "passed"
+    }
+  ]
+}

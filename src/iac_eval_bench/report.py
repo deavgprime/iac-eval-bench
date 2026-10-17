@@ -45,6 +45,21 @@ def summarize(records):
         )
         if completed
         else None,
+        "task_coverage": {
+            "attempted": len(by_task),
+            "with_completions": sum(t["completed"] > 0 for t in by_task.values()),
+        },
+        "operational_macro_score": statistics.mean(
+            sum(
+                r["evaluation"]["score"]
+                for r in records
+                if r["task_id"] == task and r["status"] == "completed"
+            )
+            / values["attempts"]
+            for task, values in by_task.items()
+        )
+        if by_task
+        else None,
         "failure_stages": dict(
             Counter(r["evaluation"]["stage"] for r in completed if not r["evaluation"]["passed"])
         ),
@@ -162,7 +177,7 @@ def write_reports(directory: Path, manifest, records):
     )
     parts.append(
         "<p>Quality pass rate excludes provider errors; operational pass rate includes them. "
-        "Macro score averages task means over completed responses. Missing usage/cost/latency "
+        "Macro score averages task means over completed responses; inspect task coverage. Operational macro score counts provider errors as zero. Missing usage/cost/latency "
         "is unknown, not free or zero. Percentiles use nearest rank; small samples are noisy. "
         "Schema and rubric checks do not establish deployability, full API admission validation "
         "or complete security. Resources are never deployed.</p><h2>Per-attempt evidence</h2>"
