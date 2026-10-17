@@ -1,0 +1,10 @@
+name: New benchmark task
+description: Propose a focused, reproducible IaC task
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Task, provenance and acceptance checks
+      description: Describe the requirement, reference approach, negative case and licensing.
+    validations:
+      required: true

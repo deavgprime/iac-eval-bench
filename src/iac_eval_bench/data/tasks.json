@@ -1,0 +1,871 @@
+{
+  "suite": "kubernetes-config-v1",
+  "version": "1.0.0",
+  "kubernetes_version": "1.34.0",
+  "provenance": "Original synthetic tasks authored for this project with AI assistance; no private or employer dataset material. Fixtures are constructed examples, not measured model outputs.",
+  "tasks": [
+    {
+      "id": "deployment-resources",
+      "version": 1,
+      "title": "Bounded deployment",
+      "prompt": "Create one apps/v1 Deployment named api in namespace bench. Use exactly 3 replicas; selector and pod labels must both be app=api. Include exactly one container named app, image nginx:1.28.0, named http port 8080. Set CPU request 100m and limit 500m, memory request 64Mi and limit 128Mi (use these exact quantity strings). Configure an HTTP readiness probe at /ready using named port http with initialDelaySeconds 5. The image/port are test inputs, not a claim about a deployed application.",
+      "resources": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "name": "api",
+          "namespace": "bench"
+        }
+      ],
+      "rules": [
+        {
+          "id": "replicas",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "replicas"
+          ],
+          "op": "eq",
+          "value": 3
+        },
+        {
+          "id": "selector",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "selector",
+            "matchLabels"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "pod-labels",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "metadata",
+            "labels"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "container-count",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers"
+          ],
+          "op": "length",
+          "value": 1
+        },
+        {
+          "id": "image",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "image"
+          ],
+          "op": "eq",
+          "value": "nginx:1.28.0"
+        },
+        {
+          "id": "ports",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "ports"
+          ],
+          "op": "subset",
+          "value": [
+            {
+              "name": "http",
+              "containerPort": 8080
+            }
+          ]
+        },
+        {
+          "id": "requests",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "resources",
+            "requests"
+          ],
+          "op": "subset",
+          "value": {
+            "cpu": "100m",
+            "memory": "64Mi"
+          }
+        },
+        {
+          "id": "limits",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "resources",
+            "limits"
+          ],
+          "op": "subset",
+          "value": {
+            "cpu": "500m",
+            "memory": "128Mi"
+          }
+        },
+        {
+          "id": "readiness",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "readinessProbe"
+          ],
+          "op": "subset",
+          "value": {
+            "httpGet": {
+              "path": "/ready",
+              "port": "http"
+            },
+            "initialDelaySeconds": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "service-routing",
+      "version": 1,
+      "title": "Match a Service to its workload",
+      "prompt": "Create exactly a Deployment api (apps/v1) and Service api (v1) in namespace bench. Deployment: replicas 3, selector/pod labels app=api, one container app with image nginx:1.28.0 and a single named http port 8080. Service: explicit type ClusterIP, selector app=api, and one TCP port named http at port 80 targeting the named http port. Other workload configuration is optional.",
+      "resources": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "name": "api",
+          "namespace": "bench"
+        },
+        {
+          "apiVersion": "v1",
+          "kind": "Service",
+          "name": "api",
+          "namespace": "bench"
+        }
+      ],
+      "rules": [
+        {
+          "id": "replicas",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "replicas"
+          ],
+          "op": "eq",
+          "value": 3
+        },
+        {
+          "id": "selector",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "selector",
+            "matchLabels"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "pod-labels",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "metadata",
+            "labels"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "container-count",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers"
+          ],
+          "op": "length",
+          "value": 1
+        },
+        {
+          "id": "image",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "image"
+          ],
+          "op": "eq",
+          "value": "nginx:1.28.0"
+        },
+        {
+          "id": "container-port",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "ports"
+          ],
+          "op": "subset",
+          "value": [
+            {
+              "name": "http",
+              "containerPort": 8080
+            }
+          ]
+        },
+        {
+          "id": "service-type",
+          "resource": "Service/api",
+          "path": [
+            "spec",
+            "type"
+          ],
+          "op": "eq",
+          "value": "ClusterIP"
+        },
+        {
+          "id": "service-selector",
+          "resource": "Service/api",
+          "path": [
+            "spec",
+            "selector"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "service-port",
+          "resource": "Service/api",
+          "path": [
+            "spec",
+            "ports"
+          ],
+          "op": "subset",
+          "value": [
+            {
+              "name": "http",
+              "port": 80,
+              "targetPort": "http",
+              "protocol": "TCP"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "network-isolation",
+      "version": 1,
+      "title": "Constrain inbound traffic and DNS egress",
+      "prompt": "Create exactly one networking.k8s.io/v1 NetworkPolicy named api-isolation in namespace bench. Select app=api pods; policyTypes must list Ingress then Egress. Allow ingress only on TCP 8080 from pods role=web within namespaces team=frontend: put both selectors in the SAME peer (AND semantics). Allow egress only to kube-dns pods (k8s-app=kube-dns) in kube-system (namespace label kubernetes.io/metadata.name=kube-system), on UDP 53 then TCP 53. Use exactly one ingress rule with one peer and one port, and one egress rule with one peer and those two ports; no additional rules. Assume the stated namespace and pod labels exist.",
+      "resources": [
+        {
+          "apiVersion": "networking.k8s.io/v1",
+          "kind": "NetworkPolicy",
+          "name": "api-isolation",
+          "namespace": "bench"
+        }
+      ],
+      "rules": [
+        {
+          "id": "selected-pods",
+          "resource": "NetworkPolicy/api-isolation",
+          "path": [
+            "spec",
+            "podSelector"
+          ],
+          "op": "eq",
+          "value": {
+            "matchLabels": {
+              "app": "api"
+            }
+          }
+        },
+        {
+          "id": "directions",
+          "resource": "NetworkPolicy/api-isolation",
+          "path": [
+            "spec",
+            "policyTypes"
+          ],
+          "op": "eq",
+          "value": [
+            "Ingress",
+            "Egress"
+          ]
+        },
+        {
+          "id": "ingress",
+          "resource": "NetworkPolicy/api-isolation",
+          "path": [
+            "spec",
+            "ingress"
+          ],
+          "op": "eq",
+          "value": [
+            {
+              "from": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "team": "frontend"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "role": "web"
+                    }
+                  }
+                }
+              ],
+              "ports": [
+                {
+                  "protocol": "TCP",
+                  "port": 8080
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dns-egress",
+          "resource": "NetworkPolicy/api-isolation",
+          "path": [
+            "spec",
+            "egress"
+          ],
+          "op": "eq",
+          "value": [
+            {
+              "to": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "kube-system"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "k8s-app": "kube-dns"
+                    }
+                  }
+                }
+              ],
+              "ports": [
+                {
+                  "protocol": "UDP",
+                  "port": 53
+                },
+                {
+                  "protocol": "TCP",
+                  "port": 53
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cronjob-bounds",
+      "version": 1,
+      "title": "Bound a scheduled job",
+      "prompt": "Create exactly one batch/v1 CronJob snapshot in namespace bench. Schedule 0 */6 * * *, concurrencyPolicy Forbid, successfulJobsHistoryLimit 2, failedJobsHistoryLimit 3. Job spec: backoffLimit 2, activeDeadlineSeconds 300. Pod: restartPolicy Never; exactly one container snapshot, image busybox:1.37.0, command [\"sh\",\"-c\",\"echo synthetic-snapshot\"]. This is a synthetic job, not a database backup.",
+      "resources": [
+        {
+          "apiVersion": "batch/v1",
+          "kind": "CronJob",
+          "name": "snapshot",
+          "namespace": "bench"
+        }
+      ],
+      "rules": [
+        {
+          "id": "schedule",
+          "resource": "CronJob/snapshot",
+          "path": [
+            "spec",
+            "schedule"
+          ],
+          "op": "eq",
+          "value": "0 */6 * * *"
+        },
+        {
+          "id": "concurrency",
+          "resource": "CronJob/snapshot",
+          "path": [
+            "spec",
+            "concurrencyPolicy"
+          ],
+          "op": "eq",
+          "value": "Forbid"
+        },
+        {
+          "id": "success-history",
+          "resource": "CronJob/snapshot",
+          "path": [
+            "spec",
+            "successfulJobsHistoryLimit"
+          ],
+          "op": "eq",
+          "value": 2
+        },
+        {
+          "id": "failure-history",
+          "resource": "CronJob/snapshot",
+          "path": [
+            "spec",
+            "failedJobsHistoryLimit"
+          ],
+          "op": "eq",
+          "value": 3
+        },
+        {
+          "id": "retry-limit",
+          "resource": "CronJob/snapshot",
+          "path": [
+            "spec",
+            "jobTemplate",
+            "spec",
+            "backoffLimit"
+          ],
+          "op": "eq",
+          "value": 2
+        },
+        {
+          "id": "deadline",
+          "resource": "CronJob/snapshot",
+          "path": [
+            "spec",
+            "jobTemplate",
+            "spec",
+            "activeDeadlineSeconds"
+          ],
+          "op": "eq",
+          "value": 300
+        },
+        {
+          "id": "restart",
+          "resource": "CronJob/snapshot",
+          "path": [
+            "spec",
+            "jobTemplate",
+            "spec",
+            "template",
+            "spec",
+            "restartPolicy"
+          ],
+          "op": "eq",
+          "value": "Never"
+        },
+        {
+          "id": "container",
+          "resource": "CronJob/snapshot",
+          "path": [
+            "spec",
+            "jobTemplate",
+            "spec",
+            "template",
+            "spec",
+            "containers"
+          ],
+          "op": "subset",
+          "value": [
+            {
+              "name": "snapshot",
+              "image": "busybox:1.37.0",
+              "command": [
+                "sh",
+                "-c",
+                "echo synthetic-snapshot"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "workload-hardening",
+      "version": 1,
+      "title": "Constrain privilege and disruption",
+      "prompt": "Create exactly an apps/v1 Deployment api and policy/v1 PodDisruptionBudget api in namespace bench. Deployment: 3 replicas; selector and pod labels app=api; exactly one container app with image nginx:1.28.0. Pod securityContext must explicitly set runAsNonRoot true, runAsUser 10001 and seccompProfile.type RuntimeDefault. Disable automountServiceAccountToken. Container securityContext must set allowPrivilegeEscalation false, readOnlyRootFilesystem true, capabilities.drop [\"ALL\"], with no other securityContext keys. PDB: minAvailable 2, selector.matchLabels app=api, no maxUnavailable. This checks declared settings only; no image/runtime compatibility is implied.",
+      "resources": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "name": "api",
+          "namespace": "bench"
+        },
+        {
+          "apiVersion": "policy/v1",
+          "kind": "PodDisruptionBudget",
+          "name": "api",
+          "namespace": "bench"
+        }
+      ],
+      "rules": [
+        {
+          "id": "replicas",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "replicas"
+          ],
+          "op": "eq",
+          "value": 3
+        },
+        {
+          "id": "selector",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "selector",
+            "matchLabels"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "pod-labels",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "metadata",
+            "labels"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "container-count",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers"
+          ],
+          "op": "length",
+          "value": 1
+        },
+        {
+          "id": "image",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "image"
+          ],
+          "op": "eq",
+          "value": "nginx:1.28.0"
+        },
+        {
+          "id": "service-account-token",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "automountServiceAccountToken"
+          ],
+          "op": "eq",
+          "value": false
+        },
+        {
+          "id": "pod-security",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "securityContext"
+          ],
+          "op": "eq",
+          "value": {
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          }
+        },
+        {
+          "id": "container-security",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "securityContext"
+          ],
+          "op": "eq",
+          "value": {
+            "allowPrivilegeEscalation": false,
+            "readOnlyRootFilesystem": true,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            }
+          }
+        },
+        {
+          "id": "disruption-budget",
+          "resource": "PodDisruptionBudget/api",
+          "path": [
+            "spec",
+            "minAvailable"
+          ],
+          "op": "eq",
+          "value": 2
+        },
+        {
+          "id": "pdb-selector",
+          "resource": "PodDisruptionBudget/api",
+          "path": [
+            "spec",
+            "selector"
+          ],
+          "op": "eq",
+          "value": {
+            "matchLabels": {
+              "app": "api"
+            }
+          }
+        },
+        {
+          "id": "no-max-unavailable",
+          "resource": "PodDisruptionBudget/api",
+          "path": [
+            "spec",
+            "maxUnavailable"
+          ],
+          "op": "absent",
+          "value": null
+        }
+      ]
+    },
+    {
+      "id": "configmap-wiring",
+      "version": 1,
+      "title": "Wire immutable configuration",
+      "prompt": "Create exactly an apps/v1 Deployment api and v1 ConfigMap api-config in namespace bench. ConfigMap: immutable true, data exactly LOG_LEVEL=\"info\" and PORT=\"8080\" (both strings). Deployment: 3 replicas; selector and pod labels app=api; exactly one container app with image nginx:1.28.0. Container envFrom must be exactly [{\"configMapRef\":{\"name\":\"api-config\"}}]; do not include an env field that could override the imported values. Other workload fields are optional.",
+      "resources": [
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "name": "api",
+          "namespace": "bench"
+        },
+        {
+          "apiVersion": "v1",
+          "kind": "ConfigMap",
+          "name": "api-config",
+          "namespace": "bench"
+        }
+      ],
+      "rules": [
+        {
+          "id": "replicas",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "replicas"
+          ],
+          "op": "eq",
+          "value": 3
+        },
+        {
+          "id": "selector",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "selector",
+            "matchLabels"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "pod-labels",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "metadata",
+            "labels"
+          ],
+          "op": "eq",
+          "value": {
+            "app": "api"
+          }
+        },
+        {
+          "id": "container-count",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers"
+          ],
+          "op": "length",
+          "value": 1
+        },
+        {
+          "id": "image",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "image"
+          ],
+          "op": "eq",
+          "value": "nginx:1.28.0"
+        },
+        {
+          "id": "config-reference",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "envFrom"
+          ],
+          "op": "eq",
+          "value": [
+            {
+              "configMapRef": {
+                "name": "api-config"
+              }
+            }
+          ]
+        },
+        {
+          "id": "no-env-override",
+          "resource": "Deployment/api",
+          "path": [
+            "spec",
+            "template",
+            "spec",
+            "containers",
+            {
+              "name": "app"
+            },
+            "env"
+          ],
+          "op": "absent",
+          "value": null
+        },
+        {
+          "id": "immutable",
+          "resource": "ConfigMap/api-config",
+          "path": [
+            "immutable"
+          ],
+          "op": "eq",
+          "value": true
+        },
+        {
+          "id": "data",
+          "resource": "ConfigMap/api-config",
+          "path": [
+            "data"
+          ],
+          "op": "eq",
+          "value": {
+            "LOG_LEVEL": "info",
+            "PORT": "8080"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+include LICENSE THIRD_PARTY_NOTICES.md requirements.lock requirements-dev.lock
+recursive-include docs *.md
+recursive-include fixtures *.json
+recursive-include scripts *.py
+recursive-include tests *.py

@@ -1,0 +1,22 @@
+# Roadmap
+
+Implemented in 0.1: six Kubernetes tasks, schema/rubric scoring, fixture and Ollama
+adapters, persisted/resumable runs, JSON/CSV/HTML reports, explicit usage/cost
+coverage, regression tests and CI.
+
+Next work, not implemented:
+
+1. Run and publish a real model baseline with pinned weights and environment details.
+2. Independently review task wording and acceptance checks; expand accepted
+   semantically equivalent configurations without weakening failure detection.
+3. Add Terraform/OpenTofu tasks with pinned providers and isolated validation,
+   keeping provider/setup failures separate from generated-code errors.
+4. Add a held-out task design and larger sample protocol before reporting rankings
+   or statistical intervals.
+5. Add an adapter/export format for an established agent-evaluation framework
+   after choosing its execution and scoring contract. No Harbor/harness integration
+   is claimed today.
+6. Add isolated API-server dry runs and runtime tests as a separate opt-in track.
+
+Small fixes and regression tests can be proposed directly. Larger changes should
+start with an issue that describes the behavior and evaluation evidence.

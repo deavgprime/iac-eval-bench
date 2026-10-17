@@ -1,0 +1,8 @@
+{
+  "deployment-resources": "limits",
+  "service-routing": "service-selector",
+  "network-isolation": "ingress",
+  "cronjob-bounds": "concurrency",
+  "workload-hardening": "container-security",
+  "configmap-wiring": "config-reference"
+}

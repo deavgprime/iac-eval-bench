@@ -1,0 +1,36 @@
+{
+  "kubernetes_version": "1.34.0",
+  "upstream_commit": "93153a1458e24e93f386c50f9980d584fcba574b",
+  "schemas": {
+    "apps/v1:Deployment": {
+      "file": "deployment-apps-v1.json",
+      "sha256": "92b7a333a49124f5300095d3e7786ca2038b7d6e602c309f73e90631377e4b0a",
+      "url": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/93153a1458e24e93f386c50f9980d584fcba574b/v1.34.0-standalone-strict/deployment-apps-v1.json"
+    },
+    "v1:Service": {
+      "file": "service-v1.json",
+      "sha256": "8bf019854daed511e7c174896a898173fa65d88ec5937c687a37303d4cc9351b",
+      "url": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/93153a1458e24e93f386c50f9980d584fcba574b/v1.34.0-standalone-strict/service-v1.json"
+    },
+    "networking.k8s.io/v1:NetworkPolicy": {
+      "file": "networkpolicy-networking-v1.json",
+      "sha256": "f6324cc464f62228b0418f438d167208e4f86c7e3677ba30f608e79a8b26ba79",
+      "url": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/93153a1458e24e93f386c50f9980d584fcba574b/v1.34.0-standalone-strict/networkpolicy-networking-v1.json"
+    },
+    "batch/v1:CronJob": {
+      "file": "cronjob-batch-v1.json",
+      "sha256": "fb921edacc3ded080ca322233197727f8c110254ba3514e6faade5fa06513ae4",
+      "url": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/93153a1458e24e93f386c50f9980d584fcba574b/v1.34.0-standalone-strict/cronjob-batch-v1.json"
+    },
+    "policy/v1:PodDisruptionBudget": {
+      "file": "poddisruptionbudget-policy-v1.json",
+      "sha256": "da73f50ad0264d73f668eecaa9959da65afe2846602a7a5c8fd51f7799d6a258",
+      "url": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/93153a1458e24e93f386c50f9980d584fcba574b/v1.34.0-standalone-strict/poddisruptionbudget-policy-v1.json"
+    },
+    "v1:ConfigMap": {
+      "file": "configmap-v1.json",
+      "sha256": "e0eaddebd677c08aa092b2da2264d86ac4fc34eed112b9fac2945b3f00c1e9b1",
+      "url": "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/93153a1458e24e93f386c50f9980d584fcba574b/v1.34.0-standalone-strict/configmap-v1.json"
+    }
+  }
+}
