@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import http.client
 import json
 import math
 import time
@@ -72,7 +73,15 @@ def ollama(
         if len(raw) > 2 * MAX_RESPONSE_BYTES:
             raise ProviderError("provider envelope exceeds 2 MiB")
         result = strict_json(raw.decode())
-    except (urllib.error.URLError, TimeoutError, OSError, ValueError, UnicodeError) as exc:
+    except (
+        urllib.error.URLError,
+        TimeoutError,
+        OSError,
+        ValueError,
+        UnicodeError,
+        RecursionError,
+        http.client.HTTPException,
+    ) as exc:
         # Do not retain server error bodies, which may contain deployment details/secrets.
         raise ProviderError(f"Ollama request failed: {type(exc).__name__}") from exc
     elapsed = time.perf_counter() - start
