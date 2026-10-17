@@ -1,0 +1,34 @@
+{
+  "record": {
+    "task_id": "cronjob-bounds",
+    "task_version": 1,
+    "trial": 1,
+    "seed": 42,
+    "run_fingerprint": "ea31327776958c7399a1b4c4cbb0563eac98e8ad74b930c80a10b150ea873ee1",
+    "prompt": "Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate exactly one batch/v1 CronJob snapshot in namespace bench. Schedule 0 */6 * * *, concurrencyPolicy Forbid, successfulJobsHistoryLimit 2, failedJobsHistoryLimit 3. Job spec: backoffLimit 2, activeDeadlineSeconds 300. Pod: restartPolicy Never; exactly one container snapshot, image busybox:1.37.0, command [\"sh\",\"-c\",\"echo synthetic-snapshot\"]. This is a synthetic job, not a database backup.",
+    "prompt_sha256": "63f22cfc2d3107deb428847f0564b4811b2452d9a71aafafee5d352c59eefca4",
+    "response": "{\n  \"resources\": [\n    {\n      \"apiVersion\": \"batch/v1\",\n      \"kind\": \"CronJob\",\n      \"metadata\": {\n        \"name\": \"bench-snapshot\",\n        \"namespace\": \"bench\"\n      },\n      \"spec\": {\n        \"schedule\": \"0 */6 * * *\",\n        \"concurrencyPolicy\": \"Forbid\",\n        \"successfulJobsHistoryLimit\": 2,\n        \"failedJobsHistoryLimit\": 3,\n        \"jobTemplate\": {\n          \"spec\": {\n            \"backoffLimit\": 2,\n            \"activeDeadlineSeconds\": 300,\n            \"template\": {\n              \"spec\": {\n                \"restartPolicy\": \"Never\",\n                \"containers\": [\n                  {\n                    \"name\": \"snapshot\",\n                    \"image\": \"busybox:1.37.0\",\n                    \"command\": [\"sh\", \"-c\", \"echo synthetic-snapshot\"]\n                  }\n                ]\n              }\n            }\n          }\n        }\n      }\n    }\n  ]\n}",
+    "generation_seconds": 48.955755271999806,
+    "input_tokens": 195,
+    "output_tokens": 211,
+    "provider_metadata": {
+      "model": "iac-qwen25-coder-15b-pilot:latest",
+      "done_reason": "stop",
+      "total_duration": 48873010165,
+      "load_duration": 9325777561
+    },
+    "status": "completed",
+    "evaluation": {
+      "stage": "inventory",
+      "passed": false,
+      "score": 0.0,
+      "checks": [],
+      "errors": [
+        "resource identities must exactly match the requested set; duplicates, missing resources and extras receive no credit"
+      ]
+    },
+    "evaluation_seconds": 0.0006696500004181871,
+    "estimated_cost_usd": null
+  },
+  "sha256": "6603371a74bc60716358dc6bba5f625d00d02f650c1bb664fab0bd91f4edd403"
+}
