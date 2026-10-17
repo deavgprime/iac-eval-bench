@@ -1,0 +1,16 @@
+name: Reproducible evaluator bug
+description: Report incorrect scoring, execution or reporting behavior
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include the command, task ID, Python version and a minimal synthetic response.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true

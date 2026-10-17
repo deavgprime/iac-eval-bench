@@ -1,0 +1,41 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements*.lock
+      - run: python -m pip install -r requirements-dev.lock
+      - run: python -m pip install --no-deps --no-build-isolation -e .
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/verify_baselines.py --output runs/ci-baselines
+      - run: python -m build --no-isolation
+      - name: Verify wheel data outside the checkout
+        run: |
+          python -m venv "$RUNNER_TEMP/wheel-check"
+          "$RUNNER_TEMP/wheel-check/bin/python" -m pip install -r requirements.lock
+          "$RUNNER_TEMP/wheel-check/bin/python" -m pip install --no-deps dist/*.whl
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/wheel-check/bin/python" -c 'from iac_eval_bench.evaluator import catalog, schemas; assert len(catalog()["tasks"]) == 6; assert len(schemas()[1]) == 6'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fixture-evidence-python-${{ matrix.python }}
+          path: runs/ci-baselines/
+          if-no-files-found: warn

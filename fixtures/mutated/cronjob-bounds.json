@@ -1,0 +1,40 @@
+{
+  "resources": [
+    {
+      "apiVersion": "batch/v1",
+      "kind": "CronJob",
+      "metadata": {
+        "name": "snapshot",
+        "namespace": "bench"
+      },
+      "spec": {
+        "schedule": "0 */6 * * *",
+        "concurrencyPolicy": "Allow",
+        "successfulJobsHistoryLimit": 2,
+        "failedJobsHistoryLimit": 3,
+        "jobTemplate": {
+          "spec": {
+            "backoffLimit": 2,
+            "activeDeadlineSeconds": 300,
+            "template": {
+              "spec": {
+                "restartPolicy": "Never",
+                "containers": [
+                  {
+                    "name": "snapshot",
+                    "image": "busybox:1.37.0",
+                    "command": [
+                      "sh",
+                      "-c",
+                      "echo synthetic-snapshot"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
