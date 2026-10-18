@@ -1,0 +1,101 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IaC evaluation report</title><style>body{font:16px/1.6 system-ui;max-width:1100px;margin:40px auto;padding:0 20px;color:#172033}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd5df;padding:10px;text-align:left}pre{white-space:pre-wrap;overflow-wrap:anywhere}.note{background:#edf4fa;padding:16px}details{margin:12px 0}</style><h1>IaC evaluation report</h1><p class="note">Model run: a small public synthetic suite, not a general capability ranking.</p><p>Suite: kubernetes-config-v2 · Provider: ollama · Model: iac-qwen25-coder-05b-comparison:latest</p><p>Completed: 1/1 · Passes: 0 · Provider errors: 0</p><table><tr><th>Task</th><th>Trial</th><th>Outcome</th><th>Score</th><th>Failed checks</th></tr><tr><td>network-isolation</td><td>1</td><td>parse</td><td>0.000</td><td></td></tr></table><h2>Metrics and coverage</h2><pre>{
+  &quot;attempts&quot;: 1,
+  &quot;completed&quot;: 1,
+  &quot;provider_errors&quot;: 0,
+  &quot;passes&quot;: 0,
+  &quot;operational_pass_rate&quot;: 0.0,
+  &quot;quality_pass_rate&quot;: 0.0,
+  &quot;macro_score&quot;: 0.0,
+  &quot;task_coverage&quot;: {
+    &quot;attempted&quot;: 1,
+    &quot;with_completions&quot;: 1
+  },
+  &quot;operational_macro_score&quot;: 0.0,
+  &quot;failure_stages&quot;: {
+    &quot;parse&quot;: 1
+  },
+  &quot;generation_latency_seconds&quot;: {
+    &quot;samples&quot;: 1,
+    &quot;p50&quot;: 28.46585929400044,
+    &quot;p95&quot;: 28.46585929400044
+  },
+  &quot;estimated_cost_usd&quot;: null,
+  &quot;cost_covered_completions&quot;: 0,
+  &quot;input_tokens_known&quot;: 265,
+  &quot;output_tokens_known&quot;: 379,
+  &quot;usage_covered_completions&quot;: 1
+}</pre><p>Quality pass rate excludes provider errors; operational pass rate includes them. Macro score averages task means over completed responses; inspect task coverage. Operational macro score counts provider errors as zero. Missing usage/cost/latency is unknown, not free or zero. Percentiles use nearest rank; small samples are noisy. Schema and rubric checks do not establish deployability, full API admission validation or complete security. Resources are never deployed.</p><h2>Per-attempt evidence</h2><details><summary>network-isolation / trial 1</summary><pre>{
+  &quot;task_id&quot;: &quot;network-isolation&quot;,
+  &quot;task_version&quot;: 2,
+  &quot;trial&quot;: 1,
+  &quot;seed&quot;: 42,
+  &quot;run_fingerprint&quot;: &quot;7ae8990cd75c866a4ba9e3396326950905f07247991698c734aea52568fc7741&quot;,
+  &quot;prompt&quot;: &quot;Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate exactly one networking.k8s.io/v1 NetworkPolicy named api-isolation in namespace bench. Select app=api pods; policyTypes must list Ingress and Egress. Allow ingress only on TCP 8080 from pods role=web within namespaces team=frontend: put both selectors in the SAME peer (AND semantics). Allow egress only to kube-dns pods (k8s-app=kube-dns) in kube-system (namespace label kubernetes.io/metadata.name=kube-system), on UDP 53 and TCP 53. Use exactly one ingress rule with one peer and one port, and one egress rule with one peer and those two ports; no additional rules. Assume the stated namespace and pod labels exist. Ordering of policyTypes and network-policy rule/peer/port arrays is irrelevant; duplicates are not allowed.&quot;,
+  &quot;prompt_sha256&quot;: &quot;ca8742c94ea5f12c2aacdb1da34108b56112d65b7e57a65932875e70bf6cd7f0&quot;,
+  &quot;response&quot;: &quot;{\n  \&quot;api-isolation\&quot;: {\n    \&quot;apiVersion\&quot;: \&quot;networking.k8s.io/v1\&quot;,\n    \&quot;kind\&quot;: \&quot;NetworkPolicy\&quot;,\n    \&quot;metadata\&quot;: {\n      \&quot;name\&quot;: \&quot;api-isolation\&quot;,\n      \&quot;namespace\&quot;: \&quot;bench\&quot;\n    },\n    \&quot;spec\&quot;: {\n      \&quot;policyTypes\&quot;: [\n        \&quot;Ingress\&quot;,\n        \&quot;Egress\&quot;\n      ],\n      \&quot;rules\&quot;: [\n        {\n          \&quot;apiGroup\&quot;: \&quot;networking.k8s.io\&quot;,\n          \&quot;kind\&quot;: \&quot;Ingress\&quot;,\n          \&quot;metadata\&quot;: {\n            \&quot;name\&quot;: \&quot;api-ingress\&quot;,\n            \&quot;namespace\&quot;: \&quot;bench\&quot;\n          },\n          \&quot;spec\&quot;: {\n            \&quot;host\&quot;: \&quot;api\&quot;,\n            \&quot;http\&quot;: {\n              \&quot;paths\&quot;: [\n                {\n                  \&quot;path\&quot;: \&quot;/\&quot;,\n                  \&quot;backend\&quot;: {\n                    \&quot;service\&quot;: {\n                      \&quot;name\&quot;: \&quot;api\&quot;,\n                      \&quot;port\&quot;: 8080\n                    }\n                  }\n                }\n              ]\n            }\n          }\n        },\n        {\n          \&quot;apiGroup\&quot;: \&quot;networking.k8s.io\&quot;,\n          \&quot;kind\&quot;: \&quot;Egress\&quot;,\n          \&quot;metadata\&quot;: {\n            \&quot;name\&quot;: \&quot;api-egress\&quot;,\n            \&quot;namespace\&quot;: \&quot;bench\&quot;\n          },\n          \&quot;spec\&quot;: {\n            \&quot;host\&quot;: \&quot;api\&quot;,\n            \&quot;ports\&quot;: [\n              {\n                \&quot;port\&quot;: 8080,\n                \&quot;protocol\&quot;: \&quot;TCP\&quot;,\n                \&quot;to\&quot;: {\n                  \&quot;service\&quot;: {\n                    \&quot;name\&quot;: \&quot;api\&quot;,\n                    \&quot;port\&quot;: 8080\n                  }\n                }\n              },\n              {\n                \&quot;port\&quot;: 53,\n                \&quot;protocol\&quot;: \&quot;UDP\&quot;,\n                \&quot;to\&quot;: {\n                  \&quot;service\&quot;: {\n                    \&quot;name\&quot;: \&quot;kube-dns\&quot;,\n                    \&quot;port\&quot;: 53\n                  }\n                }\n              }\n            ]\n          }\n        }\n      ]\n    }\n  }\n}&quot;,
+  &quot;generation_seconds&quot;: 28.46585929400044,
+  &quot;input_tokens&quot;: 265,
+  &quot;output_tokens&quot;: 379,
+  &quot;provider_metadata&quot;: {
+    &quot;model&quot;: &quot;iac-qwen25-coder-05b-comparison:latest&quot;,
+    &quot;done_reason&quot;: &quot;stop&quot;,
+    &quot;total_duration&quot;: 28398296208,
+    &quot;load_duration&quot;: 1575249652
+  },
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;evaluation&quot;: {
+    &quot;stage&quot;: &quot;parse&quot;,
+    &quot;passed&quot;: false,
+    &quot;score&quot;: 0.0,
+    &quot;checks&quot;: [],
+    &quot;errors&quot;: [
+      &quot;expected an object containing only 1\u201316 resources&quot;
+    ]
+  },
+  &quot;evaluation_seconds&quot;: 0.0001460269995732233,
+  &quot;estimated_cost_usd&quot;: null
+}</pre></details><h2>Run provenance</h2><pre>{
+  &quot;format_version&quot;: 2,
+  &quot;suite&quot;: &quot;kubernetes-config-v2&quot;,
+  &quot;suite_version&quot;: &quot;2.0.0&quot;,
+  &quot;suite_sha256&quot;: &quot;6cac0e7aeb51f6e03c5763983743e4261517154cc27208415b6d47690148f58e&quot;,
+  &quot;schemas_sha256&quot;: &quot;730ad4d36441fb42e2a056fbc506eb40b0775a438e82230c144020c6ae7a4ba3&quot;,
+  &quot;harness_version&quot;: &quot;0.2.0&quot;,
+  &quot;harness_sha256&quot;: &quot;985631120cb547101e75bde75874b6329315cc3a0872046aa6314a0a8e1d5273&quot;,
+  &quot;config&quot;: {
+    &quot;provider&quot;: &quot;ollama&quot;,
+    &quot;fixture_dir&quot;: null,
+    &quot;model&quot;: &quot;iac-qwen25-coder-05b-comparison:latest&quot;,
+    &quot;model_revision&quot;: &quot;2e976d7ee2475ef2e1951722a5adfcf41b448e423db49301c96b73ff093bbdfa&quot;,
+    &quot;endpoint&quot;: &quot;http://127.0.0.1:11435&quot;,
+    &quot;repeat&quot;: 1,
+    &quot;seed&quot;: 42,
+    &quot;temperature&quot;: 0.0,
+    &quot;timeout&quot;: 600.0,
+    &quot;input_rate&quot;: null,
+    &quot;output_rate&quot;: null,
+    &quot;tasks&quot;: [
+      &quot;network-isolation&quot;
+    ]
+  },
+  &quot;fixture_sha256&quot;: {},
+  &quot;runtime&quot;: {
+    &quot;python&quot;: &quot;3.12.3&quot;,
+    &quot;dependencies&quot;: {
+      &quot;jsonschema&quot;: &quot;4.26.0&quot;,
+      &quot;jsonschema-specifications&quot;: &quot;2025.9.1&quot;,
+      &quot;referencing&quot;: &quot;0.37.0&quot;,
+      &quot;rpds-py&quot;: &quot;2026.9.1&quot;,
+      &quot;attrs&quot;: &quot;26.1.0&quot;
+    }
+  },
+  &quot;fingerprint&quot;: &quot;7ae8990cd75c866a4ba9e3396326950905f07247991698c734aea52568fc7741&quot;,
+  &quot;created_utc&quot;: &quot;2026-10-18T09:05:23.490706+00:00&quot;,
+  &quot;python&quot;: &quot;3.12.3&quot;,
+  &quot;platform&quot;: &quot;Linux-7.0.0-1014-gcp-x86_64-with-glibc2.39&quot;,
+  &quot;git&quot;: {
+    &quot;revision&quot;: &quot;3da83dbb58855804b49b0f2c7b1d995c587ddbdd&quot;,
+    &quot;dirty&quot;: false
+  },
+  &quot;sampling&quot;: &quot;independent requests; no best-of selection or automatic retries&quot;
+}</pre></html>

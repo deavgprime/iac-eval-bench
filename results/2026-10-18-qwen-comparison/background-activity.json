@@ -1,0 +1,14 @@
+{
+  "dependency_setup": {
+    "unit": "iac-upstream-dependencies.service",
+    "cpu_quota_percent": 50,
+    "memory_max_gib": 2,
+    "paused_epoch": 1792314355.432762,
+    "note": "Dependency setup briefly overlapped the 0.5B run, then was frozen until benchmarking finished. Per-request latency is observational and not an isolated performance comparison.",
+    "started_epoch": 1792314339,
+    "affected_attempts": [
+      "qwen-0.5b/network-isolation",
+      "qwen-0.5b/service-routing"
+    ]
+  }
+}

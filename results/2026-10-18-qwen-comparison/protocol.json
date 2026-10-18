@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-18",
+  "source_revision": "3da83dbb58855804b49b0f2c7b1d995c587ddbdd",
+  "models": [
+    "qwen2.5-coder:1.5b",
+    "qwen2.5-coder:0.5b"
+  ],
+  "task_order": [
+    "configmap-wiring",
+    "cronjob-bounds",
+    "deployment-resources",
+    "network-isolation",
+    "service-routing",
+    "workload-hardening"
+  ],
+  "requests": 12,
+  "repeat": 1,
+  "seed": 42,
+  "temperature": 0,
+  "num_ctx": 4096,
+  "num_predict": 1024,
+  "num_thread": 2,
+  "timeout_seconds": 600,
+  "keep_alive": 0,
+  "resource_limits": {
+    "MemoryMax": "6G",
+    "MemoryHigh": "4G",
+    "MemorySwapMax": 0,
+    "CPUQuota": "150%",
+    "TasksMax": 256,
+    "Nice": 15,
+    "RuntimeMaxSec": 2400
+  },
+  "policy": "One fresh request per model/task; retain every attempt, including failures and capped outputs. No retries or best-of selection. Review failures after both model runs; do not change prompts or scoring between models. Model order is fixed as listed. Cold model loading is included in latency. Prior pilot is excluded."
+}

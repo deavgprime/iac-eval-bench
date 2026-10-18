@@ -1,0 +1,34 @@
+{
+  "record": {
+    "task_id": "network-isolation",
+    "task_version": 2,
+    "trial": 1,
+    "seed": 42,
+    "run_fingerprint": "7ae8990cd75c866a4ba9e3396326950905f07247991698c734aea52568fc7741",
+    "prompt": "Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate exactly one networking.k8s.io/v1 NetworkPolicy named api-isolation in namespace bench. Select app=api pods; policyTypes must list Ingress and Egress. Allow ingress only on TCP 8080 from pods role=web within namespaces team=frontend: put both selectors in the SAME peer (AND semantics). Allow egress only to kube-dns pods (k8s-app=kube-dns) in kube-system (namespace label kubernetes.io/metadata.name=kube-system), on UDP 53 and TCP 53. Use exactly one ingress rule with one peer and one port, and one egress rule with one peer and those two ports; no additional rules. Assume the stated namespace and pod labels exist. Ordering of policyTypes and network-policy rule/peer/port arrays is irrelevant; duplicates are not allowed.",
+    "prompt_sha256": "ca8742c94ea5f12c2aacdb1da34108b56112d65b7e57a65932875e70bf6cd7f0",
+    "response": "{\n  \"api-isolation\": {\n    \"apiVersion\": \"networking.k8s.io/v1\",\n    \"kind\": \"NetworkPolicy\",\n    \"metadata\": {\n      \"name\": \"api-isolation\",\n      \"namespace\": \"bench\"\n    },\n    \"spec\": {\n      \"policyTypes\": [\n        \"Ingress\",\n        \"Egress\"\n      ],\n      \"rules\": [\n        {\n          \"apiGroup\": \"networking.k8s.io\",\n          \"kind\": \"Ingress\",\n          \"metadata\": {\n            \"name\": \"api-ingress\",\n            \"namespace\": \"bench\"\n          },\n          \"spec\": {\n            \"host\": \"api\",\n            \"http\": {\n              \"paths\": [\n                {\n                  \"path\": \"/\",\n                  \"backend\": {\n                    \"service\": {\n                      \"name\": \"api\",\n                      \"port\": 8080\n                    }\n                  }\n                }\n              ]\n            }\n          }\n        },\n        {\n          \"apiGroup\": \"networking.k8s.io\",\n          \"kind\": \"Egress\",\n          \"metadata\": {\n            \"name\": \"api-egress\",\n            \"namespace\": \"bench\"\n          },\n          \"spec\": {\n            \"host\": \"api\",\n            \"ports\": [\n              {\n                \"port\": 8080,\n                \"protocol\": \"TCP\",\n                \"to\": {\n                  \"service\": {\n                    \"name\": \"api\",\n                    \"port\": 8080\n                  }\n                }\n              },\n              {\n                \"port\": 53,\n                \"protocol\": \"UDP\",\n                \"to\": {\n                  \"service\": {\n                    \"name\": \"kube-dns\",\n                    \"port\": 53\n                  }\n                }\n              }\n            ]\n          }\n        }\n      ]\n    }\n  }\n}",
+    "generation_seconds": 28.46585929400044,
+    "input_tokens": 265,
+    "output_tokens": 379,
+    "provider_metadata": {
+      "model": "iac-qwen25-coder-05b-comparison:latest",
+      "done_reason": "stop",
+      "total_duration": 28398296208,
+      "load_duration": 1575249652
+    },
+    "status": "completed",
+    "evaluation": {
+      "stage": "parse",
+      "passed": false,
+      "score": 0.0,
+      "checks": [],
+      "errors": [
+        "expected an object containing only 1\u201316 resources"
+      ]
+    },
+    "evaluation_seconds": 0.0001460269995732233,
+    "estimated_cost_usd": null
+  },
+  "sha256": "8003818de52ca2944a3de5bd24c6b5d818a7f621094ba05a2a211217e67f50c8"
+}

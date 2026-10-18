@@ -1,0 +1,27 @@
+{"stage": "Starting local server", "model": "", "task": "", "time": 1792313978.9107785}
+{"stage": "Downloading second model", "model": "qwen-0.5b", "task": "", "time": 1792313979.9585752}
+{"stage": "Benchmark attempt", "model": "qwen-1.5b", "task": "configmap-wiring", "time": 1792313986.3956375}
+{"stage": "Attempt recorded", "model": "qwen-1.5b", "task": "configmap-wiring", "time": 1792314032.6202042}
+{"stage": "Benchmark attempt", "model": "qwen-1.5b", "task": "cronjob-bounds", "time": 1792314032.6240218}
+{"stage": "Attempt recorded", "model": "qwen-1.5b", "task": "cronjob-bounds", "time": 1792314067.7318244}
+{"stage": "Benchmark attempt", "model": "qwen-1.5b", "task": "deployment-resources", "time": 1792314067.7346692}
+{"stage": "Attempt recorded", "model": "qwen-1.5b", "task": "deployment-resources", "time": 1792314116.0307627}
+{"stage": "Benchmark attempt", "model": "qwen-1.5b", "task": "network-isolation", "time": 1792314116.0342424}
+{"stage": "Attempt recorded", "model": "qwen-1.5b", "task": "network-isolation", "time": 1792314160.1350837}
+{"stage": "Benchmark attempt", "model": "qwen-1.5b", "task": "service-routing", "time": 1792314160.1384177}
+{"stage": "Attempt recorded", "model": "qwen-1.5b", "task": "service-routing", "time": 1792314206.623683}
+{"stage": "Benchmark attempt", "model": "qwen-1.5b", "task": "workload-hardening", "time": 1792314206.6263387}
+{"stage": "Attempt recorded", "model": "qwen-1.5b", "task": "workload-hardening", "time": 1792314260.4961145}
+{"stage": "Benchmark attempt", "model": "qwen-0.5b", "task": "configmap-wiring", "time": 1792314260.5695703}
+{"stage": "Attempt recorded", "model": "qwen-0.5b", "task": "configmap-wiring", "time": 1792314279.3894334}
+{"stage": "Benchmark attempt", "model": "qwen-0.5b", "task": "cronjob-bounds", "time": 1792314279.3921382}
+{"stage": "Attempt recorded", "model": "qwen-0.5b", "task": "cronjob-bounds", "time": 1792314296.9705229}
+{"stage": "Benchmark attempt", "model": "qwen-0.5b", "task": "deployment-resources", "time": 1792314296.9739983}
+{"stage": "Attempt recorded", "model": "qwen-0.5b", "task": "deployment-resources", "time": 1792314321.5388002}
+{"stage": "Benchmark attempt", "model": "qwen-0.5b", "task": "network-isolation", "time": 1792314321.5421531}
+{"stage": "Attempt recorded", "model": "qwen-0.5b", "task": "network-isolation", "time": 1792314352.0745835}
+{"stage": "Benchmark attempt", "model": "qwen-0.5b", "task": "service-routing", "time": 1792314352.0778832}
+{"stage": "Attempt recorded", "model": "qwen-0.5b", "task": "service-routing", "time": 1792314369.4847538}
+{"stage": "Benchmark attempt", "model": "qwen-0.5b", "task": "workload-hardening", "time": 1792314369.4884198}
+{"stage": "Attempt recorded", "model": "qwen-0.5b", "task": "workload-hardening", "time": 1792314390.0246837}
+{"stage": "Comparison complete", "model": "", "task": "", "time": 1792314390.0281017}

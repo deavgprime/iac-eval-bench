@@ -6,7 +6,7 @@ coverage, regression tests and CI.
 
 Next work, not implemented:
 
-1. Extend the [published single-task real-model pilot](../results/2026-10-17-qwen25-coder-15b-pilot/README.md) to a resource-budgeted full-suite experiment with repeated trials and a second model. The pilot establishes execution and failure evidence; comparative model quality remains unmeasured.
+1. Extend the [published two-model, six-task comparison](../results/2026-10-18-qwen-comparison/README.md) with repeated trials and isolated timing. All 12 attempts and their failure reviews are retained; current observations do not establish a general model ranking.
 2. Independently review task wording and acceptance checks; expand accepted
    semantically equivalent configurations without weakening failure detection.
 3. Add Terraform/OpenTofu tasks with pinned providers and isolated validation,

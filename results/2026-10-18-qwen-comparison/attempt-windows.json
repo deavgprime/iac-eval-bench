@@ -1,0 +1,86 @@
+[
+  {
+    "model": "qwen-1.5b",
+    "task": "configmap-wiring",
+    "start_epoch": 1792313986.3960612,
+    "end_epoch": 1792314032.6194382,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-1.5b",
+    "task": "cronjob-bounds",
+    "start_epoch": 1792314032.6245084,
+    "end_epoch": 1792314067.7313218,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-1.5b",
+    "task": "deployment-resources",
+    "start_epoch": 1792314067.7351902,
+    "end_epoch": 1792314116.0301554,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-1.5b",
+    "task": "network-isolation",
+    "start_epoch": 1792314116.034732,
+    "end_epoch": 1792314160.1344423,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-1.5b",
+    "task": "service-routing",
+    "start_epoch": 1792314160.1388843,
+    "end_epoch": 1792314206.6231537,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-1.5b",
+    "task": "workload-hardening",
+    "start_epoch": 1792314206.6267385,
+    "end_epoch": 1792314260.495459,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-0.5b",
+    "task": "configmap-wiring",
+    "start_epoch": 1792314260.5699577,
+    "end_epoch": 1792314279.3887422,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-0.5b",
+    "task": "cronjob-bounds",
+    "start_epoch": 1792314279.3925593,
+    "end_epoch": 1792314296.9699655,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-0.5b",
+    "task": "deployment-resources",
+    "start_epoch": 1792314296.9745848,
+    "end_epoch": 1792314321.5380893,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-0.5b",
+    "task": "network-isolation",
+    "start_epoch": 1792314321.5426028,
+    "end_epoch": 1792314352.0739443,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-0.5b",
+    "task": "service-routing",
+    "start_epoch": 1792314352.0783732,
+    "end_epoch": 1792314369.4840982,
+    "exit_code": 0
+  },
+  {
+    "model": "qwen-0.5b",
+    "task": "workload-hardening",
+    "start_epoch": 1792314369.4891472,
+    "end_epoch": 1792314390.024082,
+    "exit_code": 0
+  }
+]
