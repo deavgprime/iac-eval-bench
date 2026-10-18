@@ -101,6 +101,6 @@ CI runs the test suite and positive/negative baselines on Python 3.11, 3.12 and 
 
 ## Provenance and license
 
-Code, prompts and fixtures were newly authored for this project with AI assistance. No private or employer evaluation materials were copied. MIT applies to original project content. Bundled schemas retain their upstream Apache-2.0 notice; [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) records source URLs, revision and checksums.
+MIT applies to the original code, prompts and fixtures in this project. No private or employer evaluation materials were copied. Bundled schemas retain their upstream Apache-2.0 notice; [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) records source URLs, revision and checksums.
 
 This is an independent project. It is not affiliated with Kubernetes, Ollama, Harbor, Terminal-Bench or an upstream evaluation organization.

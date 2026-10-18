@@ -122,10 +122,10 @@ def write_reports(directory: Path, manifest, records):
     e = html.escape
     fixture = manifest["config"]["provider"] == "fixture"
     notice = (
-        "Constructed fixture baseline — verifies the evaluator, not model capability. "
+        "Constructed fixture baseline: verifies the evaluator, not model capability. "
         "Repeated fixtures are identical examples, not independent model samples."
         if fixture
-        else "Model run — a small public synthetic suite, not a general capability ranking."
+        else "Model run: a small public synthetic suite, not a general capability ranking."
     )
     parts = [
         '<!doctype html><html lang="en"><meta charset="utf-8">'
@@ -165,7 +165,7 @@ def write_reports(directory: Path, manifest, records):
             + "</td><td>"
             + e(ev.get("stage", "provider_error"))
             + "</td><td>"
-            + (f"{ev['score']:.3f}" if ev else "—")
+            + (f"{ev['score']:.3f}" if ev else "not available")
             + "</td><td>"
             + e(failed)
             + "</td></tr>"
