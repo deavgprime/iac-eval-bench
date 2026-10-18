@@ -1,0 +1,1576 @@
+{
+  "scope": "Review of all 12 original attempts against prompts and evaluator behavior. Diagnostic edits are offline probes, not model attempts, and do not change published scores.",
+  "conclusion": "All observed failures have concrete output defects. No blocking prompt ambiguity or evaluator false rejection was identified in these attempts. This is not a general certification of the evaluator.",
+  "limitations": [
+    "The schema files omit some API-required fields, including NetworkPolicy.spec.podSelector; the rubric detects this omission here. Schema acceptance is not API-server admission validation.",
+    "The exact-name and response-wrapper gates deliberately give zero rubric credit; zero pass counts do not imply equal capability.",
+    "Task names could be phrased uniformly as metadata.name in a future version, but the observed naming deviations contradict the current requested identifiers."
+  ],
+  "reviews": [
+    {
+      "model": "qwen-1.5b",
+      "task": "deployment-resources",
+      "classification": "model_output_error",
+      "diagnosis": "The port lacks the required http name. The response supplies a liveness probe instead of the requested readiness probe and uses a numeric probe port.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Name the container port http; move the probe to readinessProbe and use port http.",
+      "diagnostic_result": {
+        "stage": "passed",
+        "passed": true,
+        "score": 1.0,
+        "checks": [
+          {
+            "id": "replicas",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "replicas"
+            ],
+            "passed": true,
+            "expected": 3,
+            "actual": 3,
+            "missing": false
+          },
+          {
+            "id": "selector",
+            "op": "selector",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "selector"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "matchLabels": {
+                "app": "api"
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "pod-labels",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "metadata",
+              "labels"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "app": "api"
+            },
+            "missing": false
+          },
+          {
+            "id": "container-count",
+            "op": "length",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers"
+            ],
+            "passed": true,
+            "expected": 1,
+            "actual": [
+              {
+                "name": "app",
+                "image": "nginx:1.28.0",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP",
+                    "name": "http"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "500m",
+                    "memory": "128Mi"
+                  }
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": "http"
+                  },
+                  "initialDelaySeconds": 5
+                }
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "image",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "image"
+            ],
+            "passed": true,
+            "expected": "nginx:1.28.0",
+            "actual": "nginx:1.28.0",
+            "missing": false
+          },
+          {
+            "id": "ports",
+            "op": "ports",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "ports"
+            ],
+            "passed": true,
+            "expected": [
+              {
+                "name": "http",
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "actual": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP",
+                "name": "http"
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "requests",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "resources",
+              "requests"
+            ],
+            "passed": true,
+            "expected": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "actual": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "missing": false
+          },
+          {
+            "id": "limits",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "resources",
+              "limits"
+            ],
+            "passed": true,
+            "expected": {
+              "cpu": "500m",
+              "memory": "128Mi"
+            },
+            "actual": {
+              "cpu": "500m",
+              "memory": "128Mi"
+            },
+            "missing": false
+          },
+          {
+            "id": "readiness",
+            "op": "http_probe",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "readinessProbe"
+            ],
+            "passed": true,
+            "expected": {
+              "httpGet": {
+                "path": "/ready",
+                "port": "http"
+              },
+              "initialDelaySeconds": 5
+            },
+            "actual": {
+              "httpGet": {
+                "path": "/ready",
+                "port": "http"
+              },
+              "initialDelaySeconds": 5
+            },
+            "missing": false
+          }
+        ],
+        "errors": []
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-1.5b",
+      "task": "service-routing",
+      "classification": "model_output_error",
+      "diagnosis": "Both resource names differ from api. The container is api-container instead of app, and the Service port has no http name.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Correct resource and container names and name the Service port http.",
+      "diagnostic_result": {
+        "stage": "passed",
+        "passed": true,
+        "score": 1.0,
+        "checks": [
+          {
+            "id": "replicas",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "replicas"
+            ],
+            "passed": true,
+            "expected": 3,
+            "actual": 3,
+            "missing": false
+          },
+          {
+            "id": "selector",
+            "op": "selector",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "selector"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "matchLabels": {
+                "app": "api"
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "pod-labels",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "metadata",
+              "labels"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "app": "api"
+            },
+            "missing": false
+          },
+          {
+            "id": "container-count",
+            "op": "length",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers"
+            ],
+            "passed": true,
+            "expected": 1,
+            "actual": [
+              {
+                "name": "app",
+                "image": "nginx:1.28.0",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "name": "http"
+                  }
+                ]
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "image",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "image"
+            ],
+            "passed": true,
+            "expected": "nginx:1.28.0",
+            "actual": "nginx:1.28.0",
+            "missing": false
+          },
+          {
+            "id": "container-port",
+            "op": "ports",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "ports"
+            ],
+            "passed": true,
+            "expected": [
+              {
+                "name": "http",
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "actual": [
+              {
+                "containerPort": 8080,
+                "name": "http"
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "service-type",
+            "op": "eq",
+            "resource": "Service/api",
+            "path": [
+              "spec",
+              "type"
+            ],
+            "passed": true,
+            "expected": "ClusterIP",
+            "actual": "ClusterIP",
+            "missing": false
+          },
+          {
+            "id": "service-selector",
+            "op": "map_selector",
+            "resource": "Service/api",
+            "path": [
+              "spec",
+              "selector"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "app": "api"
+            },
+            "missing": false
+          },
+          {
+            "id": "service-port",
+            "op": "ports",
+            "resource": "Service/api",
+            "path": [
+              "spec",
+              "ports"
+            ],
+            "passed": true,
+            "expected": [
+              {
+                "name": "http",
+                "port": 80,
+                "targetPort": "http",
+                "protocol": "TCP"
+              }
+            ],
+            "actual": [
+              {
+                "protocol": "TCP",
+                "port": 80,
+                "targetPort": "http",
+                "name": "http"
+              }
+            ],
+            "missing": false
+          }
+        ],
+        "errors": []
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-1.5b",
+      "task": "network-isolation",
+      "classification": "model_output_error",
+      "diagnosis": "podSelector is absent. Ingress mixes pod labels into namespaceSelector; egress does not constrain both the kube-system namespace and kube-dns pods.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Set the selected pod labels and the specified namespace/pod selector pairs.",
+      "diagnostic_result": {
+        "stage": "passed",
+        "passed": true,
+        "score": 1.0,
+        "checks": [
+          {
+            "id": "selected-pods",
+            "op": "eq",
+            "resource": "NetworkPolicy/api-isolation",
+            "path": [
+              "spec",
+              "podSelector"
+            ],
+            "passed": true,
+            "expected": {
+              "matchLabels": {
+                "app": "api"
+              }
+            },
+            "actual": {
+              "matchLabels": {
+                "app": "api"
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "directions",
+            "op": "unordered",
+            "resource": "NetworkPolicy/api-isolation",
+            "path": [
+              "spec",
+              "policyTypes"
+            ],
+            "passed": true,
+            "expected": [
+              "Ingress",
+              "Egress"
+            ],
+            "actual": [
+              "Ingress",
+              "Egress"
+            ],
+            "missing": false
+          },
+          {
+            "id": "ingress",
+            "op": "unordered",
+            "resource": "NetworkPolicy/api-isolation",
+            "path": [
+              "spec",
+              "ingress"
+            ],
+            "passed": true,
+            "expected": [
+              {
+                "from": [
+                  {
+                    "namespaceSelector": {
+                      "matchLabels": {
+                        "team": "frontend"
+                      }
+                    },
+                    "podSelector": {
+                      "matchLabels": {
+                        "role": "web"
+                      }
+                    }
+                  }
+                ],
+                "ports": [
+                  {
+                    "protocol": "TCP",
+                    "port": 8080
+                  }
+                ]
+              }
+            ],
+            "actual": [
+              {
+                "from": [
+                  {
+                    "namespaceSelector": {
+                      "matchLabels": {
+                        "team": "frontend"
+                      }
+                    },
+                    "podSelector": {
+                      "matchLabels": {
+                        "role": "web"
+                      }
+                    }
+                  }
+                ],
+                "ports": [
+                  {
+                    "protocol": "TCP",
+                    "port": 8080
+                  }
+                ]
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "dns-egress",
+            "op": "unordered",
+            "resource": "NetworkPolicy/api-isolation",
+            "path": [
+              "spec",
+              "egress"
+            ],
+            "passed": true,
+            "expected": [
+              {
+                "to": [
+                  {
+                    "namespaceSelector": {
+                      "matchLabels": {
+                        "kubernetes.io/metadata.name": "kube-system"
+                      }
+                    },
+                    "podSelector": {
+                      "matchLabels": {
+                        "k8s-app": "kube-dns"
+                      }
+                    }
+                  }
+                ],
+                "ports": [
+                  {
+                    "protocol": "UDP",
+                    "port": 53
+                  },
+                  {
+                    "protocol": "TCP",
+                    "port": 53
+                  }
+                ]
+              }
+            ],
+            "actual": [
+              {
+                "to": [
+                  {
+                    "namespaceSelector": {
+                      "matchLabels": {
+                        "kubernetes.io/metadata.name": "kube-system"
+                      }
+                    },
+                    "podSelector": {
+                      "matchLabels": {
+                        "k8s-app": "kube-dns"
+                      }
+                    }
+                  }
+                ],
+                "ports": [
+                  {
+                    "protocol": "UDP",
+                    "port": 53
+                  },
+                  {
+                    "protocol": "TCP",
+                    "port": 53
+                  }
+                ]
+              }
+            ],
+            "missing": false
+          }
+        ],
+        "errors": []
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-1.5b",
+      "task": "cronjob-bounds",
+      "classification": "model_output_error",
+      "diagnosis": "The CronJob is named bench-snapshot instead of snapshot.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Change the CronJob name to snapshot.",
+      "diagnostic_result": {
+        "stage": "passed",
+        "passed": true,
+        "score": 1.0,
+        "checks": [
+          {
+            "id": "schedule",
+            "op": "eq",
+            "resource": "CronJob/snapshot",
+            "path": [
+              "spec",
+              "schedule"
+            ],
+            "passed": true,
+            "expected": "0 */6 * * *",
+            "actual": "0 */6 * * *",
+            "missing": false
+          },
+          {
+            "id": "concurrency",
+            "op": "eq",
+            "resource": "CronJob/snapshot",
+            "path": [
+              "spec",
+              "concurrencyPolicy"
+            ],
+            "passed": true,
+            "expected": "Forbid",
+            "actual": "Forbid",
+            "missing": false
+          },
+          {
+            "id": "success-history",
+            "op": "eq",
+            "resource": "CronJob/snapshot",
+            "path": [
+              "spec",
+              "successfulJobsHistoryLimit"
+            ],
+            "passed": true,
+            "expected": 2,
+            "actual": 2,
+            "missing": false
+          },
+          {
+            "id": "failure-history",
+            "op": "eq",
+            "resource": "CronJob/snapshot",
+            "path": [
+              "spec",
+              "failedJobsHistoryLimit"
+            ],
+            "passed": true,
+            "expected": 3,
+            "actual": 3,
+            "missing": false
+          },
+          {
+            "id": "retry-limit",
+            "op": "eq",
+            "resource": "CronJob/snapshot",
+            "path": [
+              "spec",
+              "jobTemplate",
+              "spec",
+              "backoffLimit"
+            ],
+            "passed": true,
+            "expected": 2,
+            "actual": 2,
+            "missing": false
+          },
+          {
+            "id": "deadline",
+            "op": "eq",
+            "resource": "CronJob/snapshot",
+            "path": [
+              "spec",
+              "jobTemplate",
+              "spec",
+              "activeDeadlineSeconds"
+            ],
+            "passed": true,
+            "expected": 300,
+            "actual": 300,
+            "missing": false
+          },
+          {
+            "id": "restart",
+            "op": "eq",
+            "resource": "CronJob/snapshot",
+            "path": [
+              "spec",
+              "jobTemplate",
+              "spec",
+              "template",
+              "spec",
+              "restartPolicy"
+            ],
+            "passed": true,
+            "expected": "Never",
+            "actual": "Never",
+            "missing": false
+          },
+          {
+            "id": "container",
+            "op": "subset",
+            "resource": "CronJob/snapshot",
+            "path": [
+              "spec",
+              "jobTemplate",
+              "spec",
+              "template",
+              "spec",
+              "containers"
+            ],
+            "passed": true,
+            "expected": [
+              {
+                "name": "snapshot",
+                "image": "busybox:1.37.0",
+                "command": [
+                  "sh",
+                  "-c",
+                  "echo synthetic-snapshot"
+                ]
+              }
+            ],
+            "actual": [
+              {
+                "name": "snapshot",
+                "image": "busybox:1.37.0",
+                "command": [
+                  "sh",
+                  "-c",
+                  "echo synthetic-snapshot"
+                ]
+              }
+            ],
+            "missing": false
+          }
+        ],
+        "errors": []
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-1.5b",
+      "task": "workload-hardening",
+      "classification": "model_output_error",
+      "diagnosis": "Pod and container security settings are reversed. The container and PDB have incorrect names, and maxUnavailable appears despite an explicit prohibition.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Put security settings at the requested levels, correct names and remove maxUnavailable.",
+      "diagnostic_result": {
+        "stage": "passed",
+        "passed": true,
+        "score": 1.0,
+        "checks": [
+          {
+            "id": "replicas",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "replicas"
+            ],
+            "passed": true,
+            "expected": 3,
+            "actual": 3,
+            "missing": false
+          },
+          {
+            "id": "selector",
+            "op": "selector",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "selector"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "matchLabels": {
+                "app": "api"
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "pod-labels",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "metadata",
+              "labels"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "app": "api"
+            },
+            "missing": false
+          },
+          {
+            "id": "container-count",
+            "op": "length",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers"
+            ],
+            "passed": true,
+            "expected": 1,
+            "actual": [
+              {
+                "name": "app",
+                "image": "nginx:1.28.0",
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "readOnlyRootFilesystem": true,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
+                  }
+                }
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "image",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "image"
+            ],
+            "passed": true,
+            "expected": "nginx:1.28.0",
+            "actual": "nginx:1.28.0",
+            "missing": false
+          },
+          {
+            "id": "service-account-token",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "automountServiceAccountToken"
+            ],
+            "passed": true,
+            "expected": false,
+            "actual": false,
+            "missing": false
+          },
+          {
+            "id": "pod-security",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "securityContext"
+            ],
+            "passed": true,
+            "expected": {
+              "runAsNonRoot": true,
+              "runAsUser": 10001,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
+            "actual": {
+              "runAsNonRoot": true,
+              "runAsUser": 10001,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "container-security",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "securityContext"
+            ],
+            "passed": true,
+            "expected": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "actual": {
+              "allowPrivilegeEscalation": false,
+              "readOnlyRootFilesystem": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "disruption-budget",
+            "op": "eq",
+            "resource": "PodDisruptionBudget/api",
+            "path": [
+              "spec",
+              "minAvailable"
+            ],
+            "passed": true,
+            "expected": 2,
+            "actual": 2,
+            "missing": false
+          },
+          {
+            "id": "pdb-selector",
+            "op": "selector",
+            "resource": "PodDisruptionBudget/api",
+            "path": [
+              "spec",
+              "selector"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "matchLabels": {
+                "app": "api"
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "no-max-unavailable",
+            "op": "absent",
+            "resource": "PodDisruptionBudget/api",
+            "path": [
+              "spec",
+              "maxUnavailable"
+            ],
+            "passed": true,
+            "expected": null,
+            "actual": null,
+            "missing": true
+          }
+        ],
+        "errors": []
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-1.5b",
+      "task": "configmap-wiring",
+      "classification": "model_output_error",
+      "diagnosis": "The Deployment container has no name; the prompt explicitly requires app.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Add the missing container name app.",
+      "diagnostic_result": {
+        "stage": "passed",
+        "passed": true,
+        "score": 1.0,
+        "checks": [
+          {
+            "id": "replicas",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "replicas"
+            ],
+            "passed": true,
+            "expected": 3,
+            "actual": 3,
+            "missing": false
+          },
+          {
+            "id": "selector",
+            "op": "selector",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "selector"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "matchLabels": {
+                "app": "api"
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "pod-labels",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "metadata",
+              "labels"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "app": "api"
+            },
+            "missing": false
+          },
+          {
+            "id": "container-count",
+            "op": "length",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers"
+            ],
+            "passed": true,
+            "expected": 1,
+            "actual": [
+              {
+                "image": "nginx:1.28.0",
+                "envFrom": [
+                  {
+                    "configMapRef": {
+                      "name": "api-config"
+                    }
+                  }
+                ],
+                "name": "app"
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "image",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "image"
+            ],
+            "passed": true,
+            "expected": "nginx:1.28.0",
+            "actual": "nginx:1.28.0",
+            "missing": false
+          },
+          {
+            "id": "config-reference",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "envFrom"
+            ],
+            "passed": true,
+            "expected": [
+              {
+                "configMapRef": {
+                  "name": "api-config"
+                }
+              }
+            ],
+            "actual": [
+              {
+                "configMapRef": {
+                  "name": "api-config"
+                }
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "no-env-override",
+            "op": "absent",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "env"
+            ],
+            "passed": true,
+            "expected": null,
+            "actual": null,
+            "missing": true
+          },
+          {
+            "id": "immutable",
+            "op": "eq",
+            "resource": "ConfigMap/api-config",
+            "path": [
+              "immutable"
+            ],
+            "passed": true,
+            "expected": true,
+            "actual": true,
+            "missing": false
+          },
+          {
+            "id": "data",
+            "op": "eq",
+            "resource": "ConfigMap/api-config",
+            "path": [
+              "data"
+            ],
+            "passed": true,
+            "expected": {
+              "LOG_LEVEL": "info",
+              "PORT": "8080"
+            },
+            "actual": {
+              "LOG_LEVEL": "info",
+              "PORT": "8080"
+            },
+            "missing": false
+          }
+        ],
+        "errors": []
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-0.5b",
+      "task": "deployment-resources",
+      "classification": "model_output_error",
+      "diagnosis": "Valid JSON, but missing the explicitly required resources array wrapper. Also omits the named port and HTTP readiness probe; its liveness probe has no handler.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Add only the required resources array wrapper; leave resource contents unchanged.",
+      "diagnostic_result": {
+        "stage": "requirements",
+        "passed": false,
+        "score": 0.7777777777777778,
+        "checks": [
+          {
+            "id": "replicas",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "replicas"
+            ],
+            "passed": true,
+            "expected": 3,
+            "actual": 3,
+            "missing": false
+          },
+          {
+            "id": "selector",
+            "op": "selector",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "selector"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "matchLabels": {
+                "app": "api"
+              }
+            },
+            "missing": false
+          },
+          {
+            "id": "pod-labels",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "metadata",
+              "labels"
+            ],
+            "passed": true,
+            "expected": {
+              "app": "api"
+            },
+            "actual": {
+              "app": "api"
+            },
+            "missing": false
+          },
+          {
+            "id": "container-count",
+            "op": "length",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers"
+            ],
+            "passed": true,
+            "expected": 1,
+            "actual": [
+              {
+                "name": "app",
+                "image": "nginx:1.28.0",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "500m",
+                    "memory": "128Mi"
+                  }
+                },
+                "livenessProbe": {
+                  "initialDelaySeconds": 5,
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 10,
+                  "successThreshold": 1,
+                  "failureThreshold": 1
+                }
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "image",
+            "op": "eq",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "image"
+            ],
+            "passed": true,
+            "expected": "nginx:1.28.0",
+            "actual": "nginx:1.28.0",
+            "missing": false
+          },
+          {
+            "id": "ports",
+            "op": "ports",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "ports"
+            ],
+            "passed": false,
+            "expected": [
+              {
+                "name": "http",
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "actual": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "missing": false
+          },
+          {
+            "id": "requests",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "resources",
+              "requests"
+            ],
+            "passed": true,
+            "expected": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "actual": {
+              "cpu": "100m",
+              "memory": "64Mi"
+            },
+            "missing": false
+          },
+          {
+            "id": "limits",
+            "op": "subset",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "resources",
+              "limits"
+            ],
+            "passed": true,
+            "expected": {
+              "cpu": "500m",
+              "memory": "128Mi"
+            },
+            "actual": {
+              "cpu": "500m",
+              "memory": "128Mi"
+            },
+            "missing": false
+          },
+          {
+            "id": "readiness",
+            "op": "http_probe",
+            "resource": "Deployment/api",
+            "path": [
+              "spec",
+              "template",
+              "spec",
+              "containers",
+              {
+                "name": "app"
+              },
+              "readinessProbe"
+            ],
+            "passed": false,
+            "expected": {
+              "httpGet": {
+                "path": "/ready",
+                "port": "http"
+              },
+              "initialDelaySeconds": 5
+            },
+            "actual": null,
+            "missing": true
+          }
+        ],
+        "errors": []
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-0.5b",
+      "task": "service-routing",
+      "classification": "model_output_error",
+      "diagnosis": "Valid JSON, but missing the explicitly required resources array wrapper. Also omits the Service, changes the Deployment/container names and omits the named port.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Add only the required resources array wrapper; leave resource contents unchanged.",
+      "diagnostic_result": {
+        "stage": "inventory",
+        "passed": false,
+        "score": 0.0,
+        "checks": [],
+        "errors": [
+          "resource identities must exactly match the requested set; duplicates, missing resources and extras receive no credit"
+        ]
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-0.5b",
+      "task": "network-isolation",
+      "classification": "model_output_error",
+      "diagnosis": "Valid JSON, but missing the explicitly required resources array wrapper. Also invents spec.rules and embeds Ingress/Egress-like objects instead of the requested NetworkPolicy peer rules.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Add only the required resources array wrapper; leave resource contents unchanged.",
+      "diagnostic_result": {
+        "stage": "schema",
+        "passed": false,
+        "score": 0.0,
+        "checks": [],
+        "errors": [
+          "resource 0 /spec: Additional properties are not allowed ('rules' was unexpected)"
+        ]
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-0.5b",
+      "task": "cronjob-bounds",
+      "classification": "model_output_error",
+      "diagnosis": "Valid JSON, but missing the explicitly required resources array wrapper. Also uses the wrong resource/container names and places containers at JobSpec level; the job template, retry and deadline fields are missing.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Add only the required resources array wrapper; leave resource contents unchanged.",
+      "diagnostic_result": {
+        "stage": "schema",
+        "passed": false,
+        "score": 0.0,
+        "checks": [],
+        "errors": [
+          "resource 0 /spec/jobTemplate/spec: 'template' is a required property",
+          "resource 0 /spec/jobTemplate/spec: Additional properties are not allowed ('containers', 'restartPolicy' were unexpected)"
+        ]
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-0.5b",
+      "task": "workload-hardening",
+      "classification": "model_output_error",
+      "diagnosis": "Valid JSON, but missing the explicitly required resources array wrapper. Also omits the PDB and pod-level security settings, changes names and omits automountServiceAccountToken=false.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Add only the required resources array wrapper; leave resource contents unchanged.",
+      "diagnostic_result": {
+        "stage": "inventory",
+        "passed": false,
+        "score": 0.0,
+        "checks": [],
+        "errors": [
+          "resource identities must exactly match the requested set; duplicates, missing resources and extras receive no credit"
+        ]
+      },
+      "diagnostic_only": true
+    },
+    {
+      "model": "qwen-0.5b",
+      "task": "configmap-wiring",
+      "classification": "model_output_error",
+      "diagnosis": "Valid JSON, but missing the explicitly required resources array wrapper. Also omits the ConfigMap, uses api-deployment and names the container nginx.",
+      "original_evaluation_reproduced": true,
+      "blocking_prompt_ambiguity_identified": false,
+      "scorer_false_rejection_identified": false,
+      "diagnostic_edit": "Add only the required resources array wrapper; leave resource contents unchanged.",
+      "diagnostic_result": {
+        "stage": "inventory",
+        "passed": false,
+        "score": 0.0,
+        "checks": [],
+        "errors": [
+          "resource identities must exactly match the requested set; duplicates, missing resources and extras receive no credit"
+        ]
+      },
+      "diagnostic_only": true
+    }
+  ]
+}

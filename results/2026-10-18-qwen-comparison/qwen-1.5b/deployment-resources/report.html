@@ -1,0 +1,320 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IaC evaluation report</title><style>body{font:16px/1.6 system-ui;max-width:1100px;margin:40px auto;padding:0 20px;color:#172033}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccd5df;padding:10px;text-align:left}pre{white-space:pre-wrap;overflow-wrap:anywhere}.note{background:#edf4fa;padding:16px}details{margin:12px 0}</style><h1>IaC evaluation report</h1><p class="note">Model run: a small public synthetic suite, not a general capability ranking.</p><p>Suite: kubernetes-config-v2 · Provider: ollama · Model: iac-qwen25-coder-15b-pilot:latest</p><p>Completed: 1/1 · Passes: 0 · Provider errors: 0</p><table><tr><th>Task</th><th>Trial</th><th>Outcome</th><th>Score</th><th>Failed checks</th></tr><tr><td>deployment-resources</td><td>1</td><td>requirements</td><td>0.778</td><td>ports, readiness</td></tr></table><h2>Metrics and coverage</h2><pre>{
+  &quot;attempts&quot;: 1,
+  &quot;completed&quot;: 1,
+  &quot;provider_errors&quot;: 0,
+  &quot;passes&quot;: 0,
+  &quot;operational_pass_rate&quot;: 0.0,
+  &quot;quality_pass_rate&quot;: 0.0,
+  &quot;macro_score&quot;: 0.7777777777777778,
+  &quot;task_coverage&quot;: {
+    &quot;attempted&quot;: 1,
+    &quot;with_completions&quot;: 1
+  },
+  &quot;operational_macro_score&quot;: 0.7777777777777778,
+  &quot;failure_stages&quot;: {
+    &quot;requirements&quot;: 1
+  },
+  &quot;generation_latency_seconds&quot;: {
+    &quot;samples&quot;: 1,
+    &quot;p50&quot;: 46.21542567100005,
+    &quot;p95&quot;: 46.21542567100005
+  },
+  &quot;estimated_cost_usd&quot;: null,
+  &quot;cost_covered_completions&quot;: 0,
+  &quot;input_tokens_known&quot;: 309,
+  &quot;output_tokens_known&quot;: 288,
+  &quot;usage_covered_completions&quot;: 1
+}</pre><p>Quality pass rate excludes provider errors; operational pass rate includes them. Macro score averages task means over completed responses; inspect task coverage. Operational macro score counts provider errors as zero. Missing usage/cost/latency is unknown, not free or zero. Percentiles use nearest rank; small samples are noisy. Schema and rubric checks do not establish deployability, full API admission validation or complete security. Resources are never deployed.</p><h2>Per-attempt evidence</h2><details><summary>deployment-resources / trial 1</summary><pre>{
+  &quot;task_id&quot;: &quot;deployment-resources&quot;,
+  &quot;task_version&quot;: 2,
+  &quot;trial&quot;: 1,
+  &quot;seed&quot;: 42,
+  &quot;run_fingerprint&quot;: &quot;dbc64a01a6835aac7b23c612c1b07789c8c6ae78adb9e9121a58c30ffb83bc1d&quot;,
+  &quot;prompt&quot;: &quot;Return exactly one JSON object with the sole top-level key resources, whose value is an array of Kubernetes resource objects. No Markdown fences, comments, explanations, duplicate keys, or additional resources. Use Kubernetes 1.34 API schemas. This is a static configuration task; do not execute commands or contact a cluster.\n\nCreate one apps/v1 Deployment named api in namespace bench. Use exactly 3 replicas; selector and pod labels must both be app=api. Include exactly one container named app, image nginx:1.28.0, named http port 8080. Set CPU request 100m and limit 500m, memory request 64Mi and limit 128Mi (use these exact quantity strings). Configure an HTTP readiness probe at /ready using named port http with initialDelaySeconds 5. The image/port are test inputs, not a claim about a deployed application. Selectors must include app=api in matchLabels (or the Service selector map) and match the Deployment pod labels. Additional pod labels and selector constraints are allowed when they still match those pods. The container port must use TCP (omission defaults to TCP). Use only the HTTP readiness handler, with scheme HTTP and no host override. Any supplied probe timing/threshold options must be positive; per-probe terminationGracePeriodSeconds is not allowed on readiness.&quot;,
+  &quot;prompt_sha256&quot;: &quot;515455219e3273a841927fd132f0a6bd8206e02e8443273532706360615ea8e1&quot;,
+  &quot;response&quot;: &quot;{\n  \&quot;resources\&quot;: [\n    {\n      \&quot;apiVersion\&quot;: \&quot;apps/v1\&quot;,\n      \&quot;kind\&quot;: \&quot;Deployment\&quot;,\n      \&quot;metadata\&quot;: {\n        \&quot;name\&quot;: \&quot;api\&quot;,\n        \&quot;namespace\&quot;: \&quot;bench\&quot;\n      },\n      \&quot;spec\&quot;: {\n        \&quot;replicas\&quot;: 3,\n        \&quot;selector\&quot;: {\n          \&quot;matchLabels\&quot;: {\n            \&quot;app\&quot;: \&quot;api\&quot;\n          }\n        },\n        \&quot;template\&quot;: {\n          \&quot;metadata\&quot;: {\n            \&quot;labels\&quot;: {\n              \&quot;app\&quot;: \&quot;api\&quot;\n            }\n          },\n          \&quot;spec\&quot;: {\n            \&quot;containers\&quot;: [\n              {\n                \&quot;name\&quot;: \&quot;app\&quot;,\n                \&quot;image\&quot;: \&quot;nginx:1.28.0\&quot;,\n                \&quot;ports\&quot;: [\n                  {\n                    \&quot;containerPort\&quot;: 8080,\n                    \&quot;protocol\&quot;: \&quot;TCP\&quot;\n                  }\n                ],\n                \&quot;resources\&quot;: {\n                  \&quot;requests\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;100m\&quot;,\n                    \&quot;memory\&quot;: \&quot;64Mi\&quot;\n                  },\n                  \&quot;limits\&quot;: {\n                    \&quot;cpu\&quot;: \&quot;500m\&quot;,\n                    \&quot;memory\&quot;: \&quot;128Mi\&quot;\n                  }\n                },\n                \&quot;livenessProbe\&quot;: {\n                  \&quot;httpGet\&quot;: {\n                    \&quot;path\&quot;: \&quot;/ready\&quot;,\n                    \&quot;port\&quot;: 8080\n                  },\n                  \&quot;initialDelaySeconds\&quot;: 5\n                }\n              }\n            ]\n          }\n        }\n      }\n    }\n  ]\n}&quot;,
+  &quot;generation_seconds&quot;: 46.21542567100005,
+  &quot;input_tokens&quot;: 309,
+  &quot;output_tokens&quot;: 288,
+  &quot;provider_metadata&quot;: {
+    &quot;model&quot;: &quot;iac-qwen25-coder-15b-pilot:latest&quot;,
+    &quot;done_reason&quot;: &quot;stop&quot;,
+    &quot;total_duration&quot;: 46173248754,
+    &quot;load_duration&quot;: 3333101720
+  },
+  &quot;status&quot;: &quot;completed&quot;,
+  &quot;evaluation&quot;: {
+    &quot;stage&quot;: &quot;requirements&quot;,
+    &quot;passed&quot;: false,
+    &quot;score&quot;: 0.7777777777777778,
+    &quot;checks&quot;: [
+      {
+        &quot;id&quot;: &quot;replicas&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;replicas&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 3,
+        &quot;actual&quot;: 3,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;selector&quot;,
+        &quot;op&quot;: &quot;selector&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;selector&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;matchLabels&quot;: {
+            &quot;app&quot;: &quot;api&quot;
+          }
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;pod-labels&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;metadata&quot;,
+          &quot;labels&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;app&quot;: &quot;api&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;container-count&quot;,
+        &quot;op&quot;: &quot;length&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: 1,
+        &quot;actual&quot;: [
+          {
+            &quot;name&quot;: &quot;app&quot;,
+            &quot;image&quot;: &quot;nginx:1.28.0&quot;,
+            &quot;ports&quot;: [
+              {
+                &quot;containerPort&quot;: 8080,
+                &quot;protocol&quot;: &quot;TCP&quot;
+              }
+            ],
+            &quot;resources&quot;: {
+              &quot;requests&quot;: {
+                &quot;cpu&quot;: &quot;100m&quot;,
+                &quot;memory&quot;: &quot;64Mi&quot;
+              },
+              &quot;limits&quot;: {
+                &quot;cpu&quot;: &quot;500m&quot;,
+                &quot;memory&quot;: &quot;128Mi&quot;
+              }
+            },
+            &quot;livenessProbe&quot;: {
+              &quot;httpGet&quot;: {
+                &quot;path&quot;: &quot;/ready&quot;,
+                &quot;port&quot;: 8080
+              },
+              &quot;initialDelaySeconds&quot;: 5
+            }
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;image&quot;,
+        &quot;op&quot;: &quot;eq&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;image&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;actual&quot;: &quot;nginx:1.28.0&quot;,
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;ports&quot;,
+        &quot;op&quot;: &quot;ports&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;ports&quot;
+        ],
+        &quot;passed&quot;: false,
+        &quot;expected&quot;: [
+          {
+            &quot;name&quot;: &quot;http&quot;,
+            &quot;containerPort&quot;: 8080,
+            &quot;protocol&quot;: &quot;TCP&quot;
+          }
+        ],
+        &quot;actual&quot;: [
+          {
+            &quot;containerPort&quot;: 8080,
+            &quot;protocol&quot;: &quot;TCP&quot;
+          }
+        ],
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;requests&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;resources&quot;,
+          &quot;requests&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;cpu&quot;: &quot;100m&quot;,
+          &quot;memory&quot;: &quot;64Mi&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;cpu&quot;: &quot;100m&quot;,
+          &quot;memory&quot;: &quot;64Mi&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;limits&quot;,
+        &quot;op&quot;: &quot;subset&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;resources&quot;,
+          &quot;limits&quot;
+        ],
+        &quot;passed&quot;: true,
+        &quot;expected&quot;: {
+          &quot;cpu&quot;: &quot;500m&quot;,
+          &quot;memory&quot;: &quot;128Mi&quot;
+        },
+        &quot;actual&quot;: {
+          &quot;cpu&quot;: &quot;500m&quot;,
+          &quot;memory&quot;: &quot;128Mi&quot;
+        },
+        &quot;missing&quot;: false
+      },
+      {
+        &quot;id&quot;: &quot;readiness&quot;,
+        &quot;op&quot;: &quot;http_probe&quot;,
+        &quot;resource&quot;: &quot;Deployment/api&quot;,
+        &quot;path&quot;: [
+          &quot;spec&quot;,
+          &quot;template&quot;,
+          &quot;spec&quot;,
+          &quot;containers&quot;,
+          {
+            &quot;name&quot;: &quot;app&quot;
+          },
+          &quot;readinessProbe&quot;
+        ],
+        &quot;passed&quot;: false,
+        &quot;expected&quot;: {
+          &quot;httpGet&quot;: {
+            &quot;path&quot;: &quot;/ready&quot;,
+            &quot;port&quot;: &quot;http&quot;
+          },
+          &quot;initialDelaySeconds&quot;: 5
+        },
+        &quot;actual&quot;: null,
+        &quot;missing&quot;: true
+      }
+    ],
+    &quot;errors&quot;: []
+  },
+  &quot;evaluation_seconds&quot;: 0.0010345000000597793,
+  &quot;estimated_cost_usd&quot;: null
+}</pre></details><h2>Run provenance</h2><pre>{
+  &quot;format_version&quot;: 2,
+  &quot;suite&quot;: &quot;kubernetes-config-v2&quot;,
+  &quot;suite_version&quot;: &quot;2.0.0&quot;,
+  &quot;suite_sha256&quot;: &quot;6cac0e7aeb51f6e03c5763983743e4261517154cc27208415b6d47690148f58e&quot;,
+  &quot;schemas_sha256&quot;: &quot;730ad4d36441fb42e2a056fbc506eb40b0775a438e82230c144020c6ae7a4ba3&quot;,
+  &quot;harness_version&quot;: &quot;0.2.0&quot;,
+  &quot;harness_sha256&quot;: &quot;985631120cb547101e75bde75874b6329315cc3a0872046aa6314a0a8e1d5273&quot;,
+  &quot;config&quot;: {
+    &quot;provider&quot;: &quot;ollama&quot;,
+    &quot;fixture_dir&quot;: null,
+    &quot;model&quot;: &quot;iac-qwen25-coder-15b-pilot:latest&quot;,
+    &quot;model_revision&quot;: &quot;8b6adbbef77f85ad49e28fe86719b9616290d618ae463a700d11639893179fe8&quot;,
+    &quot;endpoint&quot;: &quot;http://127.0.0.1:11435&quot;,
+    &quot;repeat&quot;: 1,
+    &quot;seed&quot;: 42,
+    &quot;temperature&quot;: 0.0,
+    &quot;timeout&quot;: 600.0,
+    &quot;input_rate&quot;: null,
+    &quot;output_rate&quot;: null,
+    &quot;tasks&quot;: [
+      &quot;deployment-resources&quot;
+    ]
+  },
+  &quot;fixture_sha256&quot;: {},
+  &quot;runtime&quot;: {
+    &quot;python&quot;: &quot;3.12.3&quot;,
+    &quot;dependencies&quot;: {
+      &quot;jsonschema&quot;: &quot;4.26.0&quot;,
+      &quot;jsonschema-specifications&quot;: &quot;2025.9.1&quot;,
+      &quot;referencing&quot;: &quot;0.37.0&quot;,
+      &quot;rpds-py&quot;: &quot;2026.9.1&quot;,
+      &quot;attrs&quot;: &quot;26.1.0&quot;
+    }
+  },
+  &quot;fingerprint&quot;: &quot;dbc64a01a6835aac7b23c612c1b07789c8c6ae78adb9e9121a58c30ffb83bc1d&quot;,
+  &quot;created_utc&quot;: &quot;2026-10-18T09:01:09.703469+00:00&quot;,
+  &quot;python&quot;: &quot;3.12.3&quot;,
+  &quot;platform&quot;: &quot;Linux-7.0.0-1014-gcp-x86_64-with-glibc2.39&quot;,
+  &quot;git&quot;: {
+    &quot;revision&quot;: &quot;3da83dbb58855804b49b0f2c7b1d995c587ddbdd&quot;,
+    &quot;dirty&quot;: false
+  },
+  &quot;sampling&quot;: &quot;independent requests; no best-of selection or automatic retries&quot;
+}</pre></html>

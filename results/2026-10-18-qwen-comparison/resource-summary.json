@@ -1,0 +1,20 @@
+{
+  "unit": "iac-model-comparison.service",
+  "elapsed_seconds": 412.6906879349999,
+  "service_status": {
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ControlGroup": "",
+    "MemoryPeak": "[not set]",
+    "CPUUsageNSec": "[not set]",
+    "ActiveState": "inactive",
+    "SubState": "dead"
+  },
+  "actions": [],
+  "minimum_host_available_gib": 29.222530364990234,
+  "minimum_disk_free_gib": 30.669727325439453,
+  "maximum_host_load_1min": 2.02,
+  "workload_peak_gib": 2.5235137939453125,
+  "sample_interval_seconds": 2,
+  "sample_count": 206
+}

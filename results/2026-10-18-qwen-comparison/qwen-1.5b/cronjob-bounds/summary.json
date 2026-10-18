@@ -1,0 +1,82 @@
+{
+  "run": {
+    "format_version": 2,
+    "suite": "kubernetes-config-v2",
+    "suite_version": "2.0.0",
+    "suite_sha256": "6cac0e7aeb51f6e03c5763983743e4261517154cc27208415b6d47690148f58e",
+    "schemas_sha256": "730ad4d36441fb42e2a056fbc506eb40b0775a438e82230c144020c6ae7a4ba3",
+    "harness_version": "0.2.0",
+    "harness_sha256": "985631120cb547101e75bde75874b6329315cc3a0872046aa6314a0a8e1d5273",
+    "config": {
+      "provider": "ollama",
+      "fixture_dir": null,
+      "model": "iac-qwen25-coder-15b-pilot:latest",
+      "model_revision": "8b6adbbef77f85ad49e28fe86719b9616290d618ae463a700d11639893179fe8",
+      "endpoint": "http://127.0.0.1:11435",
+      "repeat": 1,
+      "seed": 42,
+      "temperature": 0.0,
+      "timeout": 600.0,
+      "input_rate": null,
+      "output_rate": null,
+      "tasks": [
+        "cronjob-bounds"
+      ]
+    },
+    "fixture_sha256": {},
+    "runtime": {
+      "python": "3.12.3",
+      "dependencies": {
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1",
+        "attrs": "26.1.0"
+      }
+    },
+    "fingerprint": "98978ca27c2c1d5806d002e2e553bc30998b4d14b80f54e7b86dd3bd412cbf2e",
+    "created_utc": "2026-10-18T09:00:34.564380+00:00",
+    "python": "3.12.3",
+    "platform": "Linux-7.0.0-1014-gcp-x86_64-with-glibc2.39",
+    "git": {
+      "revision": "3da83dbb58855804b49b0f2c7b1d995c587ddbdd",
+      "dirty": false
+    },
+    "sampling": "independent requests; no best-of selection or automatic retries"
+  },
+  "summary": {
+    "attempts": 1,
+    "completed": 1,
+    "provider_errors": 0,
+    "passes": 0,
+    "operational_pass_rate": 0.0,
+    "quality_pass_rate": 0.0,
+    "macro_score": 0.0,
+    "task_coverage": {
+      "attempted": 1,
+      "with_completions": 1
+    },
+    "operational_macro_score": 0.0,
+    "failure_stages": {
+      "inventory": 1
+    },
+    "generation_latency_seconds": {
+      "samples": 1,
+      "p50": 33.031760472000315,
+      "p95": 33.031760472000315
+    },
+    "estimated_cost_usd": null,
+    "cost_covered_completions": 0,
+    "input_tokens_known": 195,
+    "output_tokens_known": 211,
+    "usage_covered_completions": 1,
+    "by_task": {
+      "cronjob-bounds": {
+        "attempts": 1,
+        "completed": 1,
+        "passes": 0,
+        "mean_score": 0.0
+      }
+    }
+  }
+}

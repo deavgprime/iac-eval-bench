@@ -1,0 +1,45 @@
+{
+  "format_version": 2,
+  "suite": "kubernetes-config-v2",
+  "suite_version": "2.0.0",
+  "suite_sha256": "6cac0e7aeb51f6e03c5763983743e4261517154cc27208415b6d47690148f58e",
+  "schemas_sha256": "730ad4d36441fb42e2a056fbc506eb40b0775a438e82230c144020c6ae7a4ba3",
+  "harness_version": "0.2.0",
+  "harness_sha256": "985631120cb547101e75bde75874b6329315cc3a0872046aa6314a0a8e1d5273",
+  "config": {
+    "provider": "ollama",
+    "fixture_dir": null,
+    "model": "iac-qwen25-coder-15b-pilot:latest",
+    "model_revision": "8b6adbbef77f85ad49e28fe86719b9616290d618ae463a700d11639893179fe8",
+    "endpoint": "http://127.0.0.1:11435",
+    "repeat": 1,
+    "seed": 42,
+    "temperature": 0.0,
+    "timeout": 600.0,
+    "input_rate": null,
+    "output_rate": null,
+    "tasks": [
+      "workload-hardening"
+    ]
+  },
+  "fixture_sha256": {},
+  "runtime": {
+    "python": "3.12.3",
+    "dependencies": {
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.9.1",
+      "attrs": "26.1.0"
+    }
+  },
+  "fingerprint": "c85752fecb6bbe39c6e5da8e5f51b9775adab93b06835cd8e8e349750c0f5997",
+  "created_utc": "2026-10-18T09:03:28.572671+00:00",
+  "python": "3.12.3",
+  "platform": "Linux-7.0.0-1014-gcp-x86_64-with-glibc2.39",
+  "git": {
+    "revision": "3da83dbb58855804b49b0f2c7b1d995c587ddbdd",
+    "dirty": false
+  },
+  "sampling": "independent requests; no best-of selection or automatic retries"
+}

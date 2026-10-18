@@ -4,7 +4,7 @@
 
 A small, reproducible benchmark for **LLM-generated Kubernetes configuration**. It combines offline schema validation, explicit task requirements, failure analysis and a resumable Python evaluation workflow.
 
-**Status: research/engineering prototype, v0.2.0 / suite v2.** Six original synthetic tasks and 50 rubric checks. Published evidence includes **constructed fixture baselines** and a [single-task real-model pilot](results/2026-10-17-qwen25-coder-15b-pilot/README.md) using Qwen2.5-Coder 1.5B Q4_K_M: 0/1 task passes, 48.96 seconds generation-request latency. This is one CPU-only observation, not a model comparison or full-suite baseline. No cloud resources are created. See the [scoring audit](docs/scoring-audit.md) for corrected errors and regression coverage.
+**Status: research/engineering prototype, v0.2.0 / suite v2.** Six original synthetic tasks and 50 rubric checks. Published evidence includes constructed fixture baselines and a [six-task comparison of Qwen2.5-Coder 1.5B and 0.5B](results/2026-10-18-qwen-comparison/README.md), with all 12 attempts, failure reviews, latency, token usage and resource measurements retained. Both models passed 0/6 tasks; macro rubric scores were 17.13% and 0%. One attempt per task does not establish a model ranking. No cloud resources are created. See the [scoring audit](docs/scoring-audit.md) for corrected errors and regression coverage.
 
 ## What it measures
 
