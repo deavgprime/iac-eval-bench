@@ -2,7 +2,7 @@
 
 A focused code and regression audit of the static evaluator, task wording,
 transport classification, aggregation and resume provenance. Initial revision:
-[`cf07f06`](https://github.com/devgprime/iac-eval-bench/commit/cf07f06af0354a4b619b57a3169706953230cb86).
+[`cf07f06`](https://github.com/deavgprime/iac-eval-bench/commit/cf07f06af0354a4b619b57a3169706953230cb86).
 This review found five scoring errors and one resume-provenance defect. All six
 have regression coverage in v0.2.0. This is an internal engineering review;
 no independent model evaluation or cluster admission test was performed.
