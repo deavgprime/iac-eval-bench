@@ -1,6 +1,6 @@
 # IaC Eval Bench
 
-[![CI](https://github.com/devgprime/iac-eval-bench/actions/workflows/ci.yml/badge.svg)](https://github.com/devgprime/iac-eval-bench/actions/workflows/ci.yml)
+[![CI](https://github.com/deavgprime/iac-eval-bench/actions/workflows/ci.yml/badge.svg)](https://github.com/deavgprime/iac-eval-bench/actions/workflows/ci.yml)
 
 A small, reproducible benchmark for **LLM-generated Kubernetes configuration**. It combines offline schema validation, explicit task requirements, failure analysis and a resumable Python evaluation workflow.
 

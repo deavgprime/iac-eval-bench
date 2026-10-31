@@ -13,8 +13,8 @@ authors = [{name = "Deavyansh Gautam"}]
 dependencies = ["jsonschema==4.26.0"]
 
 [project.urls]
-Repository = "https://github.com/devgprime/iac-eval-bench"
-Issues = "https://github.com/devgprime/iac-eval-bench/issues"
+Repository = "https://github.com/deavgprime/iac-eval-bench"
+Issues = "https://github.com/deavgprime/iac-eval-bench/issues"
 
 [project.scripts]
 iac-eval = "iac_eval_bench.cli:main"
