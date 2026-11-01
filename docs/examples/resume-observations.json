@@ -1,0 +1,70 @@
+{
+  "scope": "Constructed fixture and fault-injection checks. No live model or provider service used.",
+  "scenarios": [
+    {
+      "scenario": "controlled interruption",
+      "saved_attempts": 1,
+      "interrupted_before_second_attempt": true
+    },
+    {
+      "scenario": "resume missing work",
+      "provider_calls": 1,
+      "attempts": 2,
+      "passes": 2,
+      "first_record_unchanged": true
+    },
+    {
+      "scenario": "resume complete run",
+      "provider_calls": 0,
+      "summary_unchanged": true
+    },
+    {
+      "scenario": "changed seed",
+      "rejected": true,
+      "error": "resume rejected: configuration, inputs or evaluator changed"
+    },
+    {
+      "scenario": "changed fixture bytes",
+      "rejected": true,
+      "error": "resume rejected: configuration, inputs or evaluator changed"
+    },
+    {
+      "scenario": "changed manifest provenance",
+      "rejected": true,
+      "error": "resume rejected: manifest provenance does not match recorded inputs"
+    },
+    {
+      "scenario": "changed attempt without matching checksum",
+      "rejected": true,
+      "error": "attempt integrity check failed"
+    },
+    {
+      "scenario": "resume recorded provider errors",
+      "provider_calls": 0,
+      "retained_provider_errors": 2,
+      "quality_pass_rate": null,
+      "operational_pass_rate": 0.0
+    }
+  ],
+  "source_revision": "1dbabecd8cc377cef1082b2652131b6921c4c74b",
+  "cli_checks": [
+    {
+      "step": "initial",
+      "exit_code": 0,
+      "new_attempt_log_lines": 2,
+      "stderr": ""
+    },
+    {
+      "step": "resume",
+      "exit_code": 0,
+      "new_attempt_log_lines": 0,
+      "stderr": ""
+    },
+    {
+      "step": "changed-seed",
+      "exit_code": 2,
+      "new_attempt_log_lines": 0,
+      "stderr": "error: resume rejected: configuration, inputs or evaluator changed"
+    }
+  ]
+}
