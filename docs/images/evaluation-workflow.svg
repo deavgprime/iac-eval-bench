@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1320" viewBox="0 0 1000 1320" role="img" aria-labelledby="title desc">
+<title id="title">How the evaluator checks an answer</title><desc id="desc">A task and candidate answer feed four offline checks. The evaluator saves evidence. API admission and runtime behavior are not tested.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M 0 0 L 9 5 L 0 10 z" fill="#6b847d"/></marker></defs>
+<rect width="1000" height="1320" fill="#f7faf8"/>
+<text x="68" y="82.0" font-family="Noto Sans, sans-serif" font-size="34" font-weight="700" fill="#16312d">How the evaluator checks an answer</text>
+<text x="68" y="124.0" font-family="Noto Sans, sans-serif" font-size="24" font-weight="400" fill="#4c6560">IaC Eval Bench: offline scoring workflow</text>
+<rect x="68" y="165" width="864" height="110" rx="18" fill="#edf4ef" stroke="#d4e2db" stroke-width="2"/>
+<text x="94" y="208.0" font-family="Noto Sans, sans-serif" font-size="28" font-weight="700" fill="#16312d">Task requirements + candidate answer</text>
+<text x="94" y="245.0" font-family="Noto Sans, sans-serif" font-size="22" font-weight="400" fill="#4c6560">The answer can be a model response or a constructed example.</text>
+<path d="M 500 277 V 308" stroke="#6b847d" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="100" y="320" width="800" height="120" rx="18" fill="white" stroke="#d4e2db" stroke-width="2"/>
+<circle cx="146" cy="364" r="22" fill="#17664f"/>
+<text x="137" y="373.0" font-family="Noto Sans, sans-serif" font-size="25" font-weight="700" fill="white">1</text>
+<text x="184" y="367.0" font-family="Noto Sans, sans-serif" font-size="27" font-weight="700" fill="#16312d">Read the response</text>
+<text x="127" y="411.0" font-family="Noto Sans, sans-serif" font-size="23" font-weight="400" fill="#4c6560">Check the required JSON structure.</text>
+<path d="M 500 442 V 473" stroke="#6b847d" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="100" y="485" width="800" height="120" rx="18" fill="white" stroke="#d4e2db" stroke-width="2"/>
+<circle cx="146" cy="529" r="22" fill="#17664f"/>
+<text x="137" y="538.0" font-family="Noto Sans, sans-serif" font-size="25" font-weight="700" fill="white">2</text>
+<text x="184" y="532.0" font-family="Noto Sans, sans-serif" font-size="27" font-weight="700" fill="#16312d">Check the schema</text>
+<text x="127" y="576.0" font-family="Noto Sans, sans-serif" font-size="23" font-weight="400" fill="#4c6560">Check allowed fields and their types.</text>
+<path d="M 500 607 V 638" stroke="#6b847d" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="100" y="650" width="800" height="120" rx="18" fill="white" stroke="#d4e2db" stroke-width="2"/>
+<circle cx="146" cy="694" r="22" fill="#17664f"/>
+<text x="137" y="703.0" font-family="Noto Sans, sans-serif" font-size="25" font-weight="700" fill="white">3</text>
+<text x="184" y="697.0" font-family="Noto Sans, sans-serif" font-size="27" font-weight="700" fill="#16312d">Check the resource inventory</text>
+<text x="127" y="741.0" font-family="Noto Sans, sans-serif" font-size="23" font-weight="400" fill="#4c6560">Check resource types, names, and namespaces.</text>
+<path d="M 500 772 V 803" stroke="#6b847d" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="100" y="815" width="800" height="120" rx="18" fill="white" stroke="#d4e2db" stroke-width="2"/>
+<circle cx="146" cy="859" r="22" fill="#17664f"/>
+<text x="137" y="868.0" font-family="Noto Sans, sans-serif" font-size="25" font-weight="700" fill="white">4</text>
+<text x="184" y="862.0" font-family="Noto Sans, sans-serif" font-size="27" font-weight="700" fill="#16312d">Check the task requirements</text>
+<text x="127" y="906.0" font-family="Noto Sans, sans-serif" font-size="23" font-weight="400" fill="#4c6560">Check relationships such as selectors and pod labels.</text>
+<path d="M 500 935 V 970" stroke="#6b847d" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="100" y="987" width="800" height="112" rx="18" fill="#e6f3eb" stroke="#b3d6c0" stroke-width="2"/>
+<text x="127" y="1031.0" font-family="Noto Sans, sans-serif" font-size="28" font-weight="700" fill="#16312d">Save the evidence</text>
+<text x="127" y="1072.0" font-family="Noto Sans, sans-serif" font-size="24" font-weight="400" fill="#4c6560">Raw answer, check outcomes, and reports</text>
+<rect x="68" y="1147" width="864" height="115" rx="18" fill="#fff5e7" stroke="#e6cfaa" stroke-width="2"/>
+<text x="94" y="1191.0" font-family="Noto Sans, sans-serif" font-size="26" font-weight="700" fill="#16312d">Outside this workflow</text>
+<text x="94" y="1232.0" font-family="Noto Sans, sans-serif" font-size="23" font-weight="400" fill="#4c6560">API-server admission, running workloads, and live traffic</text>
+</svg>

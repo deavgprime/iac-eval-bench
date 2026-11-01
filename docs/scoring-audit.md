@@ -7,6 +7,8 @@ This review found five scoring errors and one resume-provenance defect. All six
 have regression coverage in v0.2.0. This is an internal engineering review;
 no independent model evaluation or cluster admission test was performed.
 
+![Offline evaluator workflow: response format, schema, resource inventory and task requirements are checked before evidence is saved. Cluster admission and runtime behavior are outside the workflow.](images/evaluation-workflow.png)
+
 ## Reproduced scoring errors
 
 Each case starts from a reference fixture and changes only the described field.
@@ -25,6 +27,8 @@ The original selector check examined only `matchLabels`; it never evaluated
 or compatible selector additions. V2 checks every declared selector constraint
 against the submitted Deployment pod labels while requiring the explicit app label.
 The task wording now states this contract.
+
+![A conflicting selector condition now fails, while an extra compatible pod label now passes.](images/selector-cases.png)
 
 The probe and port checks previously verified only required dictionary keys.
 That missed incompatible extra handlers and protocol changes. V2 validates the
