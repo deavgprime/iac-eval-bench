@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="920" viewBox="0 0 1200 920" role="img" aria-labelledby="title desc">
+<title id="title">A broken selector and a harmless extra label</title><desc id="desc">A conflicting selector must fail; a compatible extra pod label should pass. Both need regression tests.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M 0 0 L 9 5 L 0 10 z" fill="#6b847d"/></marker></defs>
+<rect width="1200" height="920" fill="#f7faf8"/>
+<text x="58" y="80.0" font-family="Noto Sans, sans-serif" font-size="38" font-weight="700" fill="#16312d">Test both kinds of change</text>
+<text x="58" y="124.0" font-family="Noto Sans, sans-serif" font-size="25" font-weight="400" fill="#4c6560">The pod template keeps the required app: api label.</text>
+<rect x="58" y="172" width="1084" height="325" rx="18" fill="#fff8f6" stroke="#e6c5bc" stroke-width="2"/>
+<text x="84" y="220.0" font-family="Noto Sans, sans-serif" font-size="29" font-weight="700" fill="#16312d">A conflicting selector condition</text>
+<text x="84" y="267.0" font-family="Noto Sans, sans-serif" font-size="29" font-weight="400" fill="#16312d">Requires app = api</text>
+<text x="84" y="309.05" font-family="Noto Sans, sans-serif" font-size="29" font-weight="400" fill="#16312d">AND requires app not in [api]</text>
+<text x="84" y="366.0" font-family="Noto Sans, sans-serif" font-size="25" font-weight="400" fill="#4c6560">The selector contradicts the pod labels.</text>
+<text x="84" y="438.0" font-family="Noto Sans, sans-serif" font-size="27" font-weight="700" fill="#a33434">Old: PASS</text>
+<text x="550" y="438.0" font-family="Noto Sans, sans-serif" font-size="27" font-weight="700" fill="#17664f">Corrected: FAIL</text>
+<rect x="58" y="530" width="1084" height="325" rx="18" fill="#f1f8f2" stroke="#bfd9c3" stroke-width="2"/>
+<text x="84" y="578.0" font-family="Noto Sans, sans-serif" font-size="29" font-weight="700" fill="#16312d">An extra pod label</text>
+<text x="84" y="625.0" font-family="Noto Sans, sans-serif" font-size="29" font-weight="400" fill="#16312d">Pod labels: app = api, team = platform</text>
+<text x="84" y="667.05" font-family="Noto Sans, sans-serif" font-size="29" font-weight="400" fill="#16312d">Selector: app = api</text>
+<text x="84" y="724.0" font-family="Noto Sans, sans-serif" font-size="25" font-weight="400" fill="#4c6560">The required label still matches.</text>
+<text x="84" y="796.0" font-family="Noto Sans, sans-serif" font-size="27" font-weight="700" fill="#a33434">Old: FAIL</text>
+<text x="550" y="796.0" font-family="Noto Sans, sans-serif" font-size="27" font-weight="700" fill="#17664f">Corrected: PASS</text>
+</svg>
