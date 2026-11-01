@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="504" viewBox="0 0 1200 504" role="img" aria-labelledby="title desc">
+<title id="title">Before scoring a model, test the evaluator</title><desc id="desc">Three kinds of test: an answer that should pass, a mistake that should fail, and a harmless change that should still pass.</desc>
+<rect width="1200" height="504" fill="#f4f8f5"/>
+<rect x="0" y="0" width="14" height="504" fill="#17664f"/>
+<text x="62" y="72" font-family="Noto Sans,sans-serif" font-size="24" font-weight="700" fill="#426858">IaC Eval Bench</text>
+<text x="62" y="167" font-family="Noto Sans,sans-serif" font-size="43" font-weight="700" fill="#183830">Before scoring a model,</text>
+<text x="62" y="226" font-family="Noto Sans,sans-serif" font-size="43" font-weight="700" fill="#183830">test the evaluator.</text>
+<text x="62" y="289" font-family="Noto Sans,sans-serif" font-size="24" font-weight="400" fill="#526b60">A Kubernetes scoring case study</text>
+<rect x="738" y="102" width="398" height="78" rx="13" fill="#e5f1e9"/>
+<circle cx="774" cy="141" r="8" fill="#17664f"/>
+<text x="801" y="150" font-family="Noto Sans,sans-serif" font-size="27" font-weight="700" fill="#17664f">Should pass</text>
+<rect x="738" y="209" width="398" height="78" rx="13" fill="#faeae6"/>
+<circle cx="774" cy="248" r="8" fill="#9c3737"/>
+<text x="801" y="257" font-family="Noto Sans,sans-serif" font-size="27" font-weight="700" fill="#9c3737">Should fail</text>
+<rect x="738" y="316" width="398" height="78" rx="13" fill="#e5f1e9"/>
+<circle cx="774" cy="355" r="8" fill="#17664f"/>
+<text x="801" y="364" font-family="Noto Sans,sans-serif" font-size="27" font-weight="700" fill="#17664f">Should still pass</text>
+<path d="M 62 412 H 1136" stroke="#cbdad0" stroke-width="2"/>
+<text x="62" y="459" font-family="Noto Sans,sans-serif" font-size="22" font-weight="700" fill="#183830">6 tasks</text>
+<text x="300" y="459" font-family="Noto Sans,sans-serif" font-size="22" font-weight="700" fill="#183830">5 scoring fixes</text>
+<text x="676" y="459" font-family="Noto Sans,sans-serif" font-size="22" font-weight="700" fill="#183830">51 test methods</text>
+</svg>
