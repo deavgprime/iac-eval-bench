@@ -1,0 +1,93 @@
+{
+  "provenance": "Constructed Boolean outcomes. No model or Kubernetes runs.",
+  "outcomes": {
+    "A": true,
+    "B": false,
+    "C": true,
+    "D": false
+  },
+  "pairs": [
+    {
+      "pair": "AB",
+      "outcomes": [
+        true,
+        false
+      ],
+      "any_pass": true,
+      "all_pass": false
+    },
+    {
+      "pair": "AC",
+      "outcomes": [
+        true,
+        true
+      ],
+      "any_pass": true,
+      "all_pass": true
+    },
+    {
+      "pair": "AD",
+      "outcomes": [
+        true,
+        false
+      ],
+      "any_pass": true,
+      "all_pass": false
+    },
+    {
+      "pair": "BC",
+      "outcomes": [
+        false,
+        true
+      ],
+      "any_pass": true,
+      "all_pass": false
+    },
+    {
+      "pair": "BD",
+      "outcomes": [
+        false,
+        false
+      ],
+      "any_pass": false,
+      "all_pass": false
+    },
+    {
+      "pair": "CD",
+      "outcomes": [
+        true,
+        false
+      ],
+      "any_pass": true,
+      "all_pass": false
+    }
+  ],
+  "metrics": [
+    {
+      "k": 1,
+      "pass_at_k": "1/2",
+      "pass_power_k": "1/2"
+    },
+    {
+      "k": 2,
+      "pass_at_k": "5/6",
+      "pass_power_k": "1/6"
+    },
+    {
+      "k": 3,
+      "pass_at_k": "1",
+      "pass_power_k": "0"
+    },
+    {
+      "k": 4,
+      "pass_at_k": "1",
+      "pass_power_k": "0"
+    }
+  ],
+  "verification": {
+    "exhaustive_sequence_k_cases": 3586,
+    "invalid_input_cases": 11,
+    "task_aggregation_checks": 3,
+    "status": "passed"
+  }
+}
