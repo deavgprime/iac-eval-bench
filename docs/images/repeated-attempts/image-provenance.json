@@ -1,0 +1,23 @@
+{
+  "article": "Passing once is not the same as being reliable",
+  "provenance": "Constructed outcomes, no model calls or Kubernetes runs.",
+  "illustrations": {
+    "reliability-cover.png": "Built-in image generation, original editorial illustration.",
+    "attempt-pairs.png": "Built-in image generation, all six pairs visually checked against the saved outcomes.",
+    "reliability-metrics.png": "Matplotlib plot calculated from repeated-attempts-observations.json, using Noto Serif."
+  },
+  "images": [
+    {
+      "file": "attempt-pairs.png",
+      "sha256": "b95586361a76a117812104a7d7b525c6012ab4495d5f2a09f262073d99d6a8b2"
+    },
+    {
+      "file": "reliability-cover.png",
+      "sha256": "2343326532fd08f235fb248df2c09f69d2b2ad7f05d98c1b4631dfd8223fd747"
+    },
+    {
+      "file": "reliability-metrics.png",
+      "sha256": "fbec18478bb6ed4ea68e980a566505763125deb2847ba572da53d9529b306615"
+    }
+  ]
+}
