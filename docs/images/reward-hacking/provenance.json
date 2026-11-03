@@ -1,0 +1,19 @@
+{
+  "method": "Built-in image generation",
+  "style_reference": "Previous AI evals in practice article illustrations; warm ivory paper, navy hatching, serif lettering, cobalt checks and vermilion failure marks.",
+  "images": [
+    {
+      "file": "independent-evaluation.png",
+      "sha256": "e6bdea3a0070d5a2045b80c55ba863b4f15c7c4e92310d755fb1b2077bffcdb4"
+    },
+    {
+      "file": "reward-hacking-cover.png",
+      "sha256": "dc72d7329fd774a40d4bc10c9db68e88365997dacf2cb4918df46b91671d6b1f"
+    },
+    {
+      "file": "two-routes.png",
+      "sha256": "1c302acbc63753b710c22a8c7fcb7754a9847cd2b793ba0a5823f4f03779cab3"
+    }
+  ],
+  "content_provenance": "Four constructed Python patches, each repeated three times. Calendar duplicate responses were explicit perturbations of a saved model response, not independent model generations."
+}
