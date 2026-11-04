@@ -4,32 +4,32 @@ A program reads a CSV and adds up its costs. With a 256 MiB address-space limit,
 
 The input has not changed. Neither has the code.
 
-If this were a coding-agent evaluation, both runs might end up as a single pass or fail in a results table. Before using that table to compare models, I want to know why the second run stopped.
+If this were a coding-agent evaluation, both runs might end up as a single pass or fail in a results table. But a failed run does not explain why the second program stopped, or whether the comparison was fair.
 
 Was the agent expected to write a solution that fits within 64 MiB? Or did the evaluator promise 256 MiB and accidentally provide less?
 
 Those are different findings, even though the error message is identical.
 
-In [the previous article](https://dev.to/deavgprime/when-a-higher-eval-score-means-worse-work-3npf), I looked at passing results that conceal incorrect work. This time, I want to examine failed results that need a closer look before blaming the model.
+[The previous article](https://dev.to/deavgprime/when-a-higher-eval-score-means-worse-work-3npf) covered passing results that conceal incorrect work. A failed result needs just as much scrutiny: did the solution break a requirement, or did the runner fail to provide the promised conditions?
 
-I wrote three small Python programs and ran them under controlled limits. These are constructed examples, not model-generated solutions. They let me hold the code and input fixed while changing the conditions around them.
+I wrote three small Python programs and ran them under controlled limits. These are constructed examples, not model-generated solutions. Keeping the code and input fixed makes it possible to test what changes when the resource limits change.
 
 **On this page**
 
 - [The task and the two ways to solve it](#the-task-and-the-two-ways-to-solve-it)
 - [What happened across three runs](#what-happened-across-three-runs)
 - [The task requirements decide what the failure means](#the-task-requirements-decide-what-the-failure-means)
-- [A timeout does not tell me what was slow](#a-timeout-does-not-tell-me-what-was-slow)
+- [What a timeout tells you](#what-a-timeout-tells-you)
 - [A retry is another observation](#a-retry-is-another-observation)
 - [What frontier-lab experiments have found](#what-frontierlab-experiments-have-found)
-- [How I would record and report the results](#how-i-would-record-and-report-the-results)
+- [Recording and reporting the results](#recording-and-reporting-the-results)
 - [Run the example](#run-the-example)
 
 ## The task and the two ways to solve it
 
 Imagine an assistant writing a script to total a cloud-cost export. Each row contains an ID and an integer amount in cents. The requirement is to include every row and return the exact sum.
 
-The example creates 300,000 rows. Amounts run from 1 through 1,000 cents, then repeat 300 times. That gives an expected total I can calculate independently:
+The example creates 300,000 rows. Amounts run from 1 through 1,000 cents, then repeat 300 times. The expected total can be checked without running either program:
 
 ```text
 One cycle:       1 + 2 + ... + 1000 = 500,500 cents
@@ -57,11 +57,11 @@ def total(path):
 
 Both use Python's standard-library `csv` module. The difference is the lifetime of the row objects: the first retains all of them; the second can discard a row after reading its amount.
 
-I also included a third program that streams the file but skips the first data row. Its total is one cent too small. This is a useful control: giving a program more resources should not make an incorrect answer acceptable.
+A third program streams the file but skips the first data row. Its total is one cent too small. This is a useful control: giving a program more resources should not make an incorrect answer acceptable.
 
 ## What happened across three runs
 
-Each attempt used a fresh Python process. I kept the CSV and candidate code unchanged, checked their hashes, and ran each condition three times. I reversed the condition order in the second round.
+Each attempt used a fresh Python process, with the same CSV and candidate code. Hash checks confirmed that neither had changed. Every condition ran three times, with the order reversed in the second round.
 
 | Program | 64 MiB address-space limit | 256 MiB address-space limit |
 | --- | --- | --- |
@@ -90,7 +90,7 @@ Suppose the task states:
 
 > Add every amount in the supplied CSV. The program will run with a 256 MiB address-space limit.
 
-If the runner applies 64 MiB instead, the run did not meet the stated setup. I would retain its failure record, correct the runner and repeat the affected evaluation under the intended conditions.
+If the runner applies 64 MiB instead, the run did not meet the stated setup. The next step is to keep the failure record, correct the runner and repeat the affected evaluation under the intended conditions.
 
 Now change the requirement:
 
@@ -108,9 +108,9 @@ A missing file needs the same investigation. If the runner failed to stage a req
 
 When those records are missing, "cause unknown" is more defensible than guessing.
 
-## A timeout does not tell me what was slow
+## What a timeout tells you
 
-For a second experiment, I added a one-second wait before the streaming program starts. It represents a delayed dependency. There is no network request in this example.
+The second experiment adds a one-second wait before the streaming program starts. It represents a delayed dependency. There is no network request in this example.
 
 With a 0.25-second wall-time limit, all three attempts timed out. With a four-second limit, all three returned the correct total, taking about 2.2 to 2.3 seconds each on this shared host.
 
@@ -118,7 +118,7 @@ The short timeout expires during the wait. The candidate has not even started re
 
 But whether the run should count as a task failure still depends on what is being measured. If a production service must return a result within 250 milliseconds, waiting on a dependency consumes that budget too. A user experiences the delay regardless of which component caused it.
 
-For an evaluation intended to isolate code correctness, I would separate environment preparation from candidate execution. For an end-to-end service evaluation, I would include the stages users actually wait for and report where the time went.
+An evaluation of code correctness needs separate timings for environment preparation and candidate execution. An end-to-end service evaluation needs to include the stages users actually wait for, with enough detail to show where the time went.
 
 Useful timestamps include:
 
@@ -136,9 +136,9 @@ The limit's name, value, enforcement mechanism and scope all belong in the run r
 
 ## A retry is another observation
 
-When the bulk-reading program passes at 256 MiB, I learn that it can produce the correct total on this input with a larger address-space budget. I do not learn that it met the 64 MiB requirement.
+The pass at 256 MiB shows that the bulk-reading program can produce the right total with more address space. It still failed the 64 MiB requirement. Both observations belong in the results.
 
-Changing just that one condition makes the comparison useful. If I also changed the Python version, input file and candidate code, I would have several possible explanations for the new result.
+Changing just one condition makes the comparison useful. Change the Python version, input file and candidate code as well, and there are several possible explanations for the new result.
 
 For a live agent, there is another complication. Starting a fresh attempt can produce a different plan or patch. That can be a useful reliability trial, but it does not isolate what caused the previous attempt to fail. Replaying a saved patch under a controlled environment tests a narrower question.
 
@@ -156,19 +156,19 @@ This problem also appears at the scale of published model evaluations. In [Anthr
 
 Their analysis distinguished reducing infrastructure failures from giving agents enough resources to succeed with more expensive approaches. That distinction matters when interpreting a score increase. Their findings are specific to the tested setups; six points is not a correction to apply to other benchmarks.
 
-My small CSV experiment is not a reproduction of that study. It isolates one mechanism with fixed programs so the cause is easier to inspect.
+The CSV experiment here does not reproduce that study. It isolates one mechanism with fixed programs so the cause is easier to inspect.
 
-An agent evaluation has more moving parts. Package installation, tool execution, filesystem state and access to external services can all matter. I would check the run records before describing a score difference as a capability improvement.
+An agent evaluation has more moving parts. Package installation, tool execution, filesystem state and access to external services can all matter. A score difference alone cannot show which of those changed. That requires the run records.
 
-## How I would record and report the results
+## Recording and reporting the results
 
-For the CSV example, I kept the code and input hashes, configured limits, output, error text, return code, elapsed time and available process resource measurements for every attempt.
+Every attempt in the CSV example records the code and input hashes, configured limits, output, error text, return code, elapsed time and available process resource measurements.
 
-The runner also checks that the input exists before starting the candidate. I deliberately omitted it in three setup controls. Those produced three setup-error records and no candidate execution.
+The runner also checks that the input exists before starting the candidate. Three setup controls deliberately omit that file. Those produced three setup-error records and no candidate execution.
 
 That gives 27 records in total: 18 memory comparisons, six timeout comparisons and three missing-input controls. The killed timeout workers could not write their final CPU and peak-memory measurements. Those fields are stored as missing, not zero.
 
-For a real model run, I would add the exact model identifier, generation settings, prompts, tool configuration, environment image digest and full interaction history. Container exits need their surrounding evidence too. A kill signal by itself does not establish whether the process exceeded memory, hit a deadline or was stopped for another reason.
+A real model run also needs the exact model identifier, generation settings, prompts, tool configuration, environment image digest and full interaction history. Container exits need their surrounding evidence too. A kill signal by itself does not establish whether the process exceeded memory, hit a deadline or was stopped for another reason.
 
 Reporting the results needs the same care. Suppose a separate evaluation scheduled 100 attempts:
 
@@ -178,7 +178,7 @@ Reporting the results needs the same care. Suppose a separate evaluation schedul
 10 never started because setup failed
 ```
 
-The end-to-end completion rate is 70/100. The pass rate among attempts that reached grading is 70/90, or about 77.8%. Both calculations describe something real, but they answer different questions. I would report both denominators and the ten setup failures.
+The end-to-end completion rate is 70/100. The pass rate among attempts that reached grading is 70/90, or about 77.8%. Both calculations describe something real, but they answer different questions. Report both denominators and the ten setup failures so readers can tell what each rate includes.
 
 Removing different failed tasks from each model's score creates another problem. If the missing tasks are harder, the remaining subset can make a system look better. A comparison needs a stated policy for invalid runs and comparable task coverage.
 
@@ -194,10 +194,10 @@ python3 environment_failures.py --output environment-demo
 
 It uses only the standard library and runs the bundled programs sequentially. Each worker has an eight-second CPU limit in addition to its address-space and wall-time limits. Use a new output directory for each run; the script refuses to overwrite an existing one.
 
-The [saved observations](examples/environment-observations.json) contain all 27 records from my run, including the output and errors. They were collected on Linux x86-64 with Python 3.12.3. The overall experiment ran under a 150% CPU quota and a 6 GiB memory ceiling, with swap disabled. Other work was running on the host, so the elapsed times are observations, not a performance ranking of the implementations.
+The [saved observations](examples/environment-observations.json) contain all 27 records from this experiment, including the output and errors. They were collected on Linux x86-64 with Python 3.12.3. The overall experiment ran under a 150% CPU quota and a 6 GiB memory ceiling, with swap disabled. Other work was running on the host, so the elapsed times are observations, not a performance ranking of the implementations.
 
 The script executes only its bundled examples. Python's isolated mode and process resource limits do not make it a sandbox for arbitrary submissions. This is a teaching example alongside IaC Eval Bench; it does not change the benchmark's scorer or introduce model execution.
 
-In this experiment, the CSV, code and expected answer were enough to make the failure understandable. In an agent run, I would want the same ability to inspect what happened before deciding what the score says about the model.
+The CSV example is small enough to trace a failure from the input through to the answer. An agent run needs the same trail of evidence, even when it spans hundreds of steps. Without it, a failed score tells you where to start investigating, but very little about what to fix.
 
 If you are new to the series, [start with the introduction](https://dev.to/deavgprime/what-exactly-are-ai-evals-775). The [first case study](https://dev.to/deavgprime/before-scoring-a-model-test-the-evaluator-3noi) looks at errors inside the evaluator itself.
