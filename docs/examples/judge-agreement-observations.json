@@ -1,0 +1,952 @@
+{
+  "provenance": "Constructed reference labels and fixed decisions for arithmetic only. No model calls or human annotation experiment. The deferral example assumes all five unacceptable answers are identified; it does not demonstrate a working routing policy.",
+  "cases": [
+    {
+      "id": "case-001",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-002",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-003",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-004",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-005",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-006",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-007",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-008",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-009",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-010",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-011",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-012",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-013",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-014",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-015",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-016",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-017",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-018",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-019",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-020",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-021",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-022",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-023",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-024",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-025",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-026",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-027",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-028",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-029",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-030",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-031",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-032",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-033",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-034",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-035",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-036",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-037",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-038",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-039",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-040",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-041",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-042",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-043",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-044",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-045",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-046",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-047",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-048",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-049",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-050",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-051",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-052",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-053",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-054",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-055",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-056",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-057",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-058",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-059",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-060",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-061",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-062",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-063",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-064",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-065",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-066",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-067",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-068",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-069",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-070",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-071",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-072",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-073",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-074",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-075",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-076",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-077",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-078",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-079",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-080",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-081",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-082",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-083",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-084",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-085",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-086",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-087",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-088",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-089",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-090",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-091",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-092",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-093",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-094",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-095",
+      "reference": "accept",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "accept"
+      }
+    },
+    {
+      "id": "case-096",
+      "reference": "reject",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "defer"
+      }
+    },
+    {
+      "id": "case-097",
+      "reference": "reject",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "defer"
+      }
+    },
+    {
+      "id": "case-098",
+      "reference": "reject",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "defer"
+      }
+    },
+    {
+      "id": "case-099",
+      "reference": "reject",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "reject",
+        "defer_all_five_bad": "defer"
+      }
+    },
+    {
+      "id": "case-100",
+      "reference": "reject",
+      "decisions": {
+        "approve_everything": "accept",
+        "catch_four_reject_eight_good": "accept",
+        "defer_all_five_bad": "defer"
+      }
+    }
+  ],
+  "summaries": {
+    "approve_everything": {
+      "total": 100,
+      "correct_approvals": 95,
+      "correct_rejections": 0,
+      "false_approvals": 5,
+      "false_rejections": 0,
+      "deferred_acceptable": 0,
+      "deferred_unacceptable": 0,
+      "automatic_coverage": 1.0,
+      "agreement_among_decided": 0.95,
+      "false_approval_rate_among_unacceptable": 1.0,
+      "false_rejection_rate_among_acceptable": 0.0,
+      "unacceptable_share_of_approvals": 0.05,
+      "rejection_recall_among_unacceptable": 0.0
+    },
+    "catch_four_reject_eight_good": {
+      "total": 100,
+      "correct_approvals": 87,
+      "correct_rejections": 4,
+      "false_approvals": 1,
+      "false_rejections": 8,
+      "deferred_acceptable": 0,
+      "deferred_unacceptable": 0,
+      "automatic_coverage": 1.0,
+      "agreement_among_decided": 0.91,
+      "false_approval_rate_among_unacceptable": 0.2,
+      "false_rejection_rate_among_acceptable": 0.08421052631578947,
+      "unacceptable_share_of_approvals": 0.011363636363636364,
+      "rejection_recall_among_unacceptable": 0.8
+    },
+    "defer_all_five_bad": {
+      "total": 100,
+      "correct_approvals": 95,
+      "correct_rejections": 0,
+      "false_approvals": 0,
+      "false_rejections": 0,
+      "deferred_acceptable": 0,
+      "deferred_unacceptable": 5,
+      "automatic_coverage": 0.95,
+      "agreement_among_decided": 1.0,
+      "false_approval_rate_among_unacceptable": 0.0,
+      "false_rejection_rate_among_acceptable": 0.0,
+      "unacceptable_share_of_approvals": 0.0,
+      "rejection_recall_among_unacceptable": 0.0
+    }
+  }
+}
