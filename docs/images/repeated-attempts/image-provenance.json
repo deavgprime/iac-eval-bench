@@ -1,23 +1,25 @@
 {
   "article": "Passing once is not the same as being reliable",
+  "updated": "2026-11-08",
   "provenance": "Constructed outcomes, no model calls or Kubernetes runs.",
+  "previous_assets_commit": "9e9d0a5b2f9c2c14a0418ce60f0bb57111ab2e51",
   "illustrations": {
-    "reliability-cover.png": "Built-in image generation, original editorial illustration.",
-    "attempt-pairs.png": "Built-in image generation, all six pairs visually checked against the saved outcomes.",
-    "reliability-metrics.png": "Matplotlib plot calculated from repeated-attempts-observations.json, using Noto Serif."
+    "reliability-cover.png": "Built-in image generation; selected domino-gap cover.",
+    "attempt-pairs.png": "Editable SVG rendered with CairoSVG; all six pairs verified by enumeration.",
+    "reliability-metrics.png": "Matplotlib plot calculated from repeated-attempts-observations.json, using DejaVu Sans."
   },
   "images": [
     {
-      "file": "attempt-pairs.png",
-      "sha256": "b95586361a76a117812104a7d7b525c6012ab4495d5f2a09f262073d99d6a8b2"
+      "file": "reliability-cover.png",
+      "sha256": "726e2856de383d0de95f6d2cc0aa061d7bf57004b9c144a3af028b0a58ae8f6b"
     },
     {
-      "file": "reliability-cover.png",
-      "sha256": "2343326532fd08f235fb248df2c09f69d2b2ad7f05d98c1b4631dfd8223fd747"
+      "file": "attempt-pairs.png",
+      "sha256": "e91afd45ba8731a7c80af5b1cd08d62477aadb5795f440a4516b1365f090c67e"
     },
     {
       "file": "reliability-metrics.png",
-      "sha256": "fbec18478bb6ed4ea68e980a566505763125deb2847ba572da53d9529b306615"
+      "sha256": "84088037b157078a64205c0c9a5dfa97014a7f4d1884b6cf33ce79c8d419cc32"
     }
   ]
 }
