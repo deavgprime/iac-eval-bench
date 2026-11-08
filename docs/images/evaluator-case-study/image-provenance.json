@@ -1,0 +1,20 @@
+{
+  "updated": "2026-11-08",
+  "cover_method": "Built-in image generation; selected inspect-the-stamp concept",
+  "figure_method": "Editable SVG diagrams rendered with CairoSVG",
+  "provenance": "Inspection stages and selector verdicts follow the article and saved scoring audit. These are constructed evaluator checks, not model performance results.",
+  "images": [
+    {
+      "file": "case-study-cover.png",
+      "sha256": "239a0a482e572b218e7db347e37b06a1de450f46a9e743cd05ef13e0f44a0c8f"
+    },
+    {
+      "file": "evaluator-inspection.png",
+      "sha256": "02f64dfe0d7e3af036165b0fa665a0ed66d7b4c2931c399077bfdf421956a93f"
+    },
+    {
+      "file": "selector-verdicts.png",
+      "sha256": "1e858f359054c5a118e4e4587e23e52e6e64de5a39f6f10959af780930ffe1c5"
+    }
+  ]
+}
