@@ -49,7 +49,7 @@ Here is what happened:
 
 The first attempt file stayed byte-for-byte unchanged. After the first resume, both reference tasks passed. The second resume returned the same summary without calling the fixture provider again.
 
-![Two views of a run logbook: the saved first attempt is reused, while the missing second fixture is replayed. Changed inputs lead to a rejected resume.](images/resume-case-study/resume-evidence.png)
+![An interrupted two-task fixture run retains its first saved attempt. Resuming completes only the missing attempt; resuming again makes zero fixture calls. Changes to the experiment reject resuming.](images/resume-case-study/resume-evidence.png)
 
 *Figure 1. A controlled fixture example. The saved record stays; only missing work is continued.*
 
