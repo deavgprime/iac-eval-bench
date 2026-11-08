@@ -1,4 +1,4 @@
-# Can a model hide how capable it really is?
+# Can an AI model hide how capable it really is?
 
 A coding agent submits a patch. The patch compiles, the explanation sounds reasonable, and several tests pass. A few boundary cases fail.
 
