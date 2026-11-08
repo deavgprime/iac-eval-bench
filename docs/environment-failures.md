@@ -186,7 +186,7 @@ A practical sequence is to verify the initial setup, inspect the failure, compar
 
 ## Run the example
 
-Download the [example script](examples/environment_failures.py) and run it on Linux with Python 3.11 or newer:
+Download the [example script](https://github.com/deavgprime/iac-eval-bench/blob/1f15daea718720959abce15951439156443219bd/docs/examples/environment_failures.py) and run it on Linux with Python 3.11 or newer:
 
 ```bash
 python3 environment_failures.py --output environment-demo
@@ -194,7 +194,7 @@ python3 environment_failures.py --output environment-demo
 
 It uses only the standard library and runs the bundled programs sequentially. Each worker has an eight-second CPU limit in addition to its address-space and wall-time limits. Use a new output directory for each run; the script refuses to overwrite an existing one.
 
-The [saved observations](examples/environment-observations.json) contain all 27 records from this experiment, including the output and errors. They were collected on Linux x86-64 with Python 3.12.3. The overall experiment ran under a 150% CPU quota and a 6 GiB memory ceiling, with swap disabled. Other work was running on the host, so the elapsed times are observations, not a performance ranking of the implementations.
+The [saved observations](https://github.com/deavgprime/iac-eval-bench/blob/1f15daea718720959abce15951439156443219bd/docs/examples/environment-observations.json) contain all 27 records from this experiment, including the output and errors. They were collected on Linux x86-64 with Python 3.12.3. The overall experiment ran under a 150% CPU quota and a 6 GiB memory ceiling, with swap disabled. Other work was running on the host, so the elapsed times are observations, not a performance ranking of the implementations.
 
 The script executes only its bundled examples. Python's isolated mode and process resource limits do not make it a sandbox for arbitrary submissions. This is a teaching example alongside IaC Eval Bench; it does not change the benchmark's scorer or introduce model execution.
 
