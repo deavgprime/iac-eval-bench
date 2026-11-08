@@ -1,18 +1,21 @@
 {
-  "method": "Built-in image generation",
-  "style_reference": "Previous AI evals in practice article illustrations; warm ivory paper, navy hatching, serif lettering, cobalt checks and vermilion failure marks.",
+  "updated": "2026-11-08",
+  "cover_method": "Built-in image generation; selected passing-receipt concept",
+  "inline_diagram_method": "Editable SVG, exported to PNG with CairoSVG",
+  "previous_assets_commit": "b37916fd26f0c0ca75e5fca3421e2636665d5f8e",
+  "style": "Minimal sans-serif diagrams with white backgrounds, mint and coral accents.",
   "images": [
     {
-      "file": "independent-evaluation.png",
-      "sha256": "e6bdea3a0070d5a2045b80c55ba863b4f15c7c4e92310d755fb1b2077bffcdb4"
-    },
-    {
       "file": "reward-hacking-cover.png",
-      "sha256": "dc72d7329fd774a40d4bc10c9db68e88365997dacf2cb4918df46b91671d6b1f"
+      "sha256": "8973e6b9d7bf4114e9eb39aa7c80abd2244a10a0a39525e694375c9bfe4ff09a"
     },
     {
       "file": "two-routes.png",
-      "sha256": "1c302acbc63753b710c22a8c7fcb7754a9847cd2b793ba0a5823f4f03779cab3"
+      "sha256": "afd31c9e8ae7f459360bdb56014fa033f783f142d3f90a9c6d19b78918ce1a91"
+    },
+    {
+      "file": "independent-evaluation.png",
+      "sha256": "31aa11b21a7344bc06667c0d5f1eaff99a6c1e681e2d54607019c0224b20f5c7"
     }
   ],
   "content_provenance": "Four constructed Python patches, each repeated three times. Calendar duplicate responses were explicit perturbations of a saved model response, not independent model generations."

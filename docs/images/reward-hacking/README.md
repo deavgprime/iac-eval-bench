@@ -17,7 +17,7 @@ each run. The saved example is in
 Only the fixed source strings in the example are executed. The example is not
 a security sandbox for untrusted submissions and does not run a model.
 
-The three images use original editorial illustrations generated with the
-built-in image generation tool. The prompts and file hashes are retained in
-`prompts.json` and `provenance.json`. They illustrate the constructed example;
-they are not measured model results.
+The cover illustrates the discount example. Its prompt is retained in
+`prompts.json`. The two inline diagrams have editable SVG sources and PNG
+exports. `provenance.json` records the image methods and checksums.
+The figures explain constructed examples, not measured model results.
