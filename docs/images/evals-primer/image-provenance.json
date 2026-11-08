@@ -1,0 +1,28 @@
+{
+  "updated": "2026-11-08",
+  "cover_method": "Built-in image generation; selected caliper illustration",
+  "figure_methods": {
+    "three-questions.png": "Editable SVG rendered with CairoSVG.",
+    "grader-calibration.png": "Editable SVG rendered with CairoSVG.",
+    "two-denominators.png": "Matplotlib calculation figure with editable SVG export."
+  },
+  "provenance": "Excerpts and controls illustrate evaluation concepts. The ten-attempt example is made up: six passes, two failed answers and two timeouts. These figures contain no measured model results.",
+  "images": [
+    {
+      "file": "article-cover.png",
+      "sha256": "5117f5d816d75b8ef674ae896f4e6991080166a711ba80263706e4f417b5bc95"
+    },
+    {
+      "file": "three-questions.png",
+      "sha256": "482d304d5a0eba02ccef4ab62656c6b54e396463283eed98602d423ee5fded27"
+    },
+    {
+      "file": "grader-calibration.png",
+      "sha256": "408bb4da545542314f93f5fbc4a0db05f299a08b9f22cdfc430e10d34faa36bd"
+    },
+    {
+      "file": "two-denominators.png",
+      "sha256": "8f6ed7737e012e753efa514ce7879d57e24d0e4c1aeedd108a0bec91366b911c"
+    }
+  ]
+}
