@@ -1,0 +1,16 @@
+{
+  "updated": "2026-11-08",
+  "cover_method": "Built-in image generation; selected film-splice illustration",
+  "figure_method": "Editable SVG, rendered with CairoSVG",
+  "provenance": "Diagram follows the saved local fixture and controlled fault-injection observations. No live model or provider service was used.",
+  "images": [
+    {
+      "file": "resume-cover.png",
+      "sha256": "78071a72fbabc9fe49fb2f5383fbbb163bc6f9d5b72ac7d557bb534c90a10aa1"
+    },
+    {
+      "file": "resume-evidence.png",
+      "sha256": "fa98ab22faf57c982cc5e4cb4b527d48f3c0b79854d614c5df361cabf2a20902"
+    }
+  ]
+}
