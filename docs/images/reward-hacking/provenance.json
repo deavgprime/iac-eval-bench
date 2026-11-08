@@ -1,0 +1,22 @@
+{
+  "updated": "2026-11-08",
+  "cover_method": "Built-in image generation; selected passing-receipt concept",
+  "inline_diagram_method": "Editable SVG, exported to PNG with CairoSVG",
+  "previous_assets_commit": "b37916fd26f0c0ca75e5fca3421e2636665d5f8e",
+  "style": "Minimal sans-serif diagrams with white backgrounds, mint and coral accents.",
+  "images": [
+    {
+      "file": "reward-hacking-cover.png",
+      "sha256": "8973e6b9d7bf4114e9eb39aa7c80abd2244a10a0a39525e694375c9bfe4ff09a"
+    },
+    {
+      "file": "two-routes.png",
+      "sha256": "afd31c9e8ae7f459360bdb56014fa033f783f142d3f90a9c6d19b78918ce1a91"
+    },
+    {
+      "file": "independent-evaluation.png",
+      "sha256": "31aa11b21a7344bc06667c0d5f1eaff99a6c1e681e2d54607019c0224b20f5c7"
+    }
+  ],
+  "content_provenance": "Four constructed Python patches, each repeated three times. Calendar duplicate responses were explicit perturbations of a saved model response, not independent model generations."
+}
