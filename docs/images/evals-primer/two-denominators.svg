@@ -1,57 +1,269 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="840" viewBox="0 0 1400 840" role="img" aria-labelledby="title desc">
-<title id="title">Same run. Two percentages.</title>
-<desc id="desc">Ten illustrative attempts: six pass, two fail, two time out. Excluding the two timeouts gives six out of eight, or 75 percent. Including all attempts gives six out of ten, or 60 percent.</desc>
-<rect width="1400" height="840" fill="#fcf9ef"/>
-<text x="70" y="95" font-family="Noto Serif, serif" font-size="50" font-weight="700" text-anchor="start" fill="#172b43">Same run. Two percentages.</text>
-<text x="70" y="150" font-family="Noto Serif, serif" font-size="27" font-weight="400" text-anchor="start" fill="#58616a">An illustrative run, not a model measurement</text>
-<circle cx="110" cy="265" r="43" fill="#176d9b"/>
-<circle cx="111" cy="264" r="47" fill="none" stroke="#176d9b" stroke-width="1"/>
-<path d="M 92 264 L 106 279 L 131 250" fill="none" stroke="#fcf9ef" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="240" cy="265" r="43" fill="#176d9b"/>
-<circle cx="241" cy="264" r="47" fill="none" stroke="#176d9b" stroke-width="1"/>
-<path d="M 222 264 L 236 279 L 261 250" fill="none" stroke="#fcf9ef" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="370" cy="265" r="43" fill="#176d9b"/>
-<circle cx="371" cy="264" r="47" fill="none" stroke="#176d9b" stroke-width="1"/>
-<path d="M 352 264 L 366 279 L 391 250" fill="none" stroke="#fcf9ef" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="500" cy="265" r="43" fill="#176d9b"/>
-<circle cx="501" cy="264" r="47" fill="none" stroke="#176d9b" stroke-width="1"/>
-<path d="M 482 264 L 496 279 L 521 250" fill="none" stroke="#fcf9ef" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="630" cy="265" r="43" fill="#176d9b"/>
-<circle cx="631" cy="264" r="47" fill="none" stroke="#176d9b" stroke-width="1"/>
-<path d="M 612 264 L 626 279 L 651 250" fill="none" stroke="#fcf9ef" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="760" cy="265" r="43" fill="#176d9b"/>
-<circle cx="761" cy="264" r="47" fill="none" stroke="#176d9b" stroke-width="1"/>
-<path d="M 742 264 L 756 279 L 781 250" fill="none" stroke="#fcf9ef" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="890" cy="265" r="43" fill="#ad3e2f"/>
-<circle cx="891" cy="264" r="47" fill="none" stroke="#ad3e2f" stroke-width="1"/>
-<path d="M 875 250 L 905 280 M 905 250 L 875 280" fill="none" stroke="#fcf9ef" stroke-width="6" stroke-linecap="round"/>
-<circle cx="1020" cy="265" r="43" fill="#ad3e2f"/>
-<circle cx="1021" cy="264" r="47" fill="none" stroke="#ad3e2f" stroke-width="1"/>
-<path d="M 1005 250 L 1035 280 M 1035 250 L 1005 280" fill="none" stroke="#fcf9ef" stroke-width="6" stroke-linecap="round"/>
-<circle cx="1150" cy="265" r="43" fill="#78818a"/>
-<circle cx="1151" cy="264" r="47" fill="none" stroke="#78818a" stroke-width="1"/>
-<circle cx="1150" cy="265" r="24" fill="none" stroke="#fcf9ef" stroke-width="4"/>
-<path d="M 1150 250 V 265 L 1163 274" fill="none" stroke="#fcf9ef" stroke-width="4" stroke-linecap="round"/>
-<circle cx="1280" cy="265" r="43" fill="#78818a"/>
-<circle cx="1281" cy="264" r="47" fill="none" stroke="#78818a" stroke-width="1"/>
-<circle cx="1280" cy="265" r="24" fill="none" stroke="#fcf9ef" stroke-width="4"/>
-<path d="M 1280 250 V 265 L 1293 274" fill="none" stroke="#fcf9ef" stroke-width="4" stroke-linecap="round"/>
-<text x="435" y="369" font-family="Noto Serif, serif" font-size="31" font-weight="700" text-anchor="middle" fill="#176d9b">6 pass</text>
-<text x="955" y="369" font-family="Noto Serif, serif" font-size="31" font-weight="700" text-anchor="middle" fill="#ad3e2f">2 fail</text>
-<text x="1215" y="369" font-family="Noto Serif, serif" font-size="29" font-weight="700" text-anchor="middle" fill="#78818a">2 time out</text>
-<path d="M 70 411 L 1330 413" stroke="#a6a8a4" stroke-width="2"/>
-<path d="M 700 460 V 735" stroke="#c7c5bb" stroke-width="2" stroke-dasharray="5 8"/>
-<text x="70" y="480" font-family="Noto Serif, serif" font-size="29" font-weight="700" text-anchor="start" fill="#172b43">Among completed responses</text>
-<text x="232" y="576" font-family="Noto Serif, serif" font-size="69" font-weight="700" text-anchor="middle" fill="#176d9b">6</text>
-<path d="M 174 597 L 290 596" stroke="#172b43" stroke-width="3"/>
-<text x="232" y="681" font-family="Noto Serif, serif" font-size="69" font-weight="700" text-anchor="middle" fill="#172b43">8</text>
-<text x="362" y="627" font-family="Noto Serif, serif" font-size="59" font-weight="700" text-anchor="start" fill="#172b43">= 75%</text>
-<text x="70" y="738" font-family="Noto Serif, serif" font-size="26" font-weight="400" text-anchor="start" fill="#58616a">Timeouts excluded</text>
-<text x="750" y="480" font-family="Noto Serif, serif" font-size="29" font-weight="700" text-anchor="start" fill="#172b43">Among all attempts</text>
-<text x="912" y="576" font-family="Noto Serif, serif" font-size="69" font-weight="700" text-anchor="middle" fill="#176d9b">6</text>
-<path d="M 854 597 L 970 596" stroke="#172b43" stroke-width="3"/>
-<text x="912" y="681" font-family="Noto Serif, serif" font-size="69" font-weight="700" text-anchor="middle" fill="#172b43">10</text>
-<text x="1042" y="627" font-family="Noto Serif, serif" font-size="59" font-weight="700" text-anchor="start" fill="#172b43">= 60%</text>
-<text x="750" y="738" font-family="Noto Serif, serif" font-size="26" font-weight="400" text-anchor="start" fill="#58616a">Timeouts included</text>
-<text x="700" y="805" font-family="Noto Serif, serif" font-size="27" font-weight="400" text-anchor="middle" fill="#172b43">The answers did not change. The denominator did.</text>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="633.6pt" viewBox="0 0 1152 633.6" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-08T17:22:11.702631</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 633.6
+L 1152 633.6
+L 1152 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 57.6 159.12
+L 131.04 159.12
+Q 142.56 159.12 142.56 170.64
+L 142.56 207.36
+Q 142.56 218.88 131.04 218.88
+L 57.6 218.88
+Q 46.08 218.88 46.08 207.36
+L 46.08 170.64
+Q 46.08 159.12 57.6 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #246592"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 164.52 159.12
+L 237.96 159.12
+Q 249.48 159.12 249.48 170.64
+L 249.48 207.36
+Q 249.48 218.88 237.96 218.88
+L 164.52 218.88
+Q 153 218.88 153 207.36
+L 153 170.64
+Q 153 159.12 164.52 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #246592"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 271.44 159.12
+L 344.88 159.12
+Q 356.4 159.12 356.4 170.64
+L 356.4 207.36
+Q 356.4 218.88 344.88 218.88
+L 271.44 218.88
+Q 259.92 218.88 259.92 207.36
+L 259.92 170.64
+Q 259.92 159.12 271.44 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #246592"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 378.36 159.12
+L 451.8 159.12
+Q 463.32 159.12 463.32 170.64
+L 463.32 207.36
+Q 463.32 218.88 451.8 218.88
+L 378.36 218.88
+Q 366.84 218.88 366.84 207.36
+L 366.84 170.64
+Q 366.84 159.12 378.36 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #246592"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 485.28 159.12
+L 558.72 159.12
+Q 570.24 159.12 570.24 170.64
+L 570.24 207.36
+Q 570.24 218.88 558.72 218.88
+L 485.28 218.88
+Q 473.76 218.88 473.76 207.36
+L 473.76 170.64
+Q 473.76 159.12 485.28 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #246592"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 592.2 159.12
+L 665.64 159.12
+Q 677.16 159.12 677.16 170.64
+L 677.16 207.36
+Q 677.16 218.88 665.64 218.88
+L 592.2 218.88
+Q 580.68 218.88 580.68 207.36
+L 580.68 170.64
+Q 580.68 159.12 592.2 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #246592"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 699.12 159.12
+L 772.56 159.12
+Q 784.08 159.12 784.08 170.64
+L 784.08 207.36
+Q 784.08 218.88 772.56 218.88
+L 699.12 218.88
+Q 687.6 218.88 687.6 207.36
+L 687.6 170.64
+Q 687.6 159.12 699.12 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #b94d16"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 806.04 159.12
+L 879.48 159.12
+Q 891 159.12 891 170.64
+L 891 207.36
+Q 891 218.88 879.48 218.88
+L 806.04 218.88
+Q 794.52 218.88 794.52 207.36
+L 794.52 170.64
+Q 794.52 159.12 806.04 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #b94d16"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 912.96 159.12
+L 986.4 159.12
+Q 997.92 159.12 997.92 170.64
+L 997.92 207.36
+Q 997.92 218.88 986.4 218.88
+L 912.96 218.88
+Q 901.44 218.88 901.44 207.36
+L 901.44 170.64
+Q 901.44 159.12 912.96 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #737c87"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 1019.88 159.12
+L 1093.32 159.12
+Q 1104.84 159.12 1104.84 170.64
+L 1104.84 207.36
+Q 1104.84 218.88 1093.32 218.88
+L 1019.88 218.88
+Q 1008.36 218.88 1008.36 207.36
+L 1008.36 170.64
+Q 1008.36 159.12 1019.88 159.12
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #737c87"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 57.6 293.76
+L 532.8 293.76
+Q 544.32 293.76 544.32 305.28
+L 544.32 487.44
+Q 544.32 498.96 532.8 498.96
+L 57.6 498.96
+Q 46.08 498.96 46.08 487.44
+L 46.08 305.28
+Q 46.08 293.76 57.6 293.76
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #f0f5f9"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 619.2 293.76
+L 1094.4 293.76
+Q 1105.92 293.76 1105.92 305.28
+L 1105.92 487.44
+Q 1105.92 498.96 1094.4 498.96
+L 619.2 498.96
+Q 607.68 498.96 607.68 487.44
+L 607.68 305.28
+Q 607.68 293.76 619.2 293.76
+z
+" clip-path="url(#p8d31dcf983)" style="fill: #fff1e9"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 46.08 540
+L 1105.92 540
+" clip-path="url(#p8d31dcf983)" style="fill: none; stroke: #dce3e8; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #246592" x="46.08" y="35.28" transform="rotate(-0 46.08 35.28)">TEN ILLUSTRATIVE ATTEMPTS</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 35px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #182735" x="46.08" y="84.24" transform="rotate(-0 46.08 84.24)">Same run. Different denominators.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #62707b" x="46.08" y="121.68" transform="rotate(-0 46.08 121.68)">Six passing answers, two failed answers and two timeouts.</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="94.32" y="200.16" transform="rotate(-0 94.32 200.16)">P</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="201.24" y="200.16" transform="rotate(-0 201.24 200.16)">P</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="308.16" y="200.16" transform="rotate(-0 308.16 200.16)">P</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="415.08" y="200.16" transform="rotate(-0 415.08 200.16)">P</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="522" y="200.16" transform="rotate(-0 522 200.16)">P</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="628.92" y="200.16" transform="rotate(-0 628.92 200.16)">P</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="735.84" y="200.16" transform="rotate(-0 735.84 200.16)">F</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="842.76" y="200.16" transform="rotate(-0 842.76 200.16)">F</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="949.68" y="200.16" transform="rotate(-0 949.68 200.16)">T</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 28px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="1056.6" y="200.16" transform="rotate(-0 1056.6 200.16)">T</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #246592" x="46.08" y="251.28" transform="rotate(-0 46.08 251.28)">P = pass</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #b94d16" x="299.52" y="251.28" transform="rotate(-0 299.52 251.28)">F = failed answer</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #62707b" x="679.68" y="251.28" transform="rotate(-0 679.68 251.28)">T = timeout</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #182735" x="67.68" y="332.64" transform="rotate(-0 67.68 332.64)">Completed responses</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #62707b" x="67.68" y="370.08" transform="rotate(-0 67.68 370.08)">6 passes + 2 failed answers</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 35px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #246592" x="67.68" y="444.24" transform="rotate(-0 67.68 444.24)">6 / 8 = 75%</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #182735" x="629.28" y="332.64" transform="rotate(-0 629.28 332.64)">All attempts started</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #62707b" x="629.28" y="370.08" transform="rotate(-0 629.28 370.08)">6 passes + 2 failures + 2 timeouts</text>
+   </g>
+   <g id="text_22">
+    <text style="font-weight: 700; font-size: 35px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #b94d16" x="629.28" y="444.24" transform="rotate(-0 629.28 444.24)">6 / 10 = 60%</text>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #182735" x="576" y="586.08" transform="rotate(-0 576 586.08)">Keep the outcome counts beside the percentage.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8d31dcf983">
+   <rect x="0" y="0" width="1152" height="633.6"/>
+  </clipPath>
+ </defs>
 </svg>
