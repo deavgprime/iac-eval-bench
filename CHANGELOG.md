@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Audited v2 reference and mutated baselines; v1 evidence is preserved.
 - Bounded Qwen2.5-Coder 1.5B CPU pilot with retained failure and resource evidence.
 - Six-task comparison of Qwen2.5-Coder 1.5B and 0.5B with all attempts retained.
 - Workflow and selector-case figures in the scoring audit.
@@ -23,8 +24,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Constructed positive and negative fixture baselines with raw evidence.
 - Suite v2 with versioned task definitions and a scoring audit with regression cases.
-- Audited v2 reference and mutated baselines; v1 evidence is preserved.
 - Explicit task completion coverage and an operational macro score that counts provider errors as zero.
 
 ### Changed
@@ -47,7 +48,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Offline static evaluation of LLM-generated Kubernetes configuration against pinned Kubernetes 1.34 JSON schemas and six synthetic tasks.
 - Command-line runner with provider adapters, resumable runs and HTML, CSV and JSON reports.
-- Constructed positive and negative fixture baselines with raw evidence.
 - CI workflow with lint, tests, baseline verification and wheel checks.
 
 [Unreleased]: https://github.com/deavgprime/iac-eval-bench/compare/2e7b620...HEAD
