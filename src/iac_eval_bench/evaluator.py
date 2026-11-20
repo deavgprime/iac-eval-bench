@@ -10,7 +10,7 @@ from importlib.resources import files
 from itertools import islice
 from typing import Any
 
-from jsonschema.validators import validator_for
+from jsonschema.validators import Draft202012Validator, validator_for
 
 from .semantics import http_probe_valid, normalize_ports, selector_matches, unordered
 
@@ -106,7 +106,7 @@ def schemas():
         if hashlib.sha256(raw).hexdigest() != entry["sha256"]:
             raise HarnessError(f"schema checksum mismatch: {key}")
         schema = json.loads(raw)
-        cls = validator_for(schema)
+        cls = validator_for(schema, default=Draft202012Validator)
         cls.check_schema(schema)
         validators[key] = cls(schema)
     return manifest, validators
