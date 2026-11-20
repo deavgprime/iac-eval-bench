@@ -51,6 +51,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Command-line runner with provider adapters, resumable runs and HTML, CSV and JSON reports.
 - CI workflow with lint, tests, baseline verification and wheel checks.
 
-[Unreleased]: https://github.com/deavgprime/iac-eval-bench/compare/2e7b620...HEAD
-[0.2.0]: https://github.com/deavgprime/iac-eval-bench/compare/363b5c4...2e7b620
-[0.1.0]: https://github.com/deavgprime/iac-eval-bench/commit/363b5c4
+[Unreleased]: https://github.com/deavgprime/iac-eval-bench/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/deavgprime/iac-eval-bench/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/deavgprime/iac-eval-bench/releases/tag/v0.1.0
