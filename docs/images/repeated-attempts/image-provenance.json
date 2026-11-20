@@ -1,0 +1,25 @@
+{
+  "article": "Passing once is not the same as being reliable",
+  "updated": "2026-11-08",
+  "provenance": "Constructed outcomes, no model calls or Kubernetes runs.",
+  "previous_assets_commit": "9e9d0a5b2f9c2c14a0418ce60f0bb57111ab2e51",
+  "illustrations": {
+    "reliability-cover.png": "Built-in image generation; selected domino-gap cover.",
+    "attempt-pairs.png": "Editable SVG rendered with CairoSVG; all six pairs verified by enumeration.",
+    "reliability-metrics.png": "Matplotlib plot calculated from repeated-attempts-observations.json, using DejaVu Sans."
+  },
+  "images": [
+    {
+      "file": "reliability-cover.png",
+      "sha256": "726e2856de383d0de95f6d2cc0aa061d7bf57004b9c144a3af028b0a58ae8f6b"
+    },
+    {
+      "file": "attempt-pairs.png",
+      "sha256": "e91afd45ba8731a7c80af5b1cd08d62477aadb5795f440a4516b1365f090c67e"
+    },
+    {
+      "file": "reliability-metrics.png",
+      "sha256": "84088037b157078a64205c0c9a5dfa97014a7f4d1884b6cf33ce79c8d419cc32"
+    }
+  ]
+}
