@@ -99,7 +99,7 @@ python scripts/verify_baselines.py --output runs/baseline-check
 python -m build --no-isolation
 ```
 
-CI runs the test suite and positive/negative baselines on Python 3.11, 3.12 and 3.13, builds a wheel and checks its bundled data from outside the checkout. Reports are uploaded as artifacts. See [CONTRIBUTING.md](CONTRIBUTING.md) for task requirements and [the roadmap](docs/roadmap.md) for scoped work.
+CI runs the test suite and positive/negative baselines on Python 3.11, 3.12 and 3.13, builds a wheel and checks its bundled data from outside the checkout. Reports are uploaded as artifacts. See [CONTRIBUTING.md](CONTRIBUTING.md) for task requirements, [the design decisions](docs/decisions.md) for why scoring works the way it does, and [the roadmap](docs/roadmap.md) for scoped work.
 
 ## Provenance and license
 
