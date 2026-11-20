@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bounded Qwen2.5-Coder 1.5B CPU pilot with retained failure and resource evidence.
 - Six-task comparison of Qwen2.5-Coder 1.5B and 0.5B with all attempts retained.
 - Workflow and selector-case figures in the scoring audit.
+- Design decision records, a pinned Python version and OpenSSF Scorecard analysis.
 
 ### Changed
 
