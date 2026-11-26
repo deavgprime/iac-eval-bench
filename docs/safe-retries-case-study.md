@@ -2,19 +2,15 @@
 
 **Imagine an enterprise support agent ordering an approved replacement for a customer. The order goes through, but the confirmation times out. The agent retries and reports success. Two orders are now queued for fulfillment, and the support team has a duplicate to sort out.**
 
-In the local test below, the first request timed out after about 101 ms. The order was already in the database.
+That sequence is easy to miss if the only thing you check is whether the retry succeeded. To reproduce it, this experiment uses a small HTTP order service and a scripted tool caller. In the first timeout case, the caller gave up after about 101 ms. The order had already been committed. Retrying created another row with the same tenant, product and quantity. The caller saw one timeout followed by a successful `201 Created`.
 
-Retrying created another order. Both rows had the same tenant, product and quantity. From the caller's side, the sequence looked ordinary: one timeout, then a successful `201 Created`.
+The failure sits between the tool and the service, so reproducing it does not require a model. The setup uses two SQLite databases, one for the caller's saved state and one for the service's orders. All failures are injected locally. This is a deployment exercise, not a report from a customer environment.
 
-There was no unusual model behavior to debug. The caller had lost the response after the service had done the work.
-
-To examine that boundary, this experiment uses a small HTTP order service, a scripted tool caller and two SQLite databases. One database belongs to the caller; the other belongs to the service. The failures are injected locally. This is a deployment exercise, not a report from a customer environment, and it makes no model calls.
-
-Three rounds covered **117 scenario runs and 288 HTTP requests**, retaining the failed attempts as well as the successful ones. Stable keys prevented duplicates in several failure cases. Two controls still created them: saving the receipt separately and deleting it before a late retry.
+Across three rounds, the experiment recorded **117 scenario runs and 288 HTTP requests**, keeping failed attempts alongside successful ones. Reusing a saved operation key prevented duplicates in several cases. It was not enough when the service had no record of the earlier request, whether because that record was never saved or had already been deleted.
 
 ## What happens between a tool call and its result
 
-Suppose a support agent has approval to order one replacement keyboard. Its tool sends:
+For the replacement order in the opening example, the tool request could be as small as this:
 
 ```http
 POST /orders
@@ -23,11 +19,7 @@ Content-Type: application/json
 {"sku":"keyboard","quantity":1}
 ```
 
-The service can accept that request, commit the order, and lose the connection before the caller receives the response. The order exists. The tool invocation appears to have failed.
-
-Raising the timeout above 500 ms would let this response arrive. It would still leave the connection-drop and process-crash cases unresolved.
-
-The test makes the timing explicit. The caller uses a 100 ms socket timeout. The service commits its writes, then holds the response for 500 ms. Here is one recorded attempt, with unrelated fields omitted:
+The service can commit this order and lose the connection before the response reaches the caller. To make that timing reproducible, the test gives the caller a 100 ms socket timeout and makes the service hold its response for 500 ms after committing. Here is the caller's record, with unrelated fields omitted:
 
 ```json
 {
@@ -40,13 +32,13 @@ The test makes the timing explicit. The caller uses a 100 ms socket timeout. The
 }
 ```
 
-The exception describes the caller's wait. The server trace and final database state establish whether the write happened.
+The exception tells us how long the caller waited. To find out whether the order exists, we have to look at the server trace and database. Raising the timeout above 500 ms would let this particular response arrive, but it would leave the connection-drop and process-crash cases unresolved.
 
-This is the same distinction AWS describes in its guidance on [timeouts and retries](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/): a failed call can still have side effects. Backoff helps control retry load. It does not undo a committed order.
+That is why increasing timeouts or adding backoff cannot settle the duplicate-order problem on its own. As AWS explains in its guidance on [timeouts and retries](https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/), a failed call can still have side effects. Once the order is committed, a retry needs a way to identify it as work already done.
 
 ## Three retry strategies, the same faults
 
-The caller tried each scenario in three ways:
+An idempotency key gives the service an identifier it can recognize when the caller retries. To check what that actually protects, the experiment runs each scenario with three ways of identifying the request:
 
 | Strategy | What the caller sends |
 | --- | --- |
@@ -54,9 +46,9 @@ The caller tried each scenario in three ways:
 | New key per attempt | A new UUID for every HTTP request |
 | Durable action key | One UUID saved for the intended action before the first request, then reused |
 
-The service supports keys in all three runs. The first strategy does not send one. The second sends a different one each time, which makes each retry look like new work.
+The service supports keys throughout. What changes is the caller: it either omits the key, replaces it on every attempt, or saves and reuses it. A fresh UUID on each request still makes every retry look like new work, even though the payload has not changed.
 
-The table counts **orders created in one scenario run**, not successful responses. All three repetitions produced these counts.
+The results below count **orders created in one scenario run**. Counting successful responses would miss the original problem. All three repetitions produced these counts.
 
 | Injected condition | No key | New key per attempt | Durable action key |
 | --- | ---: | ---: | ---: |
@@ -69,31 +61,29 @@ The table counts **orders created in one scenario run**, not successful response
 | Eight concurrent deliveries of one intended action | 8 | 8 | 1 |
 | All three responses are dropped | 3 | 3 | 1 |
 
-The before-commit case is an important control. An interrupted transaction leaves no committed order, so the next attempt should create one. After commit, the correct behavior is to return the saved result.
+Notice the difference between a service exit before and after commit. Before commit, there is no saved order, so the next attempt should create one. After commit, creating another would be a duplicate. The service needs to return the result of the original order instead.
 
-There is no success percentage here. The faults were chosen deliberately, not sampled from production traffic. The counts establish behavior under those faults; they do not estimate how often customers will encounter them.
+These counts describe deliberately injected faults, not their frequency in production traffic. They establish which behavior each strategy produces. To understand why the durable key works here, we need to follow where it is stored and how the service uses it.
 
 ## Keep the identity outside the model conversation
 
-The durable key belongs to a particular approved action. It is saved before sending the request.
+For the support workflow, the key belongs to the approved replacement order. Retrying its HTTP request does not mean the customer approved another order.
 
-In the example, the caller stores a mapping from `(tenant, action)` to a random UUID. A fresh invocation looks up the same action and gets the same key. That mapping survives a caller restart because it is in SQLite rather than a Python variable.
+The caller therefore saves a mapping from `(tenant, action)` to a random UUID before making the first request. A fresh invocation looks up the same action and gets the same key. Storing that mapping in SQLite lets it survive a caller restart; keeping it in a Python variable would not.
 
 ![The caller saves an action key before sending. The service saves an order and its replay receipt together in one database transaction.](images/safe-retries/durable-boundaries.png)
 
-The workflow must preserve the action identifier too. After a restart, this test resumes `action-1`; it does not ask a model to invent a replacement identity. Generating a new action ID on every restart would lose the protection before the HTTP request was even sent.
-
-Nor should the model decide that every new tool invocation deserves a new key. An SDK retry, a workflow retry and a resumed invocation can all be attempts to complete the same approved action.
+This only works if the workflow preserves the action identifier as well. After a restart, the test resumes `action-1` and retrieves its saved key. Generating a new action ID at that point would lose the protection before the next HTTP request was sent. The same applies to model-driven tool calls: an SDK retry, a workflow retry and a resumed invocation may all be attempts to complete one approved action. Their identity needs to come from saved workflow state.
 
 Two genuinely separate orders can have identical payloads. If a customer intentionally orders two keyboards in two transactions, hashing the payload as the operation key would incorrectly collapse the second order into the first. The distinct-action control sends the same payload with two action identities and correctly creates two orders.
 
-The payload hash has a different job: detecting a changed request under an existing key.
+A payload hash is still useful, but for a different check: whether a caller has changed the request while reusing an existing key. That check belongs on the service side.
 
 ## The service has to make a promise it can keep
 
-The service stores a replay receipt containing the key, request fingerprint, response status and response body. A repeated request with the same key and payload returns that saved result, including the original order ID.
+Recognizing the key is only half the job. The service also needs to know what happened when it first received that key. It stores a replay receipt: a record of the key, request fingerprint, response status and response body. When the same key and payload arrive again, the service returns that saved response, including the original order ID.
 
-The relevant sequence is:
+The order and its receipt are written together:
 
 ```text
 BEGIN IMMEDIATE
@@ -112,19 +102,17 @@ For concurrent deliveries, this example acquires the write transaction before re
 
 This choice also serializes unrelated writes. It is convenient for a small reproduction, but the test says nothing about its throughput at customer scale. A different database needs its own tested locking and conflict-handling path.
 
-The key is scoped to the tenant and operation. The same UUID in another tenant must not return the first tenant's order. The local test uses a header to supply tenant identity; a deployed service would have to obtain and authorize that identity from authenticated context. Possessing a key is not permission to see its result.
+There are also boundaries the service must enforce when looking up a receipt. The key is scoped to the tenant and operation, so the same UUID in another tenant must not return the first tenant's order. The local test uses a header to supply tenant identity; a deployed service would have to obtain and authorize that identity from authenticated context. Possessing a key is not permission to see its result.
 
-Reusing a key with a changed quantity returns `409` and creates no second order. Reordering the JSON fields remains a replay, because the fingerprint is computed from canonicalized input. Invalid quantities are rejected before the key is consumed.
+Within that scope, the request fingerprint prevents a key from being reused for different work. Changing the quantity returns `409` and creates no second order. Reordering the JSON fields remains a replay, because the fingerprint is computed from canonicalized input. Invalid quantities are rejected before the key is consumed.
 
 These are explicit service semantics. Providers may make different choices about saved errors and retention. For example, [Stripe documents its own replay and parameter-matching rules](https://docs.stripe.com/api/idempotent_requests); copying a header name does not copy that contract.
 
 ## A key did not fix the split transaction
 
-One comparison mode deliberately commits the order first and saves the receipt in a second transaction.
+The transaction around both writes may look like a small implementation detail. To test whether it matters, one comparison mode commits the order first and saves the receipt in a separate transaction.
 
-The service exits in between. On restart, it has an order but no receipt. The retry uses the original durable key, finds nothing to replay, and creates a second order.
-
-The saved server events show the gap:
+The service then exits between those writes. After restarting, it has an order but no receipt. The caller retries with the original durable key, but the service finds nothing to replay and creates another order. The saved events show where the duplicate comes from:
 
 ```text
 order_committed_without_receipt  order A
@@ -148,29 +136,27 @@ This experiment does not implement a payment provider, an outbox or cross-servic
 
 ## Stopping retries does not establish failure
 
-Another scenario drops every response and stops after three attempts.
-
-With a durable key, the final database contains one order. The caller has three connection failures and no successful response. Its outcome remains `unknown`.
+Even with both writes in one transaction, the workflow still has a problem if confirmation never arrives. Another scenario drops every response and stops after three attempts. The durable key keeps the final database at one order, but the caller has only three connection failures to work with. Its outcome remains `unknown`.
 
 Reporting that operation as failed would be misleading. Automatically starting a new action with a fresh key could create another order. A workflow needs a distinct path for an unresolved outcome: retain the original identity, reconcile through an authorized lookup or repeat request when safe, and escalate if it cannot establish what happened.
 
-That is also an evaluation requirement. A checker that sees only tool exceptions might mark this as three failed operations. A checker that sees only the database might mark it successful. The full result is that the order was created, duplicates were prevented, and the caller did not receive confirmation.
+For the support team, this means the workflow should not say either “replacement failed” or “replacement confirmed” based on those responses alone. An evaluation needs to capture the same distinction. A checker that sees only tool exceptions might count three failed operations; one that sees only the database might call the workflow successful. What actually happened is more specific: one order was created, duplicates were prevented, and the caller never received confirmation.
 
 Retry limits, backoff and a total deadline still matter. The example uses fixed attempt counts to expose correctness; it does not test a production backoff policy or retry storms. Its socket timeout is not a complete workflow deadline.
 
 ## How long does the protection last?
 
-A final test deletes the replay receipt after a successful request, then sends the same key again. It creates a second order.
+Keeping an unresolved action for later recovery raises another question: will the service still recognize it when the workflow resumes?
 
-Deleting the receipt models loss of replay history. It is not a wall-clock expiry test. The result is enough to show why a retention window must cover the period in which a workflow can resume, not just the few seconds an HTTP library spends retrying.
+A final test deletes the replay receipt after a successful request, then sends the same key again. The service creates a second order. This models lost replay history rather than testing expiry against a clock, but it exposes the dependency: retaining the key on the caller is not enough if the service has forgotten it.
 
-For a long-running deployment, I would want a documented answer to this before enabling automatic recovery: what happens if an approved action resumes after the server has forgotten its key?
+The retention window therefore needs to account for how long a workflow can remain paused, not just the few seconds an HTTP library spends retrying. Before enabling automatic recovery, the deployment needs an answer for what happens when an approved action resumes outside that window.
 
 A durable business identifier with a uniqueness rule may provide longer protection than a temporary response cache. Where that is unavailable, a late resume may need reconciliation rather than another create request.
 
 ## Run it and inspect the records
 
-The experiment runs on Linux with Python 3.11 or newer and uses only the standard library. It starts local processes and listens on `127.0.0.1`.
+The source keeps these failure modes together so you can compare them against the same service. It runs on Linux with Python 3.11 or newer, uses only the standard library, and starts local processes listening on `127.0.0.1`.
 
 ```bash
 git clone https://github.com/deavgprime/iac-eval-bench.git
@@ -190,4 +176,4 @@ The recorded run used Python 3.12.3 and SQLite 3.45.1. It completed in 29.26 sec
 
 The crash tests terminate processes; they do not test a host outage, disk failure or regional failover. The fault headers are test controls, not an interface to expose in a deployment.
 
-Before giving an agent write access, this is a useful small evaluation to run against each tool: lose the response after the write, then retry through the real workflow. Check the external state, the saved operation identity and what the caller reports. A successful retry response alone does not establish that the intended action happened once.
+For a tool that creates orders, the first test worth borrowing is the one that started this article: commit the write, lose its response, then retry through the real workflow. Check how many orders exist, whether the workflow kept the same action identity, and what it tells the support team. A green status after the retry is not enough to answer any of those questions.
