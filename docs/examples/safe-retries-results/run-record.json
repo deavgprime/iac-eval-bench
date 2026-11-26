@@ -1,0 +1,961 @@
+{
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-7.0.0-1018-gcp-x86_64-with-glibc2.39",
+  "sqlite": "3.45.1",
+  "model_calls": 0,
+  "network": "HTTP on 127.0.0.1 only",
+  "results": [
+    {
+      "round": 1,
+      "case": "normal",
+      "strategy": "no_key",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.1651322790003178
+    },
+    {
+      "round": 1,
+      "case": "normal",
+      "strategy": "new_key_per_attempt",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.14060802899984992
+    },
+    {
+      "round": 1,
+      "case": "normal",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.15002550899953349
+    },
+    {
+      "round": 1,
+      "case": "timeout_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.7909153969994804
+    },
+    {
+      "round": 1,
+      "case": "timeout_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.8015626079995855
+    },
+    {
+      "round": 1,
+      "case": "timeout_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.7958589150002808
+    },
+    {
+      "round": 1,
+      "case": "disconnect_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15096847399945545
+    },
+    {
+      "round": 1,
+      "case": "disconnect_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1522619700008363
+    },
+    {
+      "round": 1,
+      "case": "disconnect_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1594393779996608
+    },
+    {
+      "round": 1,
+      "case": "server_crash_before_commit",
+      "strategy": "no_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2622534779984562
+    },
+    {
+      "round": 1,
+      "case": "server_crash_before_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2629908830003842
+    },
+    {
+      "round": 1,
+      "case": "server_crash_before_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2839487959990947
+    },
+    {
+      "round": 1,
+      "case": "server_crash_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.27108800600035465
+    },
+    {
+      "round": 1,
+      "case": "server_crash_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2687189150001359
+    },
+    {
+      "round": 1,
+      "case": "server_crash_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2746355709987256
+    },
+    {
+      "round": 1,
+      "case": "runner_restart",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2780727259996638
+    },
+    {
+      "round": 1,
+      "case": "runner_restart",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.26441286699991906
+    },
+    {
+      "round": 1,
+      "case": "runner_restart",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2828836320004484
+    },
+    {
+      "round": 1,
+      "case": "concurrent_delivery",
+      "strategy": "no_key",
+      "orders": 8,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.20319877899964922
+    },
+    {
+      "round": 1,
+      "case": "concurrent_delivery",
+      "strategy": "new_key_per_attempt",
+      "orders": 8,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.2251763589993061
+    },
+    {
+      "round": 1,
+      "case": "concurrent_delivery",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.20081090299936477
+    },
+    {
+      "round": 1,
+      "case": "changed_payload",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15164577300129167
+    },
+    {
+      "round": 1,
+      "case": "changed_payload",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1522647000001598
+    },
+    {
+      "round": 1,
+      "case": "changed_payload",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15654188700136729
+    },
+    {
+      "round": 1,
+      "case": "distinct_actions",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15346467600102187
+    },
+    {
+      "round": 1,
+      "case": "distinct_actions",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1550676429997111
+    },
+    {
+      "round": 1,
+      "case": "distinct_actions",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16863573800037557
+    },
+    {
+      "round": 1,
+      "case": "tenant_isolation",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15153871300026367
+    },
+    {
+      "round": 1,
+      "case": "tenant_isolation",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1527234370005317
+    },
+    {
+      "round": 1,
+      "case": "tenant_isolation",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15492409499893256
+    },
+    {
+      "round": 1,
+      "case": "retry_budget_exhausted",
+      "strategy": "no_key",
+      "orders": 3,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.17145934700056387
+    },
+    {
+      "round": 1,
+      "case": "retry_budget_exhausted",
+      "strategy": "new_key_per_attempt",
+      "orders": 3,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.16232210399903124
+    },
+    {
+      "round": 1,
+      "case": "retry_budget_exhausted",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.16775274099927628
+    },
+    {
+      "round": 1,
+      "case": "expired_receipt",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16661717500028317
+    },
+    {
+      "round": 1,
+      "case": "expired_receipt",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1588417910006683
+    },
+    {
+      "round": 1,
+      "case": "expired_receipt",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.17983715500122344
+    },
+    {
+      "round": 1,
+      "case": "split_transaction_crash",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2656442410007003
+    },
+    {
+      "round": 1,
+      "case": "split_transaction_crash",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2673523209996347
+    },
+    {
+      "round": 1,
+      "case": "split_transaction_crash",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2911267270010285
+    },
+    {
+      "round": 2,
+      "case": "normal",
+      "strategy": "no_key",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.15076419100114435
+    },
+    {
+      "round": 2,
+      "case": "normal",
+      "strategy": "new_key_per_attempt",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.13970799100025033
+    },
+    {
+      "round": 2,
+      "case": "normal",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.1735249359990121
+    },
+    {
+      "round": 2,
+      "case": "timeout_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.7900197220005793
+    },
+    {
+      "round": 2,
+      "case": "timeout_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.7914956240001629
+    },
+    {
+      "round": 2,
+      "case": "timeout_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.809715180999774
+    },
+    {
+      "round": 2,
+      "case": "disconnect_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.17575168599978497
+    },
+    {
+      "round": 2,
+      "case": "disconnect_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.18669130600028438
+    },
+    {
+      "round": 2,
+      "case": "disconnect_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1712310860002617
+    },
+    {
+      "round": 2,
+      "case": "server_crash_before_commit",
+      "strategy": "no_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2619182170001295
+    },
+    {
+      "round": 2,
+      "case": "server_crash_before_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2834334060007677
+    },
+    {
+      "round": 2,
+      "case": "server_crash_before_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.27496688599967456
+    },
+    {
+      "round": 2,
+      "case": "server_crash_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.27820921999955317
+    },
+    {
+      "round": 2,
+      "case": "server_crash_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2805057840014342
+    },
+    {
+      "round": 2,
+      "case": "server_crash_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.28978110599928186
+    },
+    {
+      "round": 2,
+      "case": "runner_restart",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.26716609799950675
+    },
+    {
+      "round": 2,
+      "case": "runner_restart",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.26677670199933345
+    },
+    {
+      "round": 2,
+      "case": "runner_restart",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.27227156099979766
+    },
+    {
+      "round": 2,
+      "case": "concurrent_delivery",
+      "strategy": "no_key",
+      "orders": 8,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.2393816549993062
+    },
+    {
+      "round": 2,
+      "case": "concurrent_delivery",
+      "strategy": "new_key_per_attempt",
+      "orders": 8,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.21877430799941067
+    },
+    {
+      "round": 2,
+      "case": "concurrent_delivery",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.20445725099853007
+    },
+    {
+      "round": 2,
+      "case": "changed_payload",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15310874999886437
+    },
+    {
+      "round": 2,
+      "case": "changed_payload",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16252505000011297
+    },
+    {
+      "round": 2,
+      "case": "changed_payload",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16224547999991046
+    },
+    {
+      "round": 2,
+      "case": "distinct_actions",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16411278800114815
+    },
+    {
+      "round": 2,
+      "case": "distinct_actions",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15337995100162516
+    },
+    {
+      "round": 2,
+      "case": "distinct_actions",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1710930669996742
+    },
+    {
+      "round": 2,
+      "case": "tenant_isolation",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16607463499894948
+    },
+    {
+      "round": 2,
+      "case": "tenant_isolation",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16405292699892016
+    },
+    {
+      "round": 2,
+      "case": "tenant_isolation",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15406377799990878
+    },
+    {
+      "round": 2,
+      "case": "retry_budget_exhausted",
+      "strategy": "no_key",
+      "orders": 3,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.17765668100037146
+    },
+    {
+      "round": 2,
+      "case": "retry_budget_exhausted",
+      "strategy": "new_key_per_attempt",
+      "orders": 3,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.16523883900117653
+    },
+    {
+      "round": 2,
+      "case": "retry_budget_exhausted",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.1667886550003459
+    },
+    {
+      "round": 2,
+      "case": "expired_receipt",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15629522699964582
+    },
+    {
+      "round": 2,
+      "case": "expired_receipt",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1691090999993321
+    },
+    {
+      "round": 2,
+      "case": "expired_receipt",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.17219781200037687
+    },
+    {
+      "round": 2,
+      "case": "split_transaction_crash",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.27976186200066877
+    },
+    {
+      "round": 2,
+      "case": "split_transaction_crash",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.26849794699955964
+    },
+    {
+      "round": 2,
+      "case": "split_transaction_crash",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.3026112799998373
+    },
+    {
+      "round": 3,
+      "case": "normal",
+      "strategy": "no_key",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.15142365700012306
+    },
+    {
+      "round": 3,
+      "case": "normal",
+      "strategy": "new_key_per_attempt",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.13911037699836015
+    },
+    {
+      "round": 3,
+      "case": "normal",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 1,
+      "elapsed_seconds": 0.1606310420011141
+    },
+    {
+      "round": 3,
+      "case": "timeout_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.7928258040010405
+    },
+    {
+      "round": 3,
+      "case": "timeout_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.8020575919999828
+    },
+    {
+      "round": 3,
+      "case": "timeout_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.8091799379999429
+    },
+    {
+      "round": 3,
+      "case": "disconnect_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1516369549990486
+    },
+    {
+      "round": 3,
+      "case": "disconnect_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15311562299939396
+    },
+    {
+      "round": 3,
+      "case": "disconnect_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16733909200047492
+    },
+    {
+      "round": 3,
+      "case": "server_crash_before_commit",
+      "strategy": "no_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2638918680004281
+    },
+    {
+      "round": 3,
+      "case": "server_crash_before_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.27452324200021394
+    },
+    {
+      "round": 3,
+      "case": "server_crash_before_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2730115989998012
+    },
+    {
+      "round": 3,
+      "case": "server_crash_after_commit",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.28927753399875655
+    },
+    {
+      "round": 3,
+      "case": "server_crash_after_commit",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2668120469988935
+    },
+    {
+      "round": 3,
+      "case": "server_crash_after_commit",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.27458419799950207
+    },
+    {
+      "round": 3,
+      "case": "runner_restart",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2673989039994922
+    },
+    {
+      "round": 3,
+      "case": "runner_restart",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.26664537099895824
+    },
+    {
+      "round": 3,
+      "case": "runner_restart",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.27244489999975485
+    },
+    {
+      "round": 3,
+      "case": "concurrent_delivery",
+      "strategy": "no_key",
+      "orders": 8,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.2267096469986427
+    },
+    {
+      "round": 3,
+      "case": "concurrent_delivery",
+      "strategy": "new_key_per_attempt",
+      "orders": 8,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.21249564999925497
+    },
+    {
+      "round": 3,
+      "case": "concurrent_delivery",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 8,
+      "elapsed_seconds": 0.21517181800118124
+    },
+    {
+      "round": 3,
+      "case": "changed_payload",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15087909199974092
+    },
+    {
+      "round": 3,
+      "case": "changed_payload",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1611948569989181
+    },
+    {
+      "round": 3,
+      "case": "changed_payload",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15826459100026113
+    },
+    {
+      "round": 3,
+      "case": "distinct_actions",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15188770399981877
+    },
+    {
+      "round": 3,
+      "case": "distinct_actions",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16453324199937924
+    },
+    {
+      "round": 3,
+      "case": "distinct_actions",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16635482200035767
+    },
+    {
+      "round": 3,
+      "case": "tenant_isolation",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16150669000126072
+    },
+    {
+      "round": 3,
+      "case": "tenant_isolation",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16514513000038278
+    },
+    {
+      "round": 3,
+      "case": "tenant_isolation",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.16528726999968057
+    },
+    {
+      "round": 3,
+      "case": "retry_budget_exhausted",
+      "strategy": "no_key",
+      "orders": 3,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.16447144499943533
+    },
+    {
+      "round": 3,
+      "case": "retry_budget_exhausted",
+      "strategy": "new_key_per_attempt",
+      "orders": 3,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.16733633399962855
+    },
+    {
+      "round": 3,
+      "case": "retry_budget_exhausted",
+      "strategy": "durable_key",
+      "orders": 1,
+      "http_attempts": 3,
+      "elapsed_seconds": 0.16781011999955808
+    },
+    {
+      "round": 3,
+      "case": "expired_receipt",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.15670861400030844
+    },
+    {
+      "round": 3,
+      "case": "expired_receipt",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.17277571200065722
+    },
+    {
+      "round": 3,
+      "case": "expired_receipt",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.1832278590009082
+    },
+    {
+      "round": 3,
+      "case": "split_transaction_crash",
+      "strategy": "no_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2930890890002047
+    },
+    {
+      "round": 3,
+      "case": "split_transaction_crash",
+      "strategy": "new_key_per_attempt",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.26896099700024934
+    },
+    {
+      "round": 3,
+      "case": "split_transaction_crash",
+      "strategy": "durable_key",
+      "orders": 2,
+      "http_attempts": 2,
+      "elapsed_seconds": 0.2845050399992033
+    }
+  ],
+  "elapsed_seconds": 29.259906856999805,
+  "child_cpu_seconds": 18.534418,
+  "max_child_rss_kib": 30156,
+  "driver_max_rss_kib": 30156,
+  "complete": true,
+  "script_sha256": "81d835bfd7e587d08554333af5b121ae923c4819ef85f6118b2583e0b748e74d",
+  "request_timeout_seconds": 0.1,
+  "injected_response_delay_seconds": 0.5,
+  "repetitions": 3,
+  "scenarios": 13,
+  "strategies": 3,
+  "http_attempts": 288,
+  "crash_scope": "process termination only; no host, power or disk failure",
+  "cpu_scope": "child processes only; driver CPU excluded",
+  "rss_scope": "per-process high-water marks, not aggregate concurrent RSS",
+  "capture": "Every client attempt, server event, and final order/receipt snapshot is retained."
+}
