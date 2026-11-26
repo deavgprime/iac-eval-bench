@@ -11,5 +11,12 @@
       "file": "durable-boundaries.png",
       "sha256": "74f0a124348ddd9e7b48e6df899804698dd41fd7747177a4b754d05bb9dd35fd"
     }
-  ]
+  ],
+  "cover": {
+    "file": "cover.png",
+    "method": "Built-in image generation",
+    "concept": "Broken return: the action completes but its confirmation is lost.",
+    "selected_by_author": "2026-11-26",
+    "sha256": "5216cb67039e0fa48fa49b779767ec6d1d96b1e65d9aaa62e36006cf26611581"
+  }
 }
