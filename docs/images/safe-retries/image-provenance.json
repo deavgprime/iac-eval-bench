@@ -1,0 +1,15 @@
+{
+  "updated": "2026-11-26",
+  "method": "Editable SVG diagrams rendered with CairoSVG.",
+  "scope": "Diagrams explain the tested storage boundaries; they are not latency plots. The split-transaction figure cites the three measured durable-key control runs.",
+  "figures": [
+    {
+      "file": "commit-gap.png",
+      "sha256": "231a87dd8674b92ea3ac92af27b720804fd07b29c55d3abeebcfcb5aecbaa618"
+    },
+    {
+      "file": "durable-boundaries.png",
+      "sha256": "74f0a124348ddd9e7b48e6df899804698dd41fd7747177a4b754d05bb9dd35fd"
+    }
+  ]
+}
