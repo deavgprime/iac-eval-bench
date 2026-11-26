@@ -1,6 +1,8 @@
 # Making agent retries safe across timeouts and restarts
 
-The first request timed out after about 101 ms. The order was already in the database.
+**Imagine an enterprise support agent ordering an approved replacement for a customer. The order goes through, but the confirmation times out. The agent retries and reports success. Two orders are now queued for fulfillment, and the support team has a duplicate to sort out.**
+
+In the local test below, the first request timed out after about 101 ms. The order was already in the database.
 
 Retrying created another order. Both rows had the same tenant, product and quantity. From the caller's side, the sequence looked ordinary: one timeout, then a successful `201 Created`.
 
